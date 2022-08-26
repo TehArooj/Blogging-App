@@ -13,12 +13,12 @@ const Home = () => {
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
-      if (!localStorage.getItem("userName")) {
-        navigate("/");
-      }
       if (user) {
         setUsername(user.displayName!);
         localStorage.setItem("userName", user.displayName!);
+      }
+      if (!localStorage.getItem("userName")) {
+        navigate("/login");
       }
     });
   }, [navigate, username]);
@@ -27,13 +27,13 @@ const Home = () => {
     try {
       await signOutUser().then(() => {
         localStorage.clear();
-        navigate("/");
+        navigate("/login");
         console.log(auth);
       });
     } catch (error) {
       console.log(error);
     }
-    console.log("session end");
+    console.log("Session end User Logged Out");
   };
 
   return (
