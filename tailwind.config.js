@@ -17,7 +17,6 @@ module.exports = {
         white: "#FFFFFF",
         darkGrey: "#272727",
         errorMsg: "#dc2626",
-        //secondaryTextColor: "#A5A5A5",
       },
       backgroundImage: {
         "pawel-pattern": "url('/src/assests/sideImage.jpeg')",
