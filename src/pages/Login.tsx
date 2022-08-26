@@ -1,4 +1,4 @@
-import React, { useState, FormEvent, FC } from "react";
+import React, { useState, FormEvent } from "react";
 import { Link } from "react-router-dom";
 import TextInput from "../components/TextInput.component";
 import PasswordInput from "../components/PasswordInput.component";
@@ -6,11 +6,7 @@ import { auth } from "../utils/firebase/firebase.utils";
 import { useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 
-interface LoginProps {
-  setIsAuth: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-const Login: FC<LoginProps> = ({ setIsAuth }) => {
+const Login = () => {
   const navigate = useNavigate();
   const [values, setValues] = useState({
     email: "",
@@ -49,7 +45,6 @@ const Login: FC<LoginProps> = ({ setIsAuth }) => {
     signInWithEmailAndPassword(auth, values.email, values.password)
       .then(async (res) => {
         setSubmitButtonDisabled(false);
-        setIsAuth(true);
         navigate("/home");
       })
       .catch((err) => {

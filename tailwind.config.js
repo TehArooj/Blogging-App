@@ -63,5 +63,5 @@ module.exports = {
       dm: ["DM Serif Display", "serif"],
     },
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/line-clamp")],
 };
