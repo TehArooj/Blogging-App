@@ -5,9 +5,7 @@ module.exports = {
     "./src/pages/Signup.tsx",
     "./src/pages/Login.tsx",
     "./src/pages/Home.tsx",
-    "./src/components/Button.tsx",
-    "./src/components/PasswordInput.component.tsx",
-    "./src/components/TextInput.component.tsx",
+    "./src/components/CustomInput.component.tsx",
   ],
   theme: {
     extend: {

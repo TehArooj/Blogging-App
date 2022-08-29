@@ -1,10 +1,9 @@
-import React, { useState, FormEvent } from "react";
+import { useState, FormEvent } from "react";
 import { Link } from "react-router-dom";
-import TextInput from "../components/TextInput.component";
-import PasswordInput from "../components/PasswordInput.component";
 import { auth } from "../utils/firebase/firebase.utils";
 import { useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import CustomInput from "../components/CustomInput.component";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -14,6 +13,7 @@ const Login = () => {
   });
   const [errorMsg, setErrorMsg] = useState("");
   const [submitButtonDisabled, setSubmitButtonDisabled] = useState(false);
+
   const handleChangeEmail = (e: FormEvent) => {
     e.preventDefault();
     setValues((prev) => ({
@@ -21,6 +21,7 @@ const Login = () => {
       email: (e.target as HTMLInputElement).value,
     }));
   };
+
   const handleChangePassword = (e: FormEvent) => {
     e.preventDefault();
     setValues((prev) => ({
@@ -29,19 +30,23 @@ const Login = () => {
     }));
   };
 
-  const handleSubmission = (e: FormEvent) => {
-    e.preventDefault();
-
-    // Validations
-
+  const validations = () => {
     if (!values.email || !values.password) {
       setErrorMsg("Please Fill all the fields !");
       return;
     }
     setErrorMsg("");
+  };
+
+  const handleSubmission = (e: FormEvent) => {
+    e.preventDefault();
+
+    // Validations
+    validations();
 
     setSubmitButtonDisabled(true);
-    //Create a new user
+
+    //Sign in user
     signInWithEmailAndPassword(auth, values.email, values.password)
       .then(async (res) => {
         setSubmitButtonDisabled(false);
@@ -49,7 +54,7 @@ const Login = () => {
       })
       .catch((err) => {
         setSubmitButtonDisabled(false);
-        setErrorMsg(err.message);
+        setErrorMsg(err.message.slice(10));
       });
   };
 
@@ -75,11 +80,13 @@ const Login = () => {
                   Let's log you in quickly
                 </p>
 
-                <TextInput
+                <CustomInput
+                  type="text"
                   placeholder="Email Address"
                   handleChange={handleChangeEmail}
                 />
-                <PasswordInput
+                <CustomInput
+                  type="password"
                   placeholder="Password"
                   handleChange={handleChangePassword}
                 />

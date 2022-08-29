@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+
+import { useEffect, useState } from "react";
 import { signOutUser, auth } from "../utils/firebase/firebase.utils";
 import { Link, useNavigate } from "react-router-dom";
 import { HiSearch } from "react-icons/hi";
@@ -33,7 +34,7 @@ const Home = () => {
     } catch (error) {
       console.log(error);
     }
-    console.log("Session end User Logged Out");
+    console.log("Session end user logged out");
   };
 
   const myBlogs = () => {

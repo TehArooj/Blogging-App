@@ -1,8 +1,7 @@
-import React, { FormEvent, useState } from "react";
+import { FormEvent, useState } from "react";
 import { Link } from "react-router-dom";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import TextInput from "../components/TextInput.component";
-import PasswordInput from "../components/PasswordInput.component";
+import CustomInput from "../components/CustomInput.component";
 import { auth, db } from "../utils/firebase/firebase.utils";
 import { useNavigate } from "react-router-dom";
 import { doc, getDoc, setDoc } from "firebase/firestore";
@@ -48,11 +47,7 @@ const Signup = () => {
     }));
   };
 
-  const handleSubmission = (e: FormEvent) => {
-    e.preventDefault();
-
-    // Validations
-
+  const validations = () => {
     if (
       !values.fullName ||
       !values.email ||
@@ -69,10 +64,17 @@ const Signup = () => {
       : values.password !== values.confirmPassword
       ? setErrorMsg("Passwords didn't match please try again!")
       : setErrorMsg("");
+  };
+
+  const handleSubmission = (e: FormEvent) => {
+    e.preventDefault();
+
+    // Validations
+    validations();
 
     setSubmitButtonDisabled(true);
 
-    //Create a new user
+    //Sign up user
     createUserWithEmailAndPassword(auth, values.email, values.confirmPassword)
       .then(async (res) => {
         setSubmitButtonDisabled(false);
@@ -104,7 +106,7 @@ const Signup = () => {
       })
       .catch((err) => {
         setSubmitButtonDisabled(false);
-        setErrorMsg(err.message);
+        setErrorMsg(err.message.slice(10));
       });
   };
 
@@ -128,19 +130,23 @@ const Signup = () => {
                 <p className="text-2xl font-light mb-5 tb:text-center m:text-center m:text-xl ">
                   Let's sign you up quickly
                 </p>
-                <TextInput
+                <CustomInput
+                  type="text"
                   placeholder="Full Name"
                   handleChange={handleChangeName}
                 />
-                <TextInput
+                <CustomInput
+                  type="text"
                   placeholder="Email Address"
                   handleChange={handleChangeEmail}
                 />
-                <PasswordInput
+                <CustomInput
+                  type="password"
                   placeholder="Password"
                   handleChange={handleChangePassword}
                 />
-                <PasswordInput
+                <CustomInput
+                  type="password"
                   placeholder="Confirm Password"
                   handleChange={handleChangeConfirmPassword}
                 />
