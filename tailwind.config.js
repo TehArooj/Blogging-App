@@ -5,7 +5,6 @@ module.exports = {
     "./src/pages/Signup.tsx",
     "./src/pages/Login.tsx",
     "./src/pages/Home.tsx",
-    "./src/components/Button.tsx",
     "./src/components/CustomInput.component.tsx",
     "./src/pages/MyBlogs.tsx",
     "./src/pages/ViewBlog.tsx",
@@ -18,6 +17,7 @@ module.exports = {
         white: "#FFFFFF",
         darkGrey: "#272727",
         errorMsg: "#dc2626",
+        successMsg: "#097969",
         darkerGrey: "#070707",
       },
       backgroundImage: {

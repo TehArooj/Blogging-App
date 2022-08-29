@@ -1,27 +1,51 @@
 import { useEffect, useState } from "react";
 import { BiArrowBack } from "react-icons/bi";
 import { Link, useNavigate } from "react-router-dom";
-import { auth } from "../utils/firebase/firebase.utils";
+import { auth, db } from "../utils/firebase/firebase.utils";
 import { AiOutlineEdit, AiOutlineDelete } from "react-icons/ai";
+import { collection, getDoc, getDocs, query, where } from "firebase/firestore";
 
 function MyBlogs() {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
+  const [uid, setUid] = useState("");
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
       if (user) {
         setUsername(user.displayName!);
         localStorage.setItem("userName", user.displayName!);
+        setUid(user.uid);
       }
       if (!localStorage.getItem("userName")) {
         navigate("/login");
       }
     });
   }, [navigate, username]);
+
   const back = () => {
     navigate("/home");
   };
+
+  /*const getMyBlogsData = async () => {
+    const q = query(collection(db, "blogs"), where("uid", "==", uid));
+
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      // doc.data() is never undefined for query doc snapshots
+      console.log(doc.id, " => ", doc.data());
+    });
+  };
+  getMyBlogsData();*/
+
+  const editBlog = () => {
+    console.log("edit");
+  };
+
+  const deleteBlog = () => {
+    console.log("delete");
+  };
+
   return (
     <>
       <div className="z-50">
@@ -51,7 +75,7 @@ function MyBlogs() {
               </h1>
               <p className="line-clamp-5 font-normal text-justify m:text-base m:font-extralight m:line-clamp-6">
                 Et molestiae hic earum repellat aliquid est doloribus delectus.
-                Enim illum odio porro ut omnis dolor debitis natus. Voluptas
+                Enim illum odio porro ut omnis dolor debitis xnatus. Voluptas
                 possimus deserunt sit delectus est saepe nihil. Qui voluptate
                 possimus et quia. Eligendi voluptas voluptas dolor cum. Rerum
                 est quos quos id ut molestiae fugit. Et molestiae hic earum
@@ -66,23 +90,29 @@ function MyBlogs() {
                 est quos quos id ut molestiae fugit.
               </p>
               <div className="text-primary font-normal">read more</div>
-              <div className="flex justify-between">
-                <div className=" 2xl:hidden xl:hidden lg:hidden md:hidden tb:hidden m:visible m:text-base m:font-semibold ">
-                  26 August 2022
+            </Link>
+            <div className="flex justify-between">
+              <div className=" 2xl:hidden xl:hidden lg:hidden md:hidden tb:hidden m:visible m:text-base m:font-semibold ">
+                26 August 2022
+              </div>
+              <div className="text-secondary text-base font-light m:text-right ">
+                @{username}
+              </div>
+              <div className="flex justify-end z-50">
+                <div>
+                  <AiOutlineEdit
+                    className="text-2xl"
+                    onClick={editBlog}
+                  ></AiOutlineEdit>
                 </div>
-                <div className="text-secondary text-base font-light m:text-right ">
-                  @{username}
-                </div>
-                <div className="flex justify-end">
-                  <div>
-                    <AiOutlineEdit className="text-2xl"></AiOutlineEdit>
-                  </div>
-                  <div>
-                    <AiOutlineDelete className="text-2xl"></AiOutlineDelete>
-                  </div>
+                <div>
+                  <AiOutlineDelete
+                    className="text-2xl"
+                    onClick={deleteBlog}
+                  ></AiOutlineDelete>
                 </div>
               </div>
-            </Link>
+            </div>
           </div>
         </div>
       </div>

@@ -1,18 +1,22 @@
 import { FormEvent, useEffect, useState } from "react";
-import { signOutUser, auth } from "../utils/firebase/firebase.utils";
+import { signOutUser, auth, db } from "../utils/firebase/firebase.utils";
 import { Link, useNavigate } from "react-router-dom";
 import { HiSearch, HiViewList, HiOutlinePlusCircle } from "react-icons/hi";
 import { FiLogOut } from "react-icons/fi";
 import { ImCross } from "react-icons/im";
 import Modal from "react-modal";
+import { addDoc, collection, doc, getDoc, getDocs } from "firebase/firestore";
 
 Modal.setAppElement("#root");
 
 const Home = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
+  const [uid, setUid] = useState("");
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
+  const [successMsg, setSuccessMsg] = useState("");
+  const [submitButtonDisabled, setSubmitButtonDisabled] = useState(false);
   const [values, setValues] = useState({
     title: "",
     blog: "",
@@ -25,6 +29,7 @@ const Home = () => {
       if (user) {
         setUsername(user.displayName!);
         localStorage.setItem("userName", user.displayName!);
+        setUid(user.uid);
       }
       if (!localStorage.getItem("userName")) {
         navigate("/login");
@@ -49,18 +54,6 @@ const Home = () => {
     navigate("/myblogs");
   };
 
-  const createBlog = () => {
-    navigate("/createblog");
-  };
-
-  const validations = () => {
-    if (!values.title || !values.blog) {
-      setErrorMsg("Please Fill all the fields !");
-      return;
-    }
-    setErrorMsg("");
-  };
-
   const handleTitle = (e: FormEvent) => {
     e.preventDefault();
     setValues((prev) => ({
@@ -76,44 +69,64 @@ const Home = () => {
     }));
   };
 
-  const back = () => {
-    navigate("/home");
-  };
-
-  const handleSubmission = async (e: FormEvent) => {
-    e.preventDefault();
-    // Validations
+  const validations = () => {
     if (!values.title || !values.blog) {
       setErrorMsg("Please Fill all the fields !");
       return;
     }
     setErrorMsg("");
+  };
 
-    //have to add a unique id in here
-    /*const date = new Date().toDateString().slice(4);
-    const title = values.title;
-    const blog = values.blog;
-     const blogDocRef = doc(db, "blogs");
-    blogDocRef.push().set({
-      uid,
-      username,
-      date,
-      title,
-      blog,
-    });*/
+  const handleSubmission = async (e: FormEvent) => {
+    e.preventDefault();
 
-    /* const blogDocRef = doc(db, "blogs");
+    // Validations
+    validations();
+
+    setSubmitButtonDisabled(true);
+
+    //Add new Blog
     const date = new Date().toDateString().slice(4);
     const title = values.title;
     const blog = values.blog;
-    await setDoc(blogDocRef, {
+    const blogDocRef = collection(db, "blogs");
+    await addDoc(blogDocRef, {
       uid,
       username,
       date,
       title,
       blog,
-    });*/
+    })
+      .then((blogDocRef) => {
+        setSubmitButtonDisabled(false);
+        console.log("Document has been added successfully");
+        console.log("ID of the added document: " + blogDocRef.id);
+        setSuccessMsg("Document has been added successfully");
+        setValues({
+          blog: "",
+          title: "",
+        });
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
   };
+
+  const getData = async () => {
+    const docsRef = collection(db, "blogs");
+    const docsSnap = await getDocs(docsRef);
+
+    if (docsSnap) {
+      docsSnap.forEach((doc) => {
+        console.log("Doucument Id: ", doc.id);
+        console.log("Document data: ", doc.data());
+      });
+    } else {
+      console.log("No documents found!");
+    }
+  };
+
+  //  getData();
 
   return (
     <>
@@ -143,6 +156,7 @@ const Home = () => {
         </div>
         <Modal
           isOpen={modalIsOpen}
+          shouldCloseOnOverlayClick={false}
           onRequestClose={() => setModalIsOpen(false)}
           style={{
             overlay: {},
@@ -156,44 +170,51 @@ const Home = () => {
           <>
             <div className="grid grid-cols-12">
               <div className="col-span-2 m:col-span-1">
-                <div className="mt-10">
-                  <div className="absolute top-12 ml-14 tb:ml-8 m:ml-6">
+                <div className="mt-8">
+                  <div className="absolute ml-14 tb:ml-8 m:ml-6">
                     <div onClick={() => setModalIsOpen(false)}>
-                      <ImCross className="text-base text-secondary  tb:text-2xl m:text-xl " />
+                      <ImCross className="text-base text-secondary tb:text-sm m:text-sm " />
                     </div>
                   </div>
                 </div>
               </div>
-              <div className=" col-span-8 mt-10 tb:items-center tb:justify-center tb:mt-24  m:mt-24 m:items-center m:justify-center m:col-span-10 ">
-                <h1 className=" font-dm font-bold text-5xl  text-left  text-darkGrey tb:text-center m:text-center">
+              <div className=" col-span-8 mt-8 tb:items-center tb:justify-center tb:mt-24  m:mt-24 m:items-center m:justify-center m:col-span-10 ">
+                <h1 className=" font-dm font-bold text-4xl  text-left  text-darkGrey tb:text-center m:text-center">
                   New Blog
                 </h1>
                 <div className="font-lexend flex flex-col ">
                   <form>
                     <div className="text-secondary ">
-                      <p className="text-2xl font-light mb-5 tb:text-center m:text-center m:text-xl ">
-                        Let's show the world whate you have for them
+                      <p className="text-xl font-light mb-5 tb:text-center m:text-center m:text-xl ">
+                        Let's show the world what you have for them
                       </p>
                       <input
-                        className="text-darkGrey border-solid border-2 border-secondary pt-5 pb-5 pl-8 pr-8 mb-5 w-960 focus:outline-none focus:border-primary lg:w-767 md:w-680 tb:w-512 tb:h-8 tb:pl-4 tb:text-sm m:w-96  m:h-8 m:text-xs m:pl-4 "
+                        className="text-darkGrey border-solid border-2 border-secondary pt-5 pb-5 pl-8 pr-8 mb-5 w-full focus:outline-none focus:border-primary  tb:h-8 tb:pl-4 tb:text-sm   m:h-8 m:text-xs m:pl-4 "
                         type="text"
                         required
                         placeholder="Title"
                         onChange={handleTitle}
                       />
                       <textarea
-                        className="text-darkGrey border-solid border-2 border-secondary p-5 mb-16 w-960 focus:outline-none focus:border-primary lg:w-767 md:w-680 tb:w-512 tb:pl-4 tb:text-sm m:w-96  m:text-xs m:pl-4"
+                        className="text-darkGrey border-solid border-2 border-secondary p-5 mb-5 w-full focus:outline-none focus:border-primary tb:pl-4 tb:text-sm   m:text-xs m:pl-4"
                         placeholder="Write Blog Details"
                         required
                         onChange={handleBlog}
-                        rows={15}
-                        cols={15}
+                        rows={12}
+                        cols={12}
                       />
-                      <div className="flex justify-end">
+                      <b className=" text-sm text-errorMsg mb-5  ">
+                        {errorMsg}
+                      </b>
+                      <b className=" text-sm text-successMsg mb-5  ">
+                        {successMsg}
+                      </b>
+                      <div className="flex justify-end tb:justify-center m:justify-center">
                         <button
-                          className="text-white font-semibold bg-secondary border-solid border-2  border-secondary  h-14 w-44  hover:outline-none hover:bg-darkGrey hover:border-none  disabled:bg-gray-500  tb:h-10 m:w-40 m:h-10 m:text-sm"
+                          className="text-white font-semibold bg-secondary border-solid border-2  border-secondary  h-14 w-44  hover:outline-none hover:bg-darkGrey hover:border-none  disabled:bg-gray-500  tb:h-10  m:w-full m:h-10 m:text-sm"
                           type="submit"
                           onClick={handleSubmission}
+                          disabled={submitButtonDisabled}
                         >
                           SUBMIT
                         </button>
