@@ -11,7 +11,7 @@ const Home = () => {
   const handleSession = async () => {
     try {
       await signOutUser().then(() => {
-        navigate("/");
+        navigate("/login");
         console.log(auth);
       });
     } catch (error) {

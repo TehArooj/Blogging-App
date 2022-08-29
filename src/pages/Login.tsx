@@ -1,15 +1,11 @@
-import { useState, FormEvent, FC } from "react";
+import { useState, FormEvent } from "react";
 import { Link } from "react-router-dom";
-import CustomInput from "../components/CustomInput.component";
 import { auth } from "../utils/firebase/firebase.utils";
 import { useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import CustomInput from "../components/CustomInput.component";
 
-interface LoginProps {
-  setIsAuth: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-const Login: FC<LoginProps> = ({ setIsAuth }) => {
+const Login = () => {
   const navigate = useNavigate();
   const [values, setValues] = useState({
     email: "",
@@ -17,6 +13,7 @@ const Login: FC<LoginProps> = ({ setIsAuth }) => {
   });
   const [errorMsg, setErrorMsg] = useState("");
   const [submitButtonDisabled, setSubmitButtonDisabled] = useState(false);
+
   const handleChangeEmail = (e: FormEvent) => {
     e.preventDefault();
     setValues((prev) => ({
@@ -24,6 +21,7 @@ const Login: FC<LoginProps> = ({ setIsAuth }) => {
       email: (e.target as HTMLInputElement).value,
     }));
   };
+
   const handleChangePassword = (e: FormEvent) => {
     e.preventDefault();
     setValues((prev) => ({
@@ -32,28 +30,31 @@ const Login: FC<LoginProps> = ({ setIsAuth }) => {
     }));
   };
 
-  const handleSubmission = (e: FormEvent) => {
-    e.preventDefault();
-
-    // Validations
-
+  const validations = () => {
     if (!values.email || !values.password) {
       setErrorMsg("Please Fill all the fields !");
       return;
     }
     setErrorMsg("");
+  };
+
+  const handleSubmission = (e: FormEvent) => {
+    e.preventDefault();
+
+    // Validations
+    validations();
 
     setSubmitButtonDisabled(true);
+
     //Sign in user
     signInWithEmailAndPassword(auth, values.email, values.password)
       .then(async (res) => {
         setSubmitButtonDisabled(false);
-        setIsAuth(true);
         navigate("/home");
       })
       .catch((err) => {
         setSubmitButtonDisabled(false);
-        setErrorMsg(err.message);
+        setErrorMsg(err.message.slice(10));
       });
   };
 
