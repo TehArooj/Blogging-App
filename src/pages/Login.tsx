@@ -49,7 +49,7 @@ const Login = () => {
       })
       .catch((err) => {
         setSubmitButtonDisabled(false);
-        setErrorMsg(err.message);
+        setErrorMsg(err.message.slice(10));
       });
   };
 
