@@ -1,4 +1,3 @@
-import React, { FC } from "react";
 import { signOutUser, auth } from "../utils/firebase/firebase.utils";
 import { useNavigate } from "react-router-dom";
 import { HiSearch } from "react-icons/hi";

@@ -1,7 +1,6 @@
-import React, { useState, FormEvent, FC } from "react";
+import { useState, FormEvent, FC } from "react";
 import { Link } from "react-router-dom";
-import TextInput from "../components/TextInput.component";
-import PasswordInput from "../components/PasswordInput.component";
+import CustomInput from "../components/CustomInput.component";
 import { auth } from "../utils/firebase/firebase.utils";
 import { useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
@@ -45,7 +44,7 @@ const Login: FC<LoginProps> = ({ setIsAuth }) => {
     setErrorMsg("");
 
     setSubmitButtonDisabled(true);
-    //Create a new user
+    //Sign in user
     signInWithEmailAndPassword(auth, values.email, values.password)
       .then(async (res) => {
         setSubmitButtonDisabled(false);
@@ -80,11 +79,13 @@ const Login: FC<LoginProps> = ({ setIsAuth }) => {
                   Let's log you in quickly
                 </p>
 
-                <TextInput
+                <CustomInput
+                  type="text"
                   placeholder="Email Address"
                   handleChange={handleChangeEmail}
                 />
-                <PasswordInput
+                <CustomInput
+                  type="password"
                   placeholder="Password"
                   handleChange={handleChangePassword}
                 />
