@@ -51,6 +51,10 @@ const Signup = () => {
     }));
   };
 
+  const isValidEmail = (email: string) => {
+    return /\S+@\S+\.\S+/.test(email);
+  };
+
   const validations = () => {
     if (
       !values.fullName ||
@@ -58,18 +62,22 @@ const Signup = () => {
       !values.password ||
       !values.confirmPassword
     ) {
-      setErrorMsg("Please Fill all the fields !");
-      setTimeout(() => {
-        setErrorMsg("");
-      }, 3000);
+      setErrorMsg("Please fill all the fields.");
       return;
     }
     setErrorMsg("");
 
+    if (!isValidEmail(values.email)) {
+      setErrorMsg("Invalid Email.");
+      return;
+    } else {
+      setErrorMsg("");
+    }
+
     values.password.length < 6
-      ? setErrorMsg("Password must be atleast six charachters ")
+      ? setErrorMsg("Password must be atleast six characters.")
       : values.password !== values.confirmPassword
-      ? setErrorMsg("Passwords didn't match please try again!")
+      ? setErrorMsg("Passwords didn't match please try again.")
       : setErrorMsg("");
   };
 
@@ -113,10 +121,6 @@ const Signup = () => {
       })
       .catch((err) => {
         setSubmitButtonDisabled(false);
-        setErrorMsg(err.message.slice(10));
-        setTimeout(() => {
-          setErrorMsg("");
-        }, 3000);
       });
   };
 
@@ -171,7 +175,7 @@ const Signup = () => {
               </button>
             </form>
             <div className="text-xl tb:text-base tb:text-center m:text-base m:text-center">
-              <b className=" text-sm text-errorMsg mb-5 ">{errorMsg}</b>
+              <b className=" text-base text-errorMsg mb-5 ">{errorMsg}</b>
               <p className="text-darkGrey">
                 Already have an account?
                 <Link to="/login" className="text-primary  ml-1">

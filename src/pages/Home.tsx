@@ -144,7 +144,9 @@ const Home = () => {
         //setBlogData((arr) => [...arr, data]);
         const str = JSON.stringify(doc.data());
         const arr = JSON.parse(str);
-        console.log(arr);
+        setBlogData(arr);
+        console.log("Parsed Array: " + arr);
+        console.log("blog data: " + BlogData);
       });
     } else {
       console.log("No documents found!");
