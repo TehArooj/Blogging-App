@@ -149,7 +149,7 @@ const Home = () => {
         console.log("blog data: " + BlogData);
       });
     } else {
-      console.log("No documents found!");
+      console.log("No documents found.");
     }
   };
 
