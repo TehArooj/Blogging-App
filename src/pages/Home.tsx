@@ -81,7 +81,7 @@ const Home = () => {
 
   const validations = () => {
     if (!values.title || !values.blog) {
-      setErrorMsg("Please Fill all the fields !");
+      setErrorMsg("Please fill all the fields !");
       setSuccessMsg("");
       /* setTimeout(() => {
         setErrorMsg("");
