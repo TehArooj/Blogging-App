@@ -32,10 +32,7 @@ const Login = () => {
 
   const validations = () => {
     if (!values.email || !values.password) {
-      setErrorMsg("Please Fill all the fields !");
-      setTimeout(() => {
-        setErrorMsg("");
-      }, 3000);
+      setErrorMsg("Please fill all the fields !");
       return;
     }
     setErrorMsg("");
@@ -57,10 +54,9 @@ const Login = () => {
       })
       .catch((err) => {
         setSubmitButtonDisabled(false);
-        setErrorMsg(err.message.slice(10));
-        setTimeout(() => {
-          setErrorMsg("");
-        }, 3000);
+        if (values.email && values.password) {
+          setErrorMsg("Invalid email / password");
+        }
       });
   };
 
