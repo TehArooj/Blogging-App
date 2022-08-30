@@ -59,6 +59,9 @@ const Signup = () => {
       !values.confirmPassword
     ) {
       setErrorMsg("Please Fill all the fields !");
+      setTimeout(() => {
+        setErrorMsg("");
+      }, 3000);
       return;
     }
     setErrorMsg("");
@@ -111,6 +114,9 @@ const Signup = () => {
       .catch((err) => {
         setSubmitButtonDisabled(false);
         setErrorMsg(err.message.slice(10));
+        setTimeout(() => {
+          setErrorMsg("");
+        }, 3000);
       });
   };
 

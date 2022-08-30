@@ -5,8 +5,7 @@ import { HiSearch, HiViewList, HiOutlinePlusCircle } from "react-icons/hi";
 import { FiLogOut } from "react-icons/fi";
 import { ImCross } from "react-icons/im";
 import Modal from "react-modal";
-import { addDoc, collection, doc, getDoc, getDocs } from "firebase/firestore";
-
+import { addDoc, collection, getDocs } from "firebase/firestore";
 Modal.setAppElement("#root");
 
 const Home = () => {
@@ -21,6 +20,7 @@ const Home = () => {
     title: "",
     blog: "",
   });
+  const [blogs, setBlogs] = useState<string[]>([]);
 
   const firstLetter = username.charAt(0);
 
@@ -34,6 +34,7 @@ const Home = () => {
       if (!localStorage.getItem("userName")) {
         navigate("/login");
       }
+      getData();
     });
   }, [navigate, username]);
 
@@ -63,6 +64,7 @@ const Home = () => {
   };
   const handleBlog = (e: FormEvent) => {
     e.preventDefault();
+
     setValues((prev) => ({
       ...prev,
       blog: (e.target as HTMLInputElement).value,
@@ -72,6 +74,9 @@ const Home = () => {
   const validations = () => {
     if (!values.title || !values.blog) {
       setErrorMsg("Please Fill all the fields !");
+      setTimeout(() => {
+        setErrorMsg("");
+      }, 3000);
       return;
     }
     setErrorMsg("");
@@ -86,6 +91,7 @@ const Home = () => {
     setSubmitButtonDisabled(true);
 
     //Add new Blog
+
     const date = new Date().toDateString().slice(4);
     const title = values.title;
     const blog = values.blog;
@@ -101,11 +107,14 @@ const Home = () => {
         setSubmitButtonDisabled(false);
         console.log("Document has been added successfully");
         console.log("ID of the added document: " + blogDocRef.id);
-        setSuccessMsg("Document has been added successfully");
         setValues({
           blog: "",
           title: "",
         });
+        setSuccessMsg("Document has been added successfully");
+        setTimeout(() => {
+          setSuccessMsg("");
+        }, 3000);
       })
       .catch((err) => {
         console.log(err.message);
@@ -117,7 +126,7 @@ const Home = () => {
     const docsSnap = await getDocs(docsRef);
 
     if (docsSnap) {
-      docsSnap.forEach((doc) => {
+      docsSnap.docs.forEach((doc) => {
         console.log("Doucument Id: ", doc.id);
         console.log("Document data: ", doc.data());
       });
@@ -126,8 +135,12 @@ const Home = () => {
     }
   };
 
-  //  getData();
+  const handleSearch = (e: FormEvent) => {
+    e.preventDefault();
+    console.log("Search");
+  };
 
+  let count = [1, 2, 3, 4, 5];
   return (
     <>
       <div className="fixed top-0 left-0 flex justify-around items-center w-24 h-screen bg-darkGrey  flex-col md:flex-row md:bottom-0 md:h-24 md:w-screen md:top-auto md:drop-shadow-[0_-6mm_4mm_white]  tb:flex-row tb:bottom-0 tb:h-20 tb:w-screen tb:top-auto  tb:drop-shadow-[0_-6mm_4mm_white]   m:flex-row m:bottom-0 m:h-16 m:w-screen m:top-auto m:drop-shadow-[0_-6mm_4mm_white]">
@@ -140,7 +153,10 @@ const Home = () => {
           </div>
         </div>
 
-        <div className=" items-center md:flex md:justify-between cursor-pointer hover:bg-darkerGrey p-4 rounded-lg transition-all duration-200">
+        <div
+          className=" items-center md:flex md:justify-between cursor-pointer hover:bg-darkerGrey p-4 rounded-lg transition-all duration-200"
+          onClick={handleSearch}
+        >
           <HiSearch className="ml-1 text-center text-3xl text-primary tb:text-2xl tb:ml-0 m:ml-0 m:text-xl" />
           <span className=" text-sm text-white tb:hidden m:hidden ">
             search
@@ -193,12 +209,14 @@ const Home = () => {
                         type="text"
                         required
                         placeholder="Title"
+                        value={values.title}
                         onChange={handleTitle}
                       />
                       <textarea
                         className="text-darkGrey border-solid border-2 border-secondary p-5 mb-5 w-full focus:outline-none focus:border-primary tb:pl-4 tb:text-sm   m:text-xs m:pl-4"
                         placeholder="Write Blog Details"
                         required
+                        value={values.blog}
                         onChange={handleBlog}
                         rows={12}
                         cols={12}
@@ -248,171 +266,56 @@ const Home = () => {
           </span>
         </div>
       </div>
+
       <div className=" flex flex-col mt-10  ml-48 md:ml-20 md:mb-20 tb:mb-16 m:mb-14 tb:ml-20 m:ml-11">
         <div className="bg-primary pt-1 pb-1 w-5 "></div>
         <div className="text-xl font-lexend">Latest</div>
 
         <div className="flex flex-col items-left ">
           <div className="flex flex-col mt-10  items-left mr-8">
-            <h1 className="text-2xl font-semibold m:hidden">26 August</h1>
-            <Link to="/viewblog" className="mb-14 mr-12 m:mr-8">
-              <h1 className="text-3xl text-primary font-dm font-normal m:text-2xl">
-                15 Disadvantages Of Freedom And How You Can Workaround It.
-              </h1>
-              <p className="line-clamp-5 font-normal text-justify m:text-base m:font-extralight m:line-clamp-6">
-                Et molestiae hic earum repellat aliquid est doloribus delectus.
-                Enim illum odio porro ut omnis dolor debitis natus. Voluptas
-                possimus deserunt sit delectus est saepe nihil. Qui voluptate
-                possimus et quia. Eligendi voluptas voluptas dolor cum. Rerum
-                est quos quos id ut molestiae fugit. Et molestiae hic earum
-                repellat aliquid est doloribus delectus. Enim illum odio porro
-                ut omnis dolor debitis natus. Voluptas possimus deserunt sit
-                delectus est saepe nihil. Qui voluptate possimus et quia.
-                Eligendi voluptas voluptas dolor cum. Rerum est quos quos id ut
-                molestiae fugit. Et molestiae hic earum repellat aliquid est
-                doloribus delectus. Enim illum odio porro ut Tehreems. Voluptas
-                possimus deserunt sit delectus est saepe nihil. Qui voluptate
-                possimus et quia. Eligendi voluptas voluptas dolor cum. Rerum
-                est quos quos id ut molestiae fugit.
-              </p>
-              <div className="text-primary font-normal">read more</div>
-              <div className="flex justify-between">
-                <div className=" 2xl:hidden xl:hidden lg:hidden md:hidden tb:hidden m:visible m:text-base m:font-semibold ">
-                  26 August 2022
-                </div>
-                <div className="text-secondary text-base font-light m:text-right ">
-                  @{username}
-                </div>
-              </div>
-            </Link>
-
-            <h1 className="text-2xl font-semibold m:hidden">26 August</h1>
-            <Link to="/viewblog" className="mb-14 mr-12 m:mr-8">
-              <h1 className="text-3xl text-primary font-dm font-normal m:text-2xl">
-                15 Disadvantages Of Freedom And How You Can Workaround It.
-              </h1>
-              <p className="line-clamp-5 font-normal text-justify m:text-base m:font-extralight m:line-clamp-6">
-                Et molestiae hic earum repellat aliquid est doloribus delectus.
-                Enim illum odio porro ut omnis dolor debitis natus. Voluptas
-                possimus deserunt sit delectus est saepe nihil. Qui voluptate
-                possimus et quia. Eligendi voluptas voluptas dolor cum. Rerum
-                est quos quos id ut molestiae fugit. Et molestiae hic earum
-                repellat aliquid est doloribus delectus. Enim illum odio porro
-                ut omnis dolor debitis natus. Voluptas possimus deserunt sit
-                delectus est saepe nihil. Qui voluptate possimus et quia.
-                Eligendi voluptas voluptas dolor cum. Rerum est quos quos id ut
-                molestiae fugit. Et molestiae hic earum repellat aliquid est
-                doloribus delectus. Enim illum odio porro ut Tehreems. Voluptas
-                possimus deserunt sit delectus est saepe nihil. Qui voluptate
-                possimus et quia. Eligendi voluptas voluptas dolor cum. Rerum
-                est quos quos id ut molestiae fugit.
-              </p>
-              <div className="text-primary font-normal">read more</div>
-              <div className="flex justify-between">
-                <div className=" 2xl:hidden xl:hidden lg:hidden md:hidden tb:hidden m:visible m:text-base m:font-semibold ">
-                  26 August 2022
-                </div>
-                <div className="text-secondary text-base font-light m:text-right ">
-                  @{username}
-                </div>
-              </div>
-            </Link>
-
-            <h1 className="text-2xl font-semibold m:hidden">26 August</h1>
-            <Link to="/viewblog" className="mb-14 mr-12 m:mr-8">
-              <h1 className="text-3xl text-primary font-dm font-normal m:text-2xl">
-                15 Disadvantages Of Freedom And How You Can Workaround It.
-              </h1>
-              <p className="line-clamp-5 font-normal text-justify m:text-base m:font-extralight m:line-clamp-6">
-                Et molestiae hic earum repellat aliquid est doloribus delectus.
-                Enim illum odio porro ut omnis dolor debitis natus. Voluptas
-                possimus deserunt sit delectus est saepe nihil. Qui voluptate
-                possimus et quia. Eligendi voluptas voluptas dolor cum. Rerum
-                est quos quos id ut molestiae fugit. Et molestiae hic earum
-                repellat aliquid est doloribus delectus. Enim illum odio porro
-                ut omnis dolor debitis natus. Voluptas possimus deserunt sit
-                delectus est saepe nihil. Qui voluptate possimus et quia.
-                Eligendi voluptas voluptas dolor cum. Rerum est quos quos id ut
-                molestiae fugit. Et molestiae hic earum repellat aliquid est
-                doloribus delectus. Enim illum odio porro ut Tehreems. Voluptas
-                possimus deserunt sit delectus est saepe nihil. Qui voluptate
-                possimus et quia. Eligendi voluptas voluptas dolor cum. Rerum
-                est quos quos id ut molestiae fugit.
-              </p>
-              <div className="text-primary font-normal">read more</div>
-              <div className="flex justify-between">
-                <div className=" 2xl:hidden xl:hidden lg:hidden md:hidden tb:hidden m:visible m:text-base m:font-semibold ">
-                  26 August 2022
-                </div>
-                <div className="text-secondary text-base font-light m:text-right ">
-                  @{username}
-                </div>
-              </div>
-            </Link>
-
-            <h1 className="text-2xl font-semibold m:hidden">26 August</h1>
-            <Link to="/viewblog" className="mb-14 mr-12 m:mr-8">
-              <h1 className="text-3xl text-primary font-dm font-normal m:text-2xl">
-                15 Disadvantages Of Freedom And How You Can Workaround It.
-              </h1>
-              <p className="line-clamp-5 font-normal text-justify m:text-base m:font-extralight m:line-clamp-6">
-                Et molestiae hic earum repellat aliquid est doloribus delectus.
-                Enim illum odio porro ut omnis dolor debitis natus. Voluptas
-                possimus deserunt sit delectus est saepe nihil. Qui voluptate
-                possimus et quia. Eligendi voluptas voluptas dolor cum. Rerum
-                est quos quos id ut molestiae fugit. Et molestiae hic earum
-                repellat aliquid est doloribus delectus. Enim illum odio porro
-                ut omnis dolor debitis natus. Voluptas possimus deserunt sit
-                delectus est saepe nihil. Qui voluptate possimus et quia.
-                Eligendi voluptas voluptas dolor cum. Rerum est quos quos id ut
-                molestiae fugit. Et molestiae hic earum repellat aliquid est
-                doloribus delectus. Enim illum odio porro ut Tehreems. Voluptas
-                possimus deserunt sit delectus est saepe nihil. Qui voluptate
-                possimus et quia. Eligendi voluptas voluptas dolor cum. Rerum
-                est quos quos id ut molestiae fugit.
-              </p>
-              <div className="text-primary font-normal">read more</div>
-              <div className="flex justify-between">
-                <div className=" 2xl:hidden xl:hidden lg:hidden md:hidden tb:hidden m:visible m:text-base m:font-semibold ">
-                  26 August 2022
-                </div>
-                <div className="text-secondary text-base font-light m:text-right ">
-                  @{username}
-                </div>
-              </div>
-            </Link>
-
-            <h1 className="text-2xl font-semibold m:hidden">26 August</h1>
-            <Link to="/viewblog" className="mb-14 mr-12 m:mr-8">
-              <h1 className="text-3xl text-primary font-dm font-normal m:text-2xl">
-                15 Disadvantages Of Freedom And How You Can Workaround It.
-              </h1>
-              <p className="line-clamp-5 font-normal text-justify m:text-base m:font-extralight m:line-clamp-6">
-                Et molestiae hic earum repellat aliquid est doloribus delectus.
-                Enim illum odio porro ut omnis dolor debitis natus. Voluptas
-                possimus deserunt sit delectus est saepe nihil. Qui voluptate
-                possimus et quia. Eligendi voluptas voluptas dolor cum. Rerum
-                est quos quos id ut molestiae fugit. Et molestiae hic earum
-                repellat aliquid est doloribus delectus. Enim illum odio porro
-                ut omnis dolor debitis natus. Voluptas possimus deserunt sit
-                delectus est saepe nihil. Qui voluptate possimus et quia.
-                Eligendi voluptas voluptas dolor cum. Rerum est quos quos id ut
-                molestiae fugit. Et molestiae hic earum repellat aliquid est
-                doloribus delectus. Enim illum odio porro ut Tehreems. Voluptas
-                possimus deserunt sit delectus est saepe nihil. Qui voluptate
-                possimus et quia. Eligendi voluptas voluptas dolor cum. Rerum
-                est quos quos id ut molestiae fugit.
-              </p>
-              <div className="text-primary font-normal">read more</div>
-              <div className="flex justify-between">
-                <div className=" 2xl:hidden xl:hidden lg:hidden md:hidden tb:hidden m:visible m:text-base m:font-semibold ">
-                  26 August 2022
-                </div>
-                <div className="text-secondary text-base font-light m:text-right ">
-                  @{username}
-                </div>
-              </div>
-            </Link>
+            {count &&
+              count.map((item) => {
+                return (
+                  <>
+                    <h1 className="text-2xl font-semibold m:hidden">
+                      26 August
+                    </h1>
+                    <Link to="/viewblog" className="mb-14 mr-12 m:mr-8">
+                      <h1 className="text-3xl text-primary font-dm font-normal m:text-2xl">
+                        15 Disadvantages Of Freedom And How You Can Workaround
+                        It.
+                      </h1>
+                      <p className="line-clamp-5 font-normal text-justify m:text-base m:font-extralight m:line-clamp-6">
+                        Et molestiae hic earum repellat aliquid est doloribus
+                        delectus. Enim illum odio porro ut omnis dolor debitis
+                        natus. Voluptas possimus deserunt sit delectus est saepe
+                        nihil. Qui voluptate possimus et quia. Eligendi voluptas
+                        voluptas dolor cum. Rerum est quos quos id ut molestiae
+                        fugit. Et molestiae hic earum repellat aliquid est
+                        doloribus delectus. Enim illum odio porro ut omnis dolor
+                        debitis natus. Voluptas possimus deserunt sit delectus
+                        est saepe nihil. Qui voluptate possimus et quia.
+                        Eligendi voluptas voluptas dolor cum. Rerum est quos
+                        quos id ut molestiae fugit. Et molestiae hic earum
+                        repellat aliquid est doloribus delectus. Enim illum odio
+                        porro ut Tehreems. Voluptas possimus deserunt sit
+                        delectus est saepe nihil. Qui voluptate possimus et
+                        quia. Eligendi voluptas voluptas dolor cum. Rerum est
+                        quos quos id ut molestiae fugit.
+                      </p>
+                      <div className="text-primary font-normal">read more</div>
+                      <div className="flex justify-between">
+                        <div className=" 2xl:hidden xl:hidden lg:hidden md:hidden tb:hidden m:visible m:text-base m:font-semibold ">
+                          26 August 2022
+                        </div>
+                        <div className="text-secondary text-base font-light m:text-right ">
+                          @{username}
+                        </div>
+                      </div>
+                    </Link>
+                  </>
+                );
+              })}
           </div>
         </div>
       </div>

@@ -33,4 +33,12 @@ export type UserData = {
   email: string;
 };
 
+export type BlogData = {
+  title: string;
+  uid: string;
+  blog: string;
+  date: string;
+  username: string;
+};
+
 export { app, auth, db, signOutUser };
