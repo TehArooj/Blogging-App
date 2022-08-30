@@ -5,7 +5,13 @@ import { HiSearch, HiViewList, HiOutlinePlusCircle } from "react-icons/hi";
 import { FiLogOut } from "react-icons/fi";
 import { ImCross } from "react-icons/im";
 import Modal from "react-modal";
-import { addDoc, collection, getDocs } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  DocumentData,
+  getDocs,
+  QueryDocumentSnapshot,
+} from "firebase/firestore";
 Modal.setAppElement("#root");
 
 const Home = () => {
@@ -20,7 +26,8 @@ const Home = () => {
     title: "",
     blog: "",
   });
-  const [blogs, setBlogs] = useState<string[]>([]);
+
+  const [BlogData, setBlogData] = useState<string[] | DocumentData>();
 
   const firstLetter = username.charAt(0);
 
@@ -57,6 +64,7 @@ const Home = () => {
 
   const handleTitle = (e: FormEvent) => {
     e.preventDefault();
+    setErrorMsg("");
     setValues((prev) => ({
       ...prev,
       title: (e.target as HTMLInputElement).value,
@@ -64,7 +72,7 @@ const Home = () => {
   };
   const handleBlog = (e: FormEvent) => {
     e.preventDefault();
-
+    setErrorMsg("");
     setValues((prev) => ({
       ...prev,
       blog: (e.target as HTMLInputElement).value,
@@ -74,9 +82,10 @@ const Home = () => {
   const validations = () => {
     if (!values.title || !values.blog) {
       setErrorMsg("Please Fill all the fields !");
-      setTimeout(() => {
+      setSuccessMsg("");
+      /* setTimeout(() => {
         setErrorMsg("");
-      }, 3000);
+      }, 3000);*/
       return;
     }
     setErrorMsg("");
@@ -90,35 +99,37 @@ const Home = () => {
 
     setSubmitButtonDisabled(true);
 
+    console.log("Errrrrr msg: " + errorMsg);
     //Add new Blog
-
-    const date = new Date().toDateString().slice(4);
-    const title = values.title;
-    const blog = values.blog;
-    const blogDocRef = collection(db, "blogs");
-    await addDoc(blogDocRef, {
-      uid,
-      username,
-      date,
-      title,
-      blog,
-    })
-      .then((blogDocRef) => {
-        setSubmitButtonDisabled(false);
-        console.log("Document has been added successfully");
-        console.log("ID of the added document: " + blogDocRef.id);
-        setValues({
-          blog: "",
-          title: "",
-        });
-        setSuccessMsg("Document has been added successfully");
-        setTimeout(() => {
-          setSuccessMsg("");
-        }, 3000);
+    if (errorMsg === "") {
+      const date = new Date().toDateString().slice(4);
+      const title = values.title;
+      const blog = values.blog;
+      const blogDocRef = collection(db, "blogs");
+      await addDoc(blogDocRef, {
+        uid,
+        username,
+        date,
+        title,
+        blog,
       })
-      .catch((err) => {
-        console.log(err.message);
-      });
+        .then((blogDocRef) => {
+          setSubmitButtonDisabled(false);
+          console.log("Document has been added successfully");
+          console.log("ID of the added document: " + blogDocRef.id);
+          setValues({
+            blog: "",
+            title: "",
+          });
+          setSuccessMsg("Document has been added successfully");
+          setTimeout(() => {
+            setSuccessMsg("");
+          }, 3000);
+        })
+        .catch((err) => {
+          console.log(err.message);
+        });
+    }
   };
 
   const getData = async () => {
@@ -127,8 +138,13 @@ const Home = () => {
 
     if (docsSnap) {
       docsSnap.docs.forEach((doc) => {
-        console.log("Doucument Id: ", doc.id);
-        console.log("Document data: ", doc.data());
+        //console.log("Doucument Id: ", doc.id);
+        //console.log("Document data: ", JSON.stringify(doc.data()));
+        var data = doc.data();
+        //setBlogData((arr) => [...arr, data]);
+        const str = JSON.stringify(doc.data());
+        const arr = JSON.parse(str);
+        console.log(arr);
       });
     } else {
       console.log("No documents found!");

@@ -41,7 +41,7 @@ const Login = () => {
     setErrorMsg("");
   };
 
-  const handleSubmission = (e: FormEvent) => {
+  const handleSubmission = async (e: FormEvent) => {
     e.preventDefault();
 
     // Validations
@@ -50,8 +50,9 @@ const Login = () => {
     setSubmitButtonDisabled(true);
 
     //Sign in user
-    signInWithEmailAndPassword(auth, values.email, values.password)
-      .then(async (res) => {
+
+    await signInWithEmailAndPassword(auth, values.email, values.password)
+      .then(async () => {
         setSubmitButtonDisabled(false);
         navigate("/home");
       })
