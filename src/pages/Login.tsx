@@ -32,7 +32,7 @@ const Login = () => {
 
   const validations = () => {
     if (!values.email || !values.password) {
-      setErrorMsg("Please fill all the fields !");
+      setErrorMsg("Please fill all the fields.");
       return;
     }
     setErrorMsg("");
@@ -55,7 +55,7 @@ const Login = () => {
       .catch((err) => {
         setSubmitButtonDisabled(false);
         if (values.email && values.password) {
-          setErrorMsg("Invalid email / password");
+          setErrorMsg("Invalid email / password.");
         }
       });
   };
@@ -71,7 +71,7 @@ const Login = () => {
         </div>
       </div>
       <div className=" col-span-2 flex items-center justify-center md:col-span-2 md:justify-center tb:col-span-auto tb:justify-center  m:justify-center ">
-        <div className=" mt-40 left-1/2 lg:ml-24 lg:mr-20 md:ml-8 md:mr-8 tb:ml-48 tb:mr-48 tb:mt-24 tb:items-center tb:justify-center m:ml-36 m:mr-36 m:mt-36 m:items-center m:justify-center">
+        <div className=" mt-48 left-1/2 lg:ml-24 lg:mr-20 md:ml-8 md:mr-8 tb:ml-48 tb:mr-48 tb:mt-48 tb:items-center tb:justify-center m:ml-36 m:mr-36 m:mt-40 m:items-center m:justify-center">
           <h1 className=" font-dm font-bold text-5xl  text-left  text-darkGrey  tb:text-center m:text-center">
             Welcome
           </h1>
@@ -93,8 +93,11 @@ const Login = () => {
                   handleChange={handleChangePassword}
                 />
               </div>
+              <div className="mb-5">
+                <b className="text-base text-errorMsg m:text-sm ">{errorMsg}</b>
+              </div>
               <button
-                className="text-white font-semibold bg-secondary border-solid border-2  border-secondary  h-14 w-44 mb-5  hover:outline-none hover:bg-darkGrey hover:border-none  disabled:bg-gray-500 md:w-80 tb:w-96 tb:h-10 m:w-64 m:h-10 m:text-sm"
+                className="text-white font-semibold bg-secondary border-solid border-2  border-secondary h-14  w-44 mb-9 hover:outline-none hover:bg-darkGrey hover:border-none  disabled:bg-gray-500 md:w-80 tb:w-96 tb:h-[52px] m:w-72 m:h-[52px] m:text-sm"
                 type="submit"
                 onClick={handleSubmission}
                 disabled={submitButtonDisabled}
@@ -102,8 +105,7 @@ const Login = () => {
                 LOGIN
               </button>
             </form>
-            <div className="text-xl tb:text-base tb:text-center m:text-base m:text-center mb-5">
-              <b className=" text-sm text-errorMsg ">{errorMsg}</b>
+            <div className="text-xl  tb:text-center m:text-base m:text-center">
               <p className="text-darkGrey">
                 Don't have an account?
                 <Link to="/" className="text-primary  ml-1">
