@@ -47,6 +47,10 @@ const Signup = () => {
     }));
   };
 
+  const isValidEmail = (email: string) => {
+    return /\S+@\S+\.\S+/.test(email);
+  };
+
   const validations = () => {
     if (
       !values.fullName ||
@@ -54,10 +58,17 @@ const Signup = () => {
       !values.password ||
       !values.confirmPassword
     ) {
-      setErrorMsg("Please Fill all the fields !");
+      setErrorMsg("Please fill all the fields !");
       return;
     }
     setErrorMsg("");
+
+    if (!isValidEmail(values.email)) {
+      setErrorMsg("Invalid Email");
+      return;
+    } else {
+      setErrorMsg("");
+    }
 
     values.password.length < 6
       ? setErrorMsg("Password must be atleast six charachters ")
@@ -106,7 +117,6 @@ const Signup = () => {
       })
       .catch((err) => {
         setSubmitButtonDisabled(false);
-        setErrorMsg(err.message.slice(10));
       });
   };
 
