@@ -73,7 +73,7 @@ const Home = () => {
 
   const validations = () => {
     if (!values.title || !values.blog) {
-      setErrorMsg("Please fill all the fields !");
+      setErrorMsg("Please fill all the fields.");
       setTimeout(() => {
         setErrorMsg("");
       }, 3000);
@@ -105,13 +105,13 @@ const Home = () => {
     })
       .then((blogDocRef) => {
         setSubmitButtonDisabled(false);
-        console.log("Document has been added successfully");
+        console.log("Document has been added successfully.");
         console.log("ID of the added document: " + blogDocRef.id);
         setValues({
           blog: "",
           title: "",
         });
-        setSuccessMsg("Document has been added successfully");
+        setSuccessMsg("Document has been added successfully.");
         setTimeout(() => {
           setSuccessMsg("");
         }, 3000);
@@ -131,7 +131,7 @@ const Home = () => {
         console.log("Document data: ", doc.data());
       });
     } else {
-      console.log("No documents found!");
+      console.log("No documents found.");
     }
   };
 
