@@ -4,12 +4,13 @@ import { auth, db } from "../utils/firebase/firebase.utils";
 import { AiOutlineEdit, AiOutlineDelete } from "react-icons/ai";
 import {
   collection,
-  deleteDoc,
   DocumentData,
   getDoc,
+  doc,
   getDocs,
   query,
   where,
+  deleteDoc,
 } from "firebase/firestore";
 import { ArrowIcon } from "../assests/Arrow";
 import Modal from "react-modal";
@@ -47,29 +48,36 @@ function MyBlogs() {
     const q = query(collection(db, "blogs"), where("uid", "==", uid));
 
     const querySnapshot = await getDocs(q);
-
     let newBlogsData: DocumentData[] = [];
     let newDocID: string[] = [];
 
     querySnapshot.forEach((doc) => {
-      newBlogsData.push(doc.data());
-      newDocID.push(doc.id);
+      const documentData = doc.data();
+      documentData.id = doc.id;
+      newBlogsData.push(documentData);
+      // newDocID.push(doc.id);
       //     console.log(doc.id, " => ", doc.data());
     });
     setdocID(newDocID);
     setMyBlogs(newBlogsData);
-    console.log(docID);
+    console.log(newBlogsData);
     // console.log(myBlogs);
   };
 
   const editBlog = () => {
-    setModalIsOpen(true);
     console.log("edit");
   };
 
-  const deleteBlog = () => {
-    console.log("delete");
+  const deleteBlog = async (id: any) => {
+    const docRef = doc(db, "blogs", id);
+    try {
+      await deleteDoc(docRef);
+    } catch (err) {
+      alert(err);
+    }
+    getMyBlogsData();
   };
+
   return (
     <>
       <div className="grid grid-cols-12">
@@ -97,7 +105,7 @@ function MyBlogs() {
                 {myBlogs.length > 0 &&
                   myBlogs.map((item) => {
                     return (
-                      <div key={item.id}>
+                      <>
                         <div className="flex justify-between m:justify-end">
                           <h1 className="text-2xl font-semibold m:hidden">
                             {item.date}
@@ -105,19 +113,14 @@ function MyBlogs() {
                           <div className="flex justify-end m:z-50">
                             <div
                               className="hover:bg-primary hover:text-white p-3 rounded-lg transition-all duration-200"
-                              onClick={editBlog}
+                              onClick={() => setModalIsOpen(true)}
                             >
                               <AiOutlineEdit className="text-2xl"></AiOutlineEdit>
                             </div>
 
                             <div
                               className="ml-2 hover:bg-errorMsg hover:text-white p-3 rounded-lg transition-all duration-200"
-                              onClick={() => {
-                                let newArr = myBlogs.filter(
-                                  (x) => x.id !== item.id
-                                );
-                                setMyBlogs(newArr);
-                              }}
+                              onClick={() => deleteBlog(item?.id)}
                             >
                               <AiOutlineDelete className="text-2xl"></AiOutlineDelete>
                             </div>
@@ -217,7 +220,7 @@ function MyBlogs() {
                             </div>
                           </>
                         </Modal>
-                      </div>
+                      </>
                     );
                   })}
               </div>
