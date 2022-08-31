@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { BiArrowBack } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
 import { ArrowIcon } from "../assests/Arrow";
 import { auth } from "../utils/firebase/firebase.utils";
@@ -30,7 +29,7 @@ function ViewBlog() {
           <div className="mt-10">
             <div className=" ml-20 top-11 tb:ml-12 ">
               <div onClick={back}>
-                <span className="text-xl tb:text-base">Back</span>
+                <span className="text-xl">Back</span>
               </div>
             </div>
             <div className="absolute top-14 ml-14 tb:ml-8">
@@ -40,7 +39,7 @@ function ViewBlog() {
             </div>
           </div>
         </div>
-        <div className="col-span-8 flex flex-col mt-10  md:mb-20 tb:mb-16 m:mb-14  m:ml-11">
+        <div className="w-full col-span-8 flex flex-col mt-10  md:mb-20 tb:mb-16 m:mb-14  m:ml-11">
           <div className="flex flex-col items-left  m:mt-10">
             <h1 className="text-4xl text-justify text-primary mb-5 font-dm font-normal m:text-3xl m:mt-10">
               15 Disadvantages Of Freedom And How You Can Workaround It.

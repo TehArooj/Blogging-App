@@ -5,13 +5,7 @@ import { HiSearch, HiViewList, HiOutlinePlusCircle } from "react-icons/hi";
 import { FiLogOut } from "react-icons/fi";
 import { ImCross } from "react-icons/im";
 import Modal from "react-modal";
-import {
-  addDoc,
-  collection,
-  DocumentData,
-  getDocs,
-  QueryDocumentSnapshot,
-} from "firebase/firestore";
+import { addDoc, collection, DocumentData, getDocs } from "firebase/firestore";
 Modal.setAppElement("#root");
 
 const Home = () => {
@@ -27,7 +21,7 @@ const Home = () => {
     blog: "",
   });
 
-  const [BlogData, setBlogData] = useState<string[] | DocumentData>();
+  const [blogData, setBlogData] = useState<DocumentData[]>([]);
 
   const firstLetter = username.charAt(0);
 
@@ -44,6 +38,12 @@ const Home = () => {
       getData();
     });
   }, [navigate, username]);
+
+  useEffect(() => {
+    if (blogData) {
+      console.log(blogData);
+    }
+  }, [blogData]);
 
   const SignOut = async () => {
     try {
@@ -79,30 +79,50 @@ const Home = () => {
     }));
   };
 
+  const formatDate = (date: any) => {
+    const convertToDoubleDigit = (val: any) => `0${val}`.slice(-2);
+
+    const months = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+    return `${convertToDoubleDigit(date.getDate())} ${
+      months[date.getMonth()]
+    } ${date.getFullYear()}`;
+  };
+  //console.log(formatDate(new Date("Aug 31 2022")));
+
   const validations = () => {
     if (!values.title || !values.blog) {
-      setErrorMsg("Please fill all the fields !");
+      setErrorMsg("Please fill all the fields.");
+      setSubmitButtonDisabled(false);
       setSuccessMsg("");
-      /* setTimeout(() => {
-        setErrorMsg("");
-      }, 3000);*/
-      return;
+      return false;
     }
     setErrorMsg("");
+    return true;
   };
 
   const handleSubmission = async (e: FormEvent) => {
     e.preventDefault();
-
-    // Validations
-    validations();
-
     setSubmitButtonDisabled(true);
+    // Validations
+    const valid = validations();
 
-    console.log("Errrrrr msg: " + errorMsg);
     //Add new Blog
-    if (errorMsg === "") {
-      const date = new Date().toDateString().slice(4);
+    if (valid) {
+      let date = new Date().toDateString().slice(4);
+      // date = formatDate(strDate);
       const title = values.title;
       const blog = values.blog;
       const blogDocRef = collection(db, "blogs");
@@ -137,17 +157,14 @@ const Home = () => {
     const docsSnap = await getDocs(docsRef);
 
     if (docsSnap) {
+      let newBlogsData: DocumentData[] = [];
       docsSnap.docs.forEach((doc) => {
         //console.log("Doucument Id: ", doc.id);
-        //console.log("Document data: ", JSON.stringify(doc.data()));
-        var data = doc.data();
-        //setBlogData((arr) => [...arr, data]);
-        const str = JSON.stringify(doc.data());
-        const arr = JSON.parse(str);
-        setBlogData(arr);
-        console.log("Parsed Array: " + arr);
-        console.log("blog data: " + BlogData);
+        newBlogsData.push(doc.data());
+        //setBlogData((prev) => [...prev, doc.data()]);
       });
+      setBlogData(newBlogsData);
+      console.log(blogData);
     } else {
       console.log("No documents found.");
     }
@@ -158,7 +175,6 @@ const Home = () => {
     console.log("Search");
   };
 
-  let count = [1, 2, 3, 4, 5];
   return (
     <>
       <div className="fixed top-0 left-0 flex justify-around items-center w-24 h-screen bg-darkGrey  flex-col md:flex-row md:bottom-0 md:h-24 md:w-screen md:top-auto md:drop-shadow-[0_-6mm_4mm_white]  tb:flex-row tb:bottom-0 tb:h-20 tb:w-screen tb:top-auto  tb:drop-shadow-[0_-6mm_4mm_white]   m:flex-row m:bottom-0 m:h-16 m:w-screen m:top-auto m:drop-shadow-[0_-6mm_4mm_white]">
@@ -239,12 +255,17 @@ const Home = () => {
                         rows={12}
                         cols={12}
                       />
-                      <b className=" text-sm text-errorMsg mb-5  ">
-                        {errorMsg}
-                      </b>
-                      <b className=" text-sm text-successMsg mb-5  ">
-                        {successMsg}
-                      </b>
+                      <div className="mb-5">
+                        <b className=" text-sm text-errorMsg mb-5  ">
+                          {errorMsg}
+                        </b>
+                      </div>
+                      <div className="mb-5">
+                        <b className=" text-sm text-successMsg mb-5  ">
+                          {successMsg}
+                        </b>
+                      </div>
+
                       <div className="flex justify-end tb:justify-center m:justify-center">
                         <button
                           className="text-white font-semibold bg-secondary border-solid border-2  border-secondary  h-14 w-44  hover:outline-none hover:bg-darkGrey hover:border-none  disabled:bg-gray-500  tb:h-10  m:w-full m:h-10 m:text-sm"
@@ -289,49 +310,33 @@ const Home = () => {
         <div className="bg-primary pt-1 pb-1 w-5 "></div>
         <div className="text-xl font-lexend">Latest</div>
 
-        <div className="flex flex-col items-left ">
+        <div className=" mb-10 flex flex-col items-left ">
           <div className="flex flex-col mt-10  items-left mr-8">
-            {count &&
-              count.map((item) => {
+            {blogData.length > 0 &&
+              blogData.map((item) => {
                 return (
-                  <>
+                  <div>
                     <h1 className="text-2xl font-semibold m:hidden">
-                      26 August
+                      {item.date}
                     </h1>
                     <Link to="/viewblog" className="mb-14 mr-12 m:mr-8">
                       <h1 className="text-3xl text-primary font-dm font-normal m:text-2xl">
-                        15 Disadvantages Of Freedom And How You Can Workaround
-                        It.
+                        {item.title}
                       </h1>
                       <p className="line-clamp-5 font-normal text-justify m:text-base m:font-extralight m:line-clamp-6">
-                        Et molestiae hic earum repellat aliquid est doloribus
-                        delectus. Enim illum odio porro ut omnis dolor debitis
-                        natus. Voluptas possimus deserunt sit delectus est saepe
-                        nihil. Qui voluptate possimus et quia. Eligendi voluptas
-                        voluptas dolor cum. Rerum est quos quos id ut molestiae
-                        fugit. Et molestiae hic earum repellat aliquid est
-                        doloribus delectus. Enim illum odio porro ut omnis dolor
-                        debitis natus. Voluptas possimus deserunt sit delectus
-                        est saepe nihil. Qui voluptate possimus et quia.
-                        Eligendi voluptas voluptas dolor cum. Rerum est quos
-                        quos id ut molestiae fugit. Et molestiae hic earum
-                        repellat aliquid est doloribus delectus. Enim illum odio
-                        porro ut Tehreems. Voluptas possimus deserunt sit
-                        delectus est saepe nihil. Qui voluptate possimus et
-                        quia. Eligendi voluptas voluptas dolor cum. Rerum est
-                        quos quos id ut molestiae fugit.
+                        {item.blog}
                       </p>
                       <div className="text-primary font-normal">read more</div>
                       <div className="flex justify-between">
                         <div className=" 2xl:hidden xl:hidden lg:hidden md:hidden tb:hidden m:visible m:text-base m:font-semibold ">
-                          26 August 2022
+                          {item.date}
                         </div>
                         <div className="text-secondary text-base font-light m:text-right ">
-                          @{username}
+                          @{item.username}
                         </div>
                       </div>
                     </Link>
-                  </>
+                  </div>
                 );
               })}
           </div>
