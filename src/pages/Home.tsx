@@ -159,7 +159,7 @@ const Home = () => {
               className=" items-center xl:mt-5 lg:mt-5  md:flex md:justify-between cursor-pointer hover:bg-darkerGrey p-4 rounded-lg transition-all duration-200"
               onClick={handleSearch}
             >
-              <HiSearch className="ml-1 text-center text-3xl text-primary tb:text-2xl tb:ml-0 m:ml-0 m:text-xl" />
+              <HiSearch className="ml-2 text-center text-3xl text-primary tb:text-2xl tb:ml-0 m:ml-0 m:text-xl" />
               <span className=" text-sm text-white ml-1 tb:hidden m:hidden ">
                 search
               </span>
@@ -169,7 +169,7 @@ const Home = () => {
               className=" items-center xl:mt-5 lg:mt-5 md:flex md:justify-between cursor-pointer hover:bg-darkerGrey p-4 rounded-lg transition-all duration-200 "
               onClick={() => setModalIsOpen(true)}
             >
-              <HiOutlinePlusCircle className="ml-1  text-3xl text-primary  tb:text-2xl tb:ml-0 m:ml-0 m:text-xl" />
+              <HiOutlinePlusCircle className="ml-2  text-3xl text-primary  tb:text-2xl tb:ml-0 m:ml-0 m:text-xl" />
               <span className=" text-sm text-white ml-1 tb:hidden m:hidden">
                 create
               </span>
@@ -253,7 +253,7 @@ const Home = () => {
               className=" xl:mt-5 lg:mt-5 items-center md:flex md:justify-between cursor-pointer hover:bg-darkerGrey p-4 rounded-lg transition-all duration-200"
               onClick={myBlogs}
             >
-              <HiViewList className="ml-1 text-3xl text-primary  tb:text-2xl tb:ml-0 m:ml-0 m:text-xl" />
+              <HiViewList className="ml-2 text-3xl text-primary  tb:text-2xl tb:ml-0 m:ml-0 m:text-xl" />
               <span className=" text-sm text-white ml-1 tb:hidden m:hidden">
                 blogs
               </span>
@@ -263,7 +263,7 @@ const Home = () => {
             className="items-center md:w-30 md:mt-0 md:mr-10 md:flex md:justify-between cursor-pointer hover:bg-darkerGrey p-4 rounded-lg transition-all duration-200	 "
             onClick={SignOut}
           >
-            <FiLogOut className="ml-1 text-3xl text-primary  tb:text-2xl tb:ml-0 tb:mr-14 m:mr-6 m:ml-0 m:text-xl" />
+            <FiLogOut className="ml-2 text-3xl text-primary  tb:text-2xl tb:ml-0 tb:mr-14 m:mr-6 m:ml-0 m:text-xl" />
             <span className=" text-sm text-white ml-1 tb:hidden m:hidden w-full">
               logout
             </span>
