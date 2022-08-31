@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { BiArrowBack } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
+import { ArrowIcon } from "../assests/Arrow";
 import { auth } from "../utils/firebase/firebase.utils";
 
 function ViewBlog() {
@@ -32,9 +33,9 @@ function ViewBlog() {
                 <span className="text-xl tb:text-base">Back</span>
               </div>
             </div>
-            <div className="absolute top-12 ml-14 tb:ml-8">
+            <div className="absolute top-14 ml-14 tb:ml-8">
               <div onClick={back}>
-                <BiArrowBack className="text-4xl text-secondary  tb:text-2xl  " />
+                <ArrowIcon />
               </div>
             </div>
           </div>

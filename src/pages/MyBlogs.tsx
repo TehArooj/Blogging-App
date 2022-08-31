@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { auth, db } from "../utils/firebase/firebase.utils";
 import { AiOutlineEdit, AiOutlineDelete } from "react-icons/ai";
 import { collection, getDoc, getDocs, query, where } from "firebase/firestore";
+import { ArrowIcon } from "../assests/Arrow";
 
 function MyBlogs() {
   const navigate = useNavigate();
@@ -57,9 +58,9 @@ function MyBlogs() {
                 <span className="text-xl tb:text-base">Back</span>
               </div>
             </div>
-            <div className="absolute top-12 ml-14 tb:ml-8">
+            <div className="absolute top-14 ml-14 tb:ml-8">
               <div onClick={back}>
-                <BiArrowBack className="text-4xl text-secondary  tb:text-2xl  " />
+                <ArrowIcon />
               </div>
             </div>
           </div>
