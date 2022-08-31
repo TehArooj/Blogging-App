@@ -144,126 +144,130 @@ const Home = () => {
   return (
     <>
       <div className="fixed top-0 left-0 flex justify-around items-center w-24 h-screen bg-darkGrey  flex-col md:flex-row md:bottom-0 md:h-24 md:w-screen md:top-auto md:drop-shadow-[0_-6mm_4mm_white]  tb:flex-row tb:bottom-0 tb:h-20 tb:w-screen tb:top-auto  tb:drop-shadow-[0_-6mm_4mm_white]   m:flex-row m:bottom-0 m:h-16 m:w-screen m:top-auto m:drop-shadow-[0_-6mm_4mm_white]">
-        <div className=" md:flex items-center text-center font-semibold ">
-          <span className="w-16 h-16 block text-2xl text-white text-center  rounded-50  bg-primary p-4 tb:w-9 tb:h-9 tb:p-1 tb:text-xl m:w-7 m:h-7 m:p-1 m:text-sm">
-            {firstLetter}
-          </span>
-          <div className="2xl:hidden xl:hidden lg:hidden md:visible md:text-sm md:ml-5 md:font-normal md:text-white tb:hidden  m:hidden">
-            {username}
-          </div>
-        </div>
-
-        <div
-          className=" items-center md:flex md:justify-between cursor-pointer hover:bg-darkerGrey p-4 rounded-lg transition-all duration-200"
-          onClick={handleSearch}
-        >
-          <HiSearch className="ml-1 text-center text-3xl text-primary tb:text-2xl tb:ml-0 m:ml-0 m:text-xl" />
-          <span className=" text-sm text-white tb:hidden m:hidden ">
-            search
-          </span>
-        </div>
-
-        <div
-          className=" items-center md:flex md:justify-between cursor-pointer hover:bg-darkerGrey p-4 rounded-lg transition-all duration-200 "
-          onClick={() => setModalIsOpen(true)}
-        >
-          <HiOutlinePlusCircle className="ml-1  text-3xl text-primary  tb:text-2xl tb:ml-0 m:ml-0 m:text-xl" />
-          <span className=" text-sm text-white tb:hidden m:hidden">create</span>
-        </div>
-        <Modal
-          isOpen={modalIsOpen}
-          shouldCloseOnOverlayClick={false}
-          onRequestClose={() => setModalIsOpen(false)}
-          style={{
-            overlay: {},
-            content: {
-              borderColor: "black",
-              borderWidth: "1px",
-              borderRadius: "16px",
-            },
-          }}
-        >
-          <>
-            <div className="grid grid-cols-12">
-              <div className="col-span-2 m:col-span-1">
-                <div className="mt-8">
-                  <div className="absolute ml-14 tb:ml-8 m:ml-6">
-                    <div onClick={() => setModalIsOpen(false)}>
-                      <ImCross className="text-base text-secondary tb:text-sm m:text-sm " />
-                    </div>
-                  </div>
-                </div>
+        <div className="flex flex-col justify-between h-full w-full mt-4 mb-4 items-center md:flex-row tb:flex-row m:flex-row">
+          <div className="md:flex md:flex-row md:w-full md:justify-evenly tb:justify-evenly tb:flex tb:flex-row tb:w-full m:justify-evenly m:flex m:flex-row m:w-full">
+            <div className=" md:flex tb:flex m:flex items-center text-center font-semibold ">
+              <span className="ml-2 w-16 h-16 block text-2xl text-white text-center  rounded-50  bg-primary p-4 tb:w-9 tb:h-9 tb:p-1 tb:text-xl m:w-7 m:h-7 m:p-1 m:text-sm">
+                {firstLetter}
+              </span>
+              <div className="2xl:hidden xl:hidden lg:hidden md:visible md:text-sm md:ml-3 md:font-normal md:text-white tb:hidden  m:hidden">
+                {username}
               </div>
-              <div className=" col-span-8 mt-8 tb:items-center tb:justify-center tb:mt-24  m:mt-24 m:items-center m:justify-center m:col-span-10 ">
-                <h1 className=" font-dm font-bold text-4xl  text-left  text-darkGrey tb:text-center m:text-center">
-                  New Blog
-                </h1>
-                <div className="font-lexend flex flex-col ">
-                  <form>
-                    <div className="text-secondary ">
-                      <p className="text-xl font-light mb-5 tb:text-center m:text-center m:text-xl ">
-                        Let's show the world what you have for them
-                      </p>
-                      <input
-                        className="text-darkGrey border-solid border-2 border-secondary pt-5 pb-5 pl-8 pr-8 mb-5 w-full focus:outline-none focus:border-primary  tb:h-8 tb:pl-4 tb:text-sm   m:h-8 m:text-xs m:pl-4 "
-                        type="text"
-                        required
-                        placeholder="Title"
-                        value={values.title}
-                        onChange={handleTitle}
-                      />
-                      <textarea
-                        className="text-darkGrey border-solid border-2 border-secondary p-5 mb-5 w-full focus:outline-none focus:border-primary tb:pl-4 tb:text-sm   m:text-xs m:pl-4"
-                        placeholder="Write Blog Details"
-                        required
-                        value={values.blog}
-                        onChange={handleBlog}
-                        rows={12}
-                        cols={12}
-                      />
-                      <b className=" text-sm text-errorMsg mb-5  ">
-                        {errorMsg}
-                      </b>
-                      <b className=" text-sm text-successMsg mb-5  ">
-                        {successMsg}
-                      </b>
-                      <div className="flex justify-end tb:justify-center m:justify-center">
-                        <button
-                          className="text-white font-semibold bg-secondary border-solid border-2  border-secondary  h-14 w-44  hover:outline-none hover:bg-darkGrey hover:border-none  disabled:bg-gray-500  tb:h-10  m:w-full m:h-10 m:text-sm"
-                          type="submit"
-                          onClick={handleSubmission}
-                          disabled={submitButtonDisabled}
-                        >
-                          SUBMIT
-                        </button>
+            </div>
+
+            <div
+              className=" items-center xl:mt-5 lg:mt-5  md:flex md:justify-between cursor-pointer hover:bg-darkerGrey p-4 rounded-lg transition-all duration-200"
+              onClick={handleSearch}
+            >
+              <HiSearch className="ml-1 text-center text-3xl text-primary tb:text-2xl tb:ml-0 m:ml-0 m:text-xl" />
+              <span className=" text-sm text-white ml-1 tb:hidden m:hidden ">
+                search
+              </span>
+            </div>
+
+            <div
+              className=" items-center xl:mt-5 lg:mt-5 md:flex md:justify-between cursor-pointer hover:bg-darkerGrey p-4 rounded-lg transition-all duration-200 "
+              onClick={() => setModalIsOpen(true)}
+            >
+              <HiOutlinePlusCircle className="ml-1  text-3xl text-primary  tb:text-2xl tb:ml-0 m:ml-0 m:text-xl" />
+              <span className=" text-sm text-white ml-1 tb:hidden m:hidden">
+                create
+              </span>
+            </div>
+            <Modal
+              isOpen={modalIsOpen}
+              shouldCloseOnOverlayClick={false}
+              onRequestClose={() => setModalIsOpen(false)}
+              style={{
+                overlay: {},
+                content: {
+                  borderColor: "black",
+                  borderWidth: "1px",
+                  borderRadius: "16px",
+                },
+              }}
+            >
+              <>
+                <div className="grid grid-cols-12 ">
+                  <div className="col-span-2 m:col-span-1">
+                    <div className="mt-8">
+                      <div className="absolute ml-14 tb:ml-8 m:ml-6">
+                        <div onClick={() => setModalIsOpen(false)}>
+                          <ImCross className="text-base text-secondary tb:text-sm m:text-sm " />
+                        </div>
                       </div>
                     </div>
-                  </form>
+                  </div>
+                  <div className="  col-span-8 mt-8 tb:items-center tb:justify-center tb:mt-24  m:mt-24 m:items-center m:justify-center m:col-span-10 ">
+                    <h1 className=" font-dm font-bold text-4xl  text-left  text-darkGrey tb:text-center m:text-center">
+                      New Blog
+                    </h1>
+                    <div className="font-lexend flex flex-col ">
+                      <form>
+                        <div className="text-secondary ">
+                          <p className="text-xl font-light mb-5 tb:text-center m:text-center m:text-xl ">
+                            Let's show the world what you have for them
+                          </p>
+                          <input
+                            className="text-darkGrey border-solid border-2 border-secondary pt-5 pb-5 pl-8 pr-8 mb-5 w-full focus:outline-none focus:border-primary  tb:h-8 tb:pl-4 tb:text-sm   m:h-8 m:text-xs m:pl-4 "
+                            type="text"
+                            required
+                            placeholder="Title"
+                            value={values.title}
+                            onChange={handleTitle}
+                          />
+                          <textarea
+                            className="text-darkGrey border-solid border-2 border-secondary p-5 mb-5 w-full focus:outline-none focus:border-primary tb:pl-4 tb:text-sm   m:text-xs m:pl-4"
+                            placeholder="Write Blog Details"
+                            required
+                            value={values.blog}
+                            onChange={handleBlog}
+                            rows={12}
+                            cols={12}
+                          />
+                          <b className=" text-sm text-errorMsg mb-5  ">
+                            {errorMsg}
+                          </b>
+                          <b className=" text-sm text-successMsg mb-5  ">
+                            {successMsg}
+                          </b>
+                          <div className="flex justify-end tb:justify-center m:justify-center">
+                            <button
+                              className="text-white font-semibold bg-secondary border-solid border-2  border-secondary  h-14 w-44  hover:outline-none hover:bg-darkGrey hover:border-none  disabled:bg-gray-500  tb:h-10  m:w-full m:h-10 m:text-sm"
+                              type="submit"
+                              onClick={handleSubmission}
+                              disabled={submitButtonDisabled}
+                            >
+                              SUBMIT
+                            </button>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                  <div className="col-span-2 m:col-span-1"></div>
                 </div>
-              </div>
-              <div className="col-span-2 m:col-span-1"></div>
+              </>
+            </Modal>
+            <div
+              className=" xl:mt-5 lg:mt-5 items-center md:flex md:justify-between cursor-pointer hover:bg-darkerGrey p-4 rounded-lg transition-all duration-200"
+              onClick={myBlogs}
+            >
+              <HiViewList className="ml-1 text-3xl text-primary  tb:text-2xl tb:ml-0 m:ml-0 m:text-xl" />
+              <span className=" text-sm text-white ml-1 tb:hidden m:hidden">
+                blogs
+              </span>
             </div>
-          </>
-        </Modal>
-        <div
-          className=" items-center md:flex md:justify-between cursor-pointer hover:bg-darkerGrey p-4 rounded-lg transition-all duration-200"
-          onClick={myBlogs}
-        >
-          <HiViewList className="ml-1 text-3xl text-primary  tb:text-2xl tb:ml-0 m:ml-0 m:text-xl" />
-          <span className=" text-sm text-white tb:hidden m:hidden">blogs</span>
-        </div>
-
-        <div className="items-center md:hidden tb:hidden m:hidden "></div>
-        <div className="items-center md:hidden tb:hidden m:hidden "></div>
-
-        <div
-          className="items-center md:mt-0 md:flex md:justify-between cursor-pointer hover:bg-darkerGrey p-4 rounded-lg transition-all duration-200	 "
-          onClick={SignOut}
-        >
-          <FiLogOut className="ml-1 text-3xl text-primary  tb:text-2xl tb:ml-0 m:ml-0 m:text-xl" />
-          <span className=" text-sm text-white tb:hidden m:hidden">
-            log out
-          </span>
+          </div>
+          <div
+            className="items-center md:w-30 md:mt-0 md:mr-10 md:flex md:justify-between cursor-pointer hover:bg-darkerGrey p-4 rounded-lg transition-all duration-200	 "
+            onClick={SignOut}
+          >
+            <FiLogOut className="ml-1 text-3xl text-primary  tb:text-2xl tb:ml-0 tb:mr-14 m:mr-6 m:ml-0 m:text-xl" />
+            <span className=" text-sm text-white ml-1 tb:hidden m:hidden w-full">
+              logout
+            </span>
+          </div>
         </div>
       </div>
 
