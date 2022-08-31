@@ -4,6 +4,7 @@ import { auth, db } from "../utils/firebase/firebase.utils";
 import { AiOutlineEdit, AiOutlineDelete } from "react-icons/ai";
 import {
   collection,
+  deleteDoc,
   DocumentData,
   getDoc,
   getDocs,
@@ -62,6 +63,7 @@ function MyBlogs() {
   };
 
   const editBlog = () => {
+    setModalIsOpen(true);
     console.log("edit");
   };
 
@@ -95,7 +97,7 @@ function MyBlogs() {
                 {myBlogs.length > 0 &&
                   myBlogs.map((item) => {
                     return (
-                      <>
+                      <div key={item.id}>
                         <div className="flex justify-between m:justify-end">
                           <h1 className="text-2xl font-semibold m:hidden">
                             {item.date}
@@ -103,14 +105,19 @@ function MyBlogs() {
                           <div className="flex justify-end m:z-50">
                             <div
                               className="hover:bg-primary hover:text-white p-3 rounded-lg transition-all duration-200"
-                              onClick={() => setModalIsOpen(true)}
+                              onClick={editBlog}
                             >
                               <AiOutlineEdit className="text-2xl"></AiOutlineEdit>
                             </div>
 
                             <div
                               className="ml-2 hover:bg-errorMsg hover:text-white p-3 rounded-lg transition-all duration-200"
-                              onClick={deleteBlog}
+                              onClick={() => {
+                                let newArr = myBlogs.filter(
+                                  (x) => x.id !== item.id
+                                );
+                                setMyBlogs(newArr);
+                              }}
                             >
                               <AiOutlineDelete className="text-2xl"></AiOutlineDelete>
                             </div>
@@ -210,7 +217,7 @@ function MyBlogs() {
                             </div>
                           </>
                         </Modal>
-                      </>
+                      </div>
                     );
                   })}
               </div>

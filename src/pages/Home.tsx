@@ -6,6 +6,7 @@ import { FiLogOut } from "react-icons/fi";
 import { ImCross } from "react-icons/im";
 import Modal from "react-modal";
 import { addDoc, collection, DocumentData, getDocs } from "firebase/firestore";
+import uuid from "react-uuid";
 Modal.setAppElement("#root");
 
 const Home = () => {
@@ -132,6 +133,7 @@ const Home = () => {
         date,
         title,
         blog,
+        id: uuid(),
       })
         .then((blogDocRef) => {
           setSubmitButtonDisabled(false);
@@ -315,7 +317,7 @@ const Home = () => {
             {blogData.length > 0 &&
               blogData.map((item) => {
                 return (
-                  <div>
+                  <div key={item.id}>
                     <h1 className="text-2xl font-semibold m:hidden">
                       {item.date}
                     </h1>
