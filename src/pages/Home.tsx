@@ -155,6 +155,8 @@ const Home = () => {
           setTimeout(() => {
             setSuccessMsg("");
           }, 3000);
+          setModalIsOpen(false);
+          getData();
         })
         .catch((err) => {
           setSubmitButtonDisabled(false);
