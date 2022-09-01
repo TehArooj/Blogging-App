@@ -16,7 +16,6 @@ const Signup = () => {
     password: "",
     confirmPassword: "",
   });
-
   const [errorMsg, setErrorMsg] = useState("");
   const [submitButtonDisabled, setSubmitButtonDisabled] = useState(false);
 
@@ -35,7 +34,7 @@ const Signup = () => {
       email: (e.target as HTMLInputElement).value,
     }));
   };
-
+  
   const handleChangePassword = (e: FormEvent) => {
     e.preventDefault();
     setValues((prev) => ({
