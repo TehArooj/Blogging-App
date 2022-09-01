@@ -33,7 +33,7 @@ const Home = () => {
 
   const [blogData, setBlogData] = useState<DocumentData[]>([]);
 
-  const firstLetter = username.charAt(0);
+  const firstLetter = username.charAt(0).toUpperCase();
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
@@ -230,16 +230,17 @@ const Home = () => {
               onRequestClose={() => setModalIsOpen(false)}
               style={{
                 overlay: {
+                  right: "0",
+                  left: "0",
                   backgroundColor: "rgb(0,0,0,0.5)",
                 },
                 content: {
-                  borderColor: "black",
+                  borderColor: "rgb(0,0,0,.5)",
                   borderWidth: "1px",
                   borderRadius: "16px",
-                  /*top: 100,
-                  left: 200,
-                  right: 200,
-                  bottom: 100,*/
+                  marginLeft: "auto",
+                  marginRight: "auto",
+                  width: "70%",
                 },
               }}
             >
@@ -248,15 +249,15 @@ const Home = () => {
                   <LoaderSpinner />
                 ) : (
                   <div className="grid grid-cols-12 ">
-                    <div className="col-span-2 m:col-span-1"></div>
-                    <div className="  col-span-8 mt-8 tb:items-center tb:justify-center tb:mt-24  m:mt-24 m:items-center m:justify-center m:col-span-10 ">
-                      <h1 className=" font-dm font-bold text-4xl  text-left  text-darkGrey tb:text-center m:text-center">
+                    <div className="col-span-1"></div>
+                    <div className="  col-span-10 mt-8 tb:items-center tb:justify-center m:items-center m:justify-center m:col-span-10 ">
+                      <h1 className="mb-2 font-dm font-bold text-4xl  text-left  text-darkGrey tb:text-center m:text-center">
                         New Blog
                       </h1>
                       <div className="font-lexend flex flex-col ">
                         <form>
                           <div className="text-secondary ">
-                            <p className="text-xl font-light mb-5 tb:text-center m:text-center m:text-xl ">
+                            <p className="text-xl font-light mb-5 tb:text-center tb:text-base m:text-center m:text-base ">
                               Let's show the world what you have for them
                             </p>
                             <input
@@ -268,7 +269,7 @@ const Home = () => {
                               onChange={handleTitle}
                             />
                             <textarea
-                              className="text-darkGrey border-solid border-2 border-secondary p-5 mb-5 w-full focus:outline-none focus:border-primary tb:pl-4 tb:text-sm  m:text-xs m:pl-4"
+                              className="text-darkGrey border-solid border-2 border-secondary p-5 mb-5 w-full  focus:outline-none focus:border-primary tb:pl-4 tb:text-sm  m:text-xs m:pl-4"
                               placeholder="Write Blog Details"
                               required
                               value={values.blog}
@@ -296,9 +297,9 @@ const Home = () => {
                         </form>
                       </div>
                     </div>
-                    <div className="col-span-2 m:col-span-1">
+                    <div className="col-span-1">
                       <div className="mt-8">
-                        <div className="absolute ml-14 tb:ml-8 m:ml-6">
+                        <div className="absolute tb:mr-8 m:mr-6">
                           <div onClick={closeModalAndRefreshPage}>
                             <ImCancelCircle className="text-xl text-secondary tb:text-base m:text-base " />
                           </div>
@@ -336,7 +337,7 @@ const Home = () => {
         <div className="text-xl font-lexend">Latest</div>
 
         <div className=" mb-10 flex flex-col items-left ">
-          <div className="flex flex-col mt-10  items-left mr-20">
+          <div className="flex flex-col mt-10  items-left mr-20 m:mr-12">
             {gotData ? (
               <>
                 {blogData.length > 0 &&

@@ -27,6 +27,7 @@ function MyBlogs() {
   const [myBlogs, setMyBlogs] = useState<DocumentData[]>([]);
   const [text, setText] = useState<string>("");
   const [details, setDetails] = useState<string>("");
+  const [itemID, setItemID] = useState<string>("");
   const [submitButtonDisabled, setSubmitButtonDisabled] = useState(false);
   const [gotData, setgotData] = useState(false);
 
@@ -142,6 +143,7 @@ function MyBlogs() {
                                     setModalIsOpen(true);
                                     setText(item.title);
                                     setDetails(item.blog);
+                                    setItemID(item.id);
                                   }}
                                 >
                                   <AiOutlineEdit className="text-2xl"></AiOutlineEdit>
@@ -175,103 +177,100 @@ function MyBlogs() {
                                 @{item.username}
                               </div>
                             </div>
-                            <Modal
-                              isOpen={modalIsOpen}
-                              shouldCloseOnOverlayClick={false}
-                              onRequestClose={() => setModalIsOpen(false)}
-                              style={{
-                                overlay: {
-                                  zIndex: 100,
-                                  backgroundColor: "rgb(0,0,0,0.5)",
-                                },
-                                content: {
-                                  borderColor: "black",
-                                  borderWidth: "1px",
-                                  borderRadius: "16px",
-                                },
-                              }}
-                            >
-                              <>
-                                {submitButtonDisabled ? (
-                                  <LoaderSpinner />
-                                ) : (
-                                  <div className="grid grid-cols-12">
-                                    <div className="col-span-2 m:col-span-1"></div>
-                                    <div className=" col-span-8 mt-8 tb:items-center tb:justify-center tb:mt-24  m:mt-24 m:items-center m:justify-center m:col-span-10 ">
-                                      <h1 className=" font-dm font-bold text-4xl  text-left  text-darkGrey tb:text-center m:text-center">
-                                        Edit Blog
-                                      </h1>
-                                      <div className="font-lexend flex flex-col ">
-                                        <form>
-                                          <div className="text-secondary ">
-                                            <p className="text-xl font-light mb-5 tb:text-center m:text-center m:text-xl ">
-                                              Let's show the world what you have
-                                              for them
-                                            </p>
-                                            <input
-                                              className="text-darkGrey border-solid border-2 border-secondary pt-5 pb-5 pl-8 pr-8 mb-5 w-full focus:outline-none focus:border-primary tb:pl-4 tb:text-sm m:text-xs m:pl-4 "
-                                              type="text"
-                                              required
-                                              placeholder="Title"
-                                              value={text}
-                                              onChange={(e) =>
-                                                setText(e.target.value)
-                                              }
-                                            />
-                                            <textarea
-                                              className="text-darkGrey border-solid border-2 border-secondary p-5 mb-5 w-full focus:outline-none focus:border-primary tb:pl-4 tb:text-sm   m:text-xs m:pl-4"
-                                              placeholder="Write Blog Details"
-                                              required
-                                              rows={12}
-                                              cols={12}
-                                              value={details}
-                                              onChange={(e) =>
-                                                setDetails(e.target.value)
-                                              }
-                                            />
-
-                                            <b className=" text-sm text-errorMsg mb-5  ">
-                                              {errorMsg}
-                                            </b>
-                                            <b className=" text-sm text-successMsg mb-5  ">
-                                              {successMsg}
-                                            </b>
-
-                                            <div className=" flex justify-end tb:justify-center m:justify-center">
-                                              <button
-                                                className="text-white font-semibold bg-secondary border-solid border-2  border-secondary  h-14 w-44  hover:outline-none hover:bg-darkGrey hover:border-none  disabled:bg-gray-500  tb:h-10  m:w-full m:h-10 m:text-sm"
-                                                type="submit"
-                                                onClick={(e) =>
-                                                  editBlog(e, item.id)
-                                                }
-                                              >
-                                                UPDATE
-                                              </button>
-                                            </div>
-                                          </div>
-                                        </form>
-                                      </div>
-                                    </div>
-                                    <div className="col-span-2 m:col-span-1">
-                                      <div className="mt-8">
-                                        <div className="absolute ml-14 tb:ml-8 m:ml-6">
-                                          <div
-                                            onClick={() =>
-                                              setModalIsOpen(false)
-                                            }
-                                          >
-                                            <ImCancelCircle className="text-xl text-secondary tb:text-base m:text-base " />
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                )}
-                              </>
-                            </Modal>
                           </div>
                         );
                       })}
+                    <Modal
+                      isOpen={modalIsOpen}
+                      shouldCloseOnOverlayClick={false}
+                      onRequestClose={() => setModalIsOpen(false)}
+                      style={{
+                        overlay: {
+                          zIndex: 100,
+                          right: "0",
+                          left: "0",
+                          backgroundColor: "rgb(0,0,0,0.5)",
+                        },
+                        content: {
+                          borderColor: "rgb(0,0,0,0.5)",
+                          borderWidth: "1px",
+                          borderRadius: "16px",
+                          marginLeft: "auto",
+                          marginRight: "auto",
+                          width: "70%",
+                        },
+                      }}
+                    >
+                      <>
+                        {submitButtonDisabled ? (
+                          <LoaderSpinner />
+                        ) : (
+                          <div className="grid grid-cols-12">
+                            <div className="col-span-1 "></div>
+                            <div className="                 col-span-10 mt-8 tb:items-center tb:justify-center m:items-center m:justify-center m:col-span-10 ">
+                              <h1 className="mb-2 font-dm font-bold text-4xl  text-left  text-darkGrey tb:text-center m:text-center">
+                                Edit Blog
+                              </h1>
+                              <div className="font-lexend flex flex-col ">
+                                <form>
+                                  <div className="text-secondary">
+                                    <p className="text-xl font-light mb-5 tb:text-center tb:text-base m:text-center m:text-base ">
+                                      Let's show the world what you have for
+                                      them
+                                    </p>
+                                    <input
+                                      className="text-darkGrey border-solid border-2 border-secondary pt-5 pb-5 pl-8 pr-8 mb-5 w-full focus:outline-none focus:border-primary tb:pl-4 tb:text-sm m:text-xs m:pl-4 "
+                                      type="text"
+                                      required
+                                      placeholder="Title"
+                                      value={text}
+                                      onChange={(e) => setText(e.target.value)}
+                                    />
+                                    <textarea
+                                      className="text-darkGrey border-solid border-2 border-secondary p-5 mb-5 w-full focus:outline-none focus:border-primary tb:pl-4 tb:text-sm   m:text-xs m:pl-4"
+                                      placeholder="Write Blog Details"
+                                      required
+                                      rows={12}
+                                      cols={12}
+                                      value={details}
+                                      onChange={(e) =>
+                                        setDetails(e.target.value)
+                                      }
+                                    />
+
+                                    <b className=" text-sm text-errorMsg mb-5  ">
+                                      {errorMsg}
+                                    </b>
+                                    <b className=" text-sm text-successMsg mb-5  ">
+                                      {successMsg}
+                                    </b>
+
+                                    <div className=" flex justify-end tb:justify-center m:justify-center">
+                                      <button
+                                        className="text-white font-semibold bg-secondary border-solid border-2  border-secondary  h-14 w-44  hover:outline-none hover:bg-darkGrey hover:border-none  disabled:bg-gray-500  tb:h-10  m:w-full m:h-10 m:text-sm"
+                                        type="submit"
+                                        onClick={(e) => editBlog(e, itemID)}
+                                      >
+                                        UPDATE
+                                      </button>
+                                    </div>
+                                  </div>
+                                </form>
+                              </div>
+                            </div>
+                            <div className="col-span-1 ">
+                              <div className="mt-8">
+                                <div className="absolute tb:mr-8 m:mr-6">
+                                  <div onClick={() => setModalIsOpen(false)}>
+                                    <ImCancelCircle className="text-xl text-secondary tb:text-base m:text-base " />
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        )}
+                      </>
+                    </Modal>
                   </>
                 ) : (
                   <LoaderSpinner />
