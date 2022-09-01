@@ -5,8 +5,15 @@ import { HiSearch, HiViewList, HiOutlinePlusCircle } from "react-icons/hi";
 import { FiLogOut } from "react-icons/fi";
 import { ImCross } from "react-icons/im";
 import Modal from "react-modal";
-import { addDoc, collection, DocumentData, getDocs } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  DocumentData,
+  getDocs,
+  setDoc,
+} from "firebase/firestore";
 import uuid from "react-uuid";
+import LoaderSpinner from "../components/LoaderSpinner.component";
 Modal.setAppElement("#root");
 
 const Home = () => {
@@ -17,6 +24,8 @@ const Home = () => {
   const [errorMsg, setErrorMsg] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
   const [submitButtonDisabled, setSubmitButtonDisabled] = useState(false);
+  const [gotData, setgotData] = useState(false);
+
   const [values, setValues] = useState({
     title: "",
     blog: "",
@@ -80,8 +89,8 @@ const Home = () => {
     }));
   };
 
-  const formatDate = (date: any) => {
-    const convertToDoubleDigit = (val: any) => `0${val}`.slice(-2);
+  const formatDate = (date: Date) => {
+    const convertToDoubleDigit = (val: number) => `0${val}`.slice(-2);
 
     const months = [
       "January",
@@ -126,19 +135,18 @@ const Home = () => {
       // date = formatDate(strDate);
       const title = values.title;
       const blog = values.blog;
-      const blogDocRef = collection(db, "blogs");
-      await addDoc(blogDocRef, {
+      const id = uuid();
+      await setDoc(doc(db, "blogs", id), {
         uid,
         username,
         date,
         title,
         blog,
-        id: uuid(),
+        id,
       })
         .then((blogDocRef) => {
           setSubmitButtonDisabled(false);
           console.log("Document has been added successfully");
-          console.log("ID of the added document: " + blogDocRef.id);
           setValues({
             blog: "",
             title: "",
@@ -149,6 +157,7 @@ const Home = () => {
           }, 3000);
         })
         .catch((err) => {
+          setSubmitButtonDisabled(false);
           console.log(err.message);
         });
     }
@@ -161,13 +170,13 @@ const Home = () => {
     if (docsSnap) {
       let newBlogsData: DocumentData[] = [];
       docsSnap.docs.forEach((doc) => {
-        //console.log("Doucument Id: ", doc.id);
         newBlogsData.push(doc.data());
-        //setBlogData((prev) => [...prev, doc.data()]);
       });
       setBlogData(newBlogsData);
+      setgotData(true);
       console.log(blogData);
     } else {
+      setgotData(false);
       console.log("No documents found.");
     }
   };
@@ -178,8 +187,8 @@ const Home = () => {
   };
 
   const closeModalAndRefreshPage = () => {
+    getData();
     setModalIsOpen(false);
-    window.location.reload();
   };
 
   return (
@@ -229,65 +238,69 @@ const Home = () => {
               }}
             >
               <>
-                <div className="grid grid-cols-12 ">
-                  <div className="col-span-2 m:col-span-1">
-                    <div className="mt-8">
-                      <div className="absolute ml-14 tb:ml-8 m:ml-6">
-                        <div onClick={closeModalAndRefreshPage}>
-                          <ImCross className="text-base text-secondary tb:text-sm m:text-sm " />
+                {submitButtonDisabled ? (
+                  <LoaderSpinner />
+                ) : (
+                  <div className="grid grid-cols-12 ">
+                    <div className="col-span-2 m:col-span-1">
+                      <div className="mt-8">
+                        <div className="absolute ml-14 tb:ml-8 m:ml-6">
+                          <div onClick={closeModalAndRefreshPage}>
+                            <ImCross className="text-base text-secondary tb:text-sm m:text-sm " />
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div className="  col-span-8 mt-8 tb:items-center tb:justify-center tb:mt-24  m:mt-24 m:items-center m:justify-center m:col-span-10 ">
-                    <h1 className=" font-dm font-bold text-4xl  text-left  text-darkGrey tb:text-center m:text-center">
-                      New Blog
-                    </h1>
-                    <div className="font-lexend flex flex-col ">
-                      <form>
-                        <div className="text-secondary ">
-                          <p className="text-xl font-light mb-5 tb:text-center m:text-center m:text-xl ">
-                            Let's show the world what you have for them
-                          </p>
-                          <input
-                            className="text-darkGrey border-solid border-2 border-secondary pt-5 pb-5 pl-8 pr-8 mb-5 w-full focus:outline-none focus:border-primary  tb:h-8 tb:pl-4 tb:text-sm   m:h-8 m:text-xs m:pl-4 "
-                            type="text"
-                            required
-                            placeholder="Title"
-                            value={values.title}
-                            onChange={handleTitle}
-                          />
-                          <textarea
-                            className="text-darkGrey border-solid border-2 border-secondary p-5 mb-5 w-full focus:outline-none focus:border-primary tb:pl-4 tb:text-sm   m:text-xs m:pl-4"
-                            placeholder="Write Blog Details"
-                            required
-                            value={values.blog}
-                            onChange={handleBlog}
-                            rows={12}
-                            cols={12}
-                          />
-                          <b className=" text-sm text-errorMsg mb-5  ">
-                            {errorMsg}
-                          </b>
-                          <b className=" text-sm text-successMsg mb-5  ">
-                            {successMsg}
-                          </b>
-                          <div className="flex justify-end tb:justify-center m:justify-center">
-                            <button
-                              className="text-white font-semibold bg-secondary border-solid border-2  border-secondary  h-14 w-44  hover:outline-none hover:bg-darkGrey hover:border-none  disabled:bg-gray-500  tb:h-10  m:w-full m:h-10 m:text-sm"
-                              type="submit"
-                              onClick={handleSubmission}
-                              disabled={submitButtonDisabled}
-                            >
-                              SUBMIT
-                            </button>
+                    <div className="  col-span-8 mt-8 tb:items-center tb:justify-center tb:mt-24  m:mt-24 m:items-center m:justify-center m:col-span-10 ">
+                      <h1 className=" font-dm font-bold text-4xl  text-left  text-darkGrey tb:text-center m:text-center">
+                        New Blog
+                      </h1>
+                      <div className="font-lexend flex flex-col ">
+                        <form>
+                          <div className="text-secondary ">
+                            <p className="text-xl font-light mb-5 tb:text-center m:text-center m:text-xl ">
+                              Let's show the world what you have for them
+                            </p>
+                            <input
+                              className="text-darkGrey border-solid border-2 border-secondary pt-5 pb-5 pl-8 pr-8 mb-5 w-full focus:outline-none focus:border-primary  tb:pl-4 tb:text-sm m:text-xs m:pl-4 "
+                              type="text"
+                              required
+                              placeholder="Title"
+                              value={values.title}
+                              onChange={handleTitle}
+                            />
+                            <textarea
+                              className="text-darkGrey border-solid border-2 border-secondary p-5 mb-5 w-full focus:outline-none focus:border-primary tb:pl-4 tb:text-sm   m:text-xs m:pl-4"
+                              placeholder="Write Blog Details"
+                              required
+                              value={values.blog}
+                              onChange={handleBlog}
+                              rows={12}
+                              cols={12}
+                            />
+                            <b className=" text-sm text-errorMsg mb-5  ">
+                              {errorMsg}
+                            </b>
+                            <b className=" text-sm text-successMsg mb-5  ">
+                              {successMsg}
+                            </b>
+                            <div className="flex justify-end tb:justify-center m:justify-center">
+                              <button
+                                className="text-white font-semibold bg-secondary border-solid border-2  border-secondary  h-14 w-44  hover:outline-none hover:bg-darkGrey hover:border-none  disabled:bg-gray-500  tb:h-10  m:w-full m:h-10 m:text-sm"
+                                type="submit"
+                                onClick={handleSubmission}
+                                disabled={submitButtonDisabled}
+                              >
+                                SUBMIT
+                              </button>
+                            </div>
                           </div>
-                        </div>
-                      </form>
+                        </form>
+                      </div>
                     </div>
+                    <div className="col-span-2 m:col-span-1"></div>
                   </div>
-                  <div className="col-span-2 m:col-span-1"></div>
-                </div>
+                )}
               </>
             </Modal>
             <div
@@ -318,33 +331,44 @@ const Home = () => {
 
         <div className=" mb-10 flex flex-col items-left ">
           <div className="flex flex-col mt-10  items-left mr-8">
-            {blogData.length > 0 &&
-              blogData.map((item) => {
-                return (
-                  <div key={item.id}>
-                    <h1 className="text-2xl font-semibold m:hidden">
-                      {item.date}
-                    </h1>
-                    <Link to="/viewblog" className="mb-14 mr-12 m:mr-8">
-                      <h1 className="text-3xl text-primary font-dm font-normal m:text-2xl">
-                        {item.title}
-                      </h1>
-                      <p className="line-clamp-5 font-normal text-justify m:text-base m:font-extralight m:line-clamp-6">
-                        {item.blog}
-                      </p>
-                      <div className="text-primary font-normal">read more</div>
-                      <div className="flex justify-between">
-                        <div className=" 2xl:hidden xl:hidden lg:hidden md:hidden tb:hidden m:visible m:text-base m:font-semibold ">
+            {gotData ? (
+              <>
+                {blogData.length > 0 &&
+                  blogData.map((item) => {
+                    return (
+                      <div key={item.id}>
+                        <h1 className="text-2xl font-semibold m:hidden">
                           {item.date}
-                        </div>
-                        <div className="text-secondary text-base font-light m:text-right ">
-                          @{item.username}
-                        </div>
+                        </h1>
+                        <Link
+                          to={`/viewblog/${item.id}`}
+                          className="mb-14 mr-12 m:mr-8"
+                        >
+                          <h1 className="text-3xl text-primary font-dm font-normal m:text-2xl">
+                            {item.title}
+                          </h1>
+                          <p className="line-clamp-5 font-normal text-justify m:text-base m:font-extralight m:line-clamp-6">
+                            {item.blog}
+                          </p>
+                          <div className="text-primary font-normal">
+                            read more
+                          </div>
+                          <div className="flex justify-between">
+                            <div className=" 2xl:hidden xl:hidden lg:hidden md:hidden tb:hidden m:visible m:text-base m:font-semibold ">
+                              {item.date}
+                            </div>
+                            <div className="text-secondary text-base font-light m:text-right ">
+                              @{item.username}
+                            </div>
+                          </div>
+                        </Link>
                       </div>
-                    </Link>
-                  </div>
-                );
-              })}
+                    );
+                  })}{" "}
+              </>
+            ) : (
+              <LoaderSpinner />
+            )}
           </div>
         </div>
       </div>
