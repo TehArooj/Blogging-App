@@ -2,7 +2,7 @@ import { BallTriangle } from "react-loader-spinner";
 
 const LoaderSpinner = () => {
   return (
-    <div className="absolute top-2/4 left-2/4 right-2/4 bottom-2/4">
+    <div className="absolute top-2/4 left-2/4">
       <BallTriangle
         height={100}
         width={100}
