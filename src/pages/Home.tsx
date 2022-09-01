@@ -25,14 +25,16 @@ const Home = () => {
   const [successMsg, setSuccessMsg] = useState("");
   const [submitButtonDisabled, setSubmitButtonDisabled] = useState(false);
   const [gotData, setgotData] = useState(false);
-
+  const [searchClicked, setSearchClicked] = useState(false);
   const [values, setValues] = useState({
     title: "",
     blog: "",
   });
 
+  const [searchedData, setSearchedData] = useState<DocumentData[]>([]);
   const [blogData, setBlogData] = useState<DocumentData[]>([]);
 
+  const [searchQuery, setSearchQuery] = useState("");
   const firstLetter = username.charAt(0).toUpperCase();
 
   useEffect(() => {
@@ -50,10 +52,10 @@ const Home = () => {
   }, [navigate, username]);
 
   useEffect(() => {
-    if (blogData) {
-      console.log(blogData);
+    if (searchedData) {
+      console.log(searchedData);
     }
-  }, [blogData]);
+  }, [searchedData]);
 
   const SignOut = async () => {
     try {
@@ -89,29 +91,6 @@ const Home = () => {
     }));
   };
 
-  const formatDate = (date: Date) => {
-    const convertToDoubleDigit = (val: number) => `0${val}`.slice(-2);
-
-    const months = [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
-    ];
-    return `${convertToDoubleDigit(date.getDate())} ${
-      months[date.getMonth()]
-    } ${date.getFullYear()}`;
-  };
-  //console.log(formatDate(new Date("Aug 31 2022")));
-
   const validations = () => {
     if (!values.title || !values.blog) {
       setErrorMsg("Please fill all the fields.");
@@ -131,8 +110,8 @@ const Home = () => {
 
     //Add new Blog
     if (valid) {
-      let date = new Date().toDateString().slice(4);
-      // date = formatDate(strDate);
+      let date = new Date().toUTCString();
+      console.log(date);
       const title = values.title;
       const blog = values.blog;
       const id = uuid();
@@ -168,29 +147,48 @@ const Home = () => {
   const getData = async () => {
     const docsRef = collection(db, "blogs");
     const docsSnap = await getDocs(docsRef);
-
     if (docsSnap) {
       let newBlogsData: DocumentData[] = [];
       docsSnap.docs.forEach((doc) => {
         newBlogsData.push(doc.data());
       });
+      console.log(newBlogsData);
+      newBlogsData.sort((a, b) => (a.date < b.date ? 1 : -1));
       setBlogData(newBlogsData);
       setgotData(true);
-      console.log(blogData);
     } else {
       setgotData(false);
       console.log("No documents found.");
     }
+    setSearchQuery("");
   };
 
   const handleSearch = (e: FormEvent) => {
     e.preventDefault();
+    setSearchClicked(!searchClicked);
     console.log("Search");
   };
 
   const closeModalAndRefreshPage = () => {
     getData();
     setModalIsOpen(false);
+  };
+  useEffect(() => {
+    console.log(searchQuery);
+    console.log(searchedData);
+    setSearchedData(
+      blogData.filter((blog) =>
+        blog.title.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+    );
+  }, [blogData, searchQuery]);
+
+  const formatDate = (d: Date, format: boolean) => {
+    let ye = new Intl.DateTimeFormat("en", { year: "numeric" }).format(d);
+    let mo = new Intl.DateTimeFormat("en", { month: "long" }).format(d);
+    let da = new Intl.DateTimeFormat("en", { day: "2-digit" }).format(d);
+
+    return format ? `${da} ${mo} ${ye}` : `${da} ${mo}`;
   };
 
   return (
@@ -334,20 +332,43 @@ const Home = () => {
         </div>
       </div>
 
+      <div
+        className={`absolute top-0 left-0 w-screen h-40 ml-24 md:ml-0 tb:ml-0 m:ml-0 flex items-center flex-col justify-center bg-darkGrey drop-shadow-2xl ${
+          searchClicked ? "block" : "hidden"
+        }`}
+      >
+        <input
+          value={searchQuery}
+          placeholder="Search By Title"
+          type="text"
+          className="w-1/2 p-3 rounded-sm"
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
+        <button
+          className="pt-2 pb-2 pl-8 pr-8 mt-6 text-white bg-primary border-none rounded-3xl"
+          onClick={handleSearch}
+        >
+          Close
+        </button>
+      </div>
       <div className=" flex flex-col mt-10  ml-48 md:ml-20 md:mb-20 tb:mb-16 m:mb-14 tb:ml-20 m:ml-11">
         <div className="bg-primary pt-1 pb-1 w-5 "></div>
         <div className="text-xl font-lexend">Latest</div>
 
-        <div className=" mb-10 flex flex-col items-left ">
+        <div
+          className={`mb-10 flex flex-col items-left ${
+            searchClicked ? "mt-20" : ""
+          }`}
+        >
           <div className="flex flex-col mt-10  items-left mr-20 m:mr-12">
             {gotData ? (
               <>
-                {blogData.length > 0 &&
-                  blogData.map((item) => {
+                {searchedData.length > 0 &&
+                  searchedData.map((item) => {
                     return (
                       <div key={item.id}>
                         <h1 className="text-2xl font-semibold m:hidden">
-                          {item.date}
+                          {formatDate(new Date(item.date), false).toUpperCase()}
                         </h1>
                         <Link
                           to={`/viewblog/${item.id}`}
@@ -364,7 +385,10 @@ const Home = () => {
                           </div>
                           <div className="flex justify-between">
                             <div className=" 2xl:hidden xl:hidden lg:hidden md:hidden tb:hidden m:visible m:text-base m:font-semibold ">
-                              {item.date}
+                              {formatDate(
+                                new Date(item.date),
+                                true
+                              ).toUpperCase()}
                             </div>
                             <div className="text-secondary text-base font-light m:text-right ">
                               @{item.username}

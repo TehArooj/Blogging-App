@@ -44,6 +44,14 @@ function ViewBlog() {
   const back = () => {
     navigate(-1);
   };
+
+  const formatDate = (d: Date) => {
+    let ye = new Intl.DateTimeFormat("en", { year: "numeric" }).format(d);
+    let mo = new Intl.DateTimeFormat("en", { month: "long" }).format(d);
+    let da = new Intl.DateTimeFormat("en", { day: "2-digit" }).format(d);
+
+    return `${da} ${mo} ${ye}`;
+  };
   return (
     <>
       <div className="grid grid-cols-12">
@@ -62,7 +70,7 @@ function ViewBlog() {
           </div>
         </div>
         {title ? (
-          <div className="w-full col-span-8 flex flex-col mt-10  md:mb-20 tb:mb-16 tb:ml-14 m:mb-14  m:ml-11">
+          <div className="w-full col-span-8 flex flex-col mt-10 mb-20 md:mb-20 tb:mb-16 tb:ml-14 m:mb-14  m:ml-11">
             <div className="flex flex-col items-left  m:mt-10 tb:mt-12 ">
               <h1 className="text-4xl text-justify text-primary mb-5 font-dm font-normal m:text-3xl m:mt-10">
                 {title}
@@ -70,7 +78,7 @@ function ViewBlog() {
               <div className="flex justify-between">
                 <div className="text-secondary mb-10 text-xl font-extralight  m:text-base">
                   written by @{author} <br />
-                  on {date}
+                  on {formatDate(new Date(date)).toLowerCase()}
                 </div>
               </div>
               <p className="text-xl font-normal text-justify first-letter:text-7xl  m:text-base m:font-normal">

@@ -101,7 +101,13 @@ function MyBlogs() {
     }
     getMyBlogsData();
   };
+  const formatDate = (d: Date, format: boolean) => {
+    let ye = new Intl.DateTimeFormat("en", { year: "numeric" }).format(d);
+    let mo = new Intl.DateTimeFormat("en", { month: "long" }).format(d);
+    let da = new Intl.DateTimeFormat("en", { day: "2-digit" }).format(d);
 
+    return format ? `${da} ${mo} ${ye}` : `${da} ${mo}`;
+  };
   return (
     <>
       <div className="grid grid-cols-12">
@@ -134,7 +140,10 @@ function MyBlogs() {
                           <div key={item.id}>
                             <div className="flex justify-between m:justify-end">
                               <h1 className="text-2xl font-semibold m:hidden">
-                                {item.date}
+                                {formatDate(
+                                  new Date(item.date),
+                                  false
+                                ).toUpperCase()}
                               </h1>
                               <div className="flex justify-end m:z-50">
                                 <div
@@ -148,7 +157,6 @@ function MyBlogs() {
                                 >
                                   <AiOutlineEdit className="text-2xl"></AiOutlineEdit>
                                 </div>
-
                                 <div
                                   className="ml-2 hover:bg-errorMsg hover:text-white p-3 rounded-lg transition-all duration-200"
                                   onClick={() => deleteBlog(item?.id)}
@@ -171,7 +179,10 @@ function MyBlogs() {
                             </Link>
                             <div className="flex justify-between mb-14 ">
                               <div className=" 2xl:hidden xl:hidden lg:hidden md:hidden tb:hidden m:visible m:text-base m:font-semibold ">
-                                {item.date}
+                                {formatDate(
+                                  new Date(item.date),
+                                  true
+                                ).toUpperCase()}
                               </div>
                               <div className="text-secondary text-base font-light m:text-right  ">
                                 @{item.username}
