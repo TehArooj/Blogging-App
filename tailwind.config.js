@@ -8,6 +8,7 @@ module.exports = {
     "./src/components/CustomInput.component.tsx",
     "./src/pages/MyBlogs.tsx",
     "./src/pages/ViewBlog.tsx",
+    "./src/components/LoaderSpinner.component.tsx",
   ],
   theme: {
     extend: {
