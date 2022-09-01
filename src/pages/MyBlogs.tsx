@@ -14,7 +14,7 @@ import {
 } from "firebase/firestore";
 import { ArrowIcon } from "../assests/Arrow";
 import Modal from "react-modal";
-import { ImCross } from "react-icons/im";
+import { ImCancelCircle } from "react-icons/im";
 import LoaderSpinner from "../components/LoaderSpinner.component";
 
 function MyBlogs() {
@@ -124,7 +124,7 @@ function MyBlogs() {
             <div className="text-xl font-lexend">My Blogs</div>
 
             <div className="flex flex-col items-left ">
-              <div className="flex flex-col mt-10  items-left ">
+              <div className="flex flex-col mt-10 items-left ">
                 {gotData ? (
                   <>
                     {myBlogs.length > 0 &&
@@ -182,6 +182,7 @@ function MyBlogs() {
                               style={{
                                 overlay: {
                                   zIndex: 100,
+                                  backgroundColor: "rgb(0,0,0,0.5)",
                                 },
                                 content: {
                                   borderColor: "black",
@@ -195,19 +196,7 @@ function MyBlogs() {
                                   <LoaderSpinner />
                                 ) : (
                                   <div className="grid grid-cols-12">
-                                    <div className="col-span-2 m:col-span-1">
-                                      <div className="mt-8">
-                                        <div className="absolute ml-14 tb:ml-8 m:ml-6">
-                                          <div
-                                            onClick={() =>
-                                              setModalIsOpen(false)
-                                            }
-                                          >
-                                            <ImCross className="text-base text-secondary tb:text-sm m:text-sm " />
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>
+                                    <div className="col-span-2 m:col-span-1"></div>
                                     <div className=" col-span-8 mt-8 tb:items-center tb:justify-center tb:mt-24  m:mt-24 m:items-center m:justify-center m:col-span-10 ">
                                       <h1 className=" font-dm font-bold text-4xl  text-left  text-darkGrey tb:text-center m:text-center">
                                         Edit Blog
@@ -263,7 +252,19 @@ function MyBlogs() {
                                         </form>
                                       </div>
                                     </div>
-                                    <div className="col-span-2 m:col-span-1"></div>
+                                    <div className="col-span-2 m:col-span-1">
+                                      <div className="mt-8">
+                                        <div className="absolute ml-14 tb:ml-8 m:ml-6">
+                                          <div
+                                            onClick={() =>
+                                              setModalIsOpen(false)
+                                            }
+                                          >
+                                            <ImCancelCircle className="text-xl text-secondary tb:text-base m:text-base " />
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
                                   </div>
                                 )}
                               </>

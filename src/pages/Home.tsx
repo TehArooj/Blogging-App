@@ -3,7 +3,7 @@ import { signOutUser, auth, db } from "../utils/firebase/firebase.utils";
 import { Link, useNavigate } from "react-router-dom";
 import { HiSearch, HiViewList, HiOutlinePlusCircle } from "react-icons/hi";
 import { FiLogOut } from "react-icons/fi";
-import { ImCross } from "react-icons/im";
+import { ImCancelCircle } from "react-icons/im";
 import Modal from "react-modal";
 import {
   collection,
@@ -229,11 +229,17 @@ const Home = () => {
               shouldCloseOnOverlayClick={false}
               onRequestClose={() => setModalIsOpen(false)}
               style={{
-                overlay: {},
+                overlay: {
+                  backgroundColor: "rgb(0,0,0,0.5)",
+                },
                 content: {
                   borderColor: "black",
                   borderWidth: "1px",
                   borderRadius: "16px",
+                  /*top: 100,
+                  left: 200,
+                  right: 200,
+                  bottom: 100,*/
                 },
               }}
             >
@@ -242,15 +248,7 @@ const Home = () => {
                   <LoaderSpinner />
                 ) : (
                   <div className="grid grid-cols-12 ">
-                    <div className="col-span-2 m:col-span-1">
-                      <div className="mt-8">
-                        <div className="absolute ml-14 tb:ml-8 m:ml-6">
-                          <div onClick={closeModalAndRefreshPage}>
-                            <ImCross className="text-base text-secondary tb:text-sm m:text-sm " />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                    <div className="col-span-2 m:col-span-1"></div>
                     <div className="  col-span-8 mt-8 tb:items-center tb:justify-center tb:mt-24  m:mt-24 m:items-center m:justify-center m:col-span-10 ">
                       <h1 className=" font-dm font-bold text-4xl  text-left  text-darkGrey tb:text-center m:text-center">
                         New Blog
@@ -270,7 +268,7 @@ const Home = () => {
                               onChange={handleTitle}
                             />
                             <textarea
-                              className="text-darkGrey border-solid border-2 border-secondary p-5 mb-5 w-full focus:outline-none focus:border-primary tb:pl-4 tb:text-sm   m:text-xs m:pl-4"
+                              className="text-darkGrey border-solid border-2 border-secondary p-5 mb-5 w-full focus:outline-none focus:border-primary tb:pl-4 tb:text-sm  m:text-xs m:pl-4"
                               placeholder="Write Blog Details"
                               required
                               value={values.blog}
@@ -298,7 +296,15 @@ const Home = () => {
                         </form>
                       </div>
                     </div>
-                    <div className="col-span-2 m:col-span-1"></div>
+                    <div className="col-span-2 m:col-span-1">
+                      <div className="mt-8">
+                        <div className="absolute ml-14 tb:ml-8 m:ml-6">
+                          <div onClick={closeModalAndRefreshPage}>
+                            <ImCancelCircle className="text-xl text-secondary tb:text-base m:text-base " />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 )}
               </>
@@ -330,7 +336,7 @@ const Home = () => {
         <div className="text-xl font-lexend">Latest</div>
 
         <div className=" mb-10 flex flex-col items-left ">
-          <div className="flex flex-col mt-10  items-left mr-8">
+          <div className="flex flex-col mt-10  items-left mr-20">
             {gotData ? (
               <>
                 {blogData.length > 0 &&
