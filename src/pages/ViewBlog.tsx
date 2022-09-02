@@ -74,7 +74,7 @@ function ViewBlog() {
         {title ? (
           <div className="w-full col-span-8 flex flex-col mt-10 mb-20 md:mb-20 tb:mb-16 tb:ml-14 m:mb-14  m:ml-11">
             <div className="flex flex-col items-left  m:mt-10 tb:mt-12 ">
-              <h1 className="text-4xl text-justify text-primary mb-5 font-dm font-normal m:text-3xl m:mt-10">
+              <h1 className="text-4xl text-justify text-primary mb-5 font-dm font-normal tb:text-left m:text-left m:text-3xl m:mt-10">
                 {title}
               </h1>
               <div className="flex justify-between">
