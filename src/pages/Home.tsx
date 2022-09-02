@@ -342,7 +342,7 @@ const Home = () => {
         <input
           value={searchQuery}
           placeholder="Search By Title"
-          type="text"
+          type="search"
           className="w-1/2 p-3 rounded-sm"
           onChange={(e) => setSearchQuery(e.target.value)}
         />
