@@ -153,7 +153,9 @@ const Home = () => {
         newBlogsData.push(doc.data());
       });
       console.log(newBlogsData);
-      newBlogsData.sort((a, b) => (a.date < b.date ? 1 : -1));
+      newBlogsData.sort((a, b) =>
+        new Date(a.date) < new Date(b.date) ? 1 : -1
+      );
       setBlogData(newBlogsData);
       setgotData(true);
     } else {
