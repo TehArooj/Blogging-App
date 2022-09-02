@@ -119,12 +119,12 @@ function MyBlogs() {
       <div className="grid grid-cols-12">
         <div className="col-span-2 tb:col-span-1 tb:z-50 m:col-span-1 m:z-50">
           <div className="mt-10">
-            <div className=" ml-20 top-11">
+            <div className=" ml-16 top-12 font-dm font-normal">
               <div onClick={back}>
-                <span className="text-xl cursor-pointer">Back</span>
+                <span className="text-2xl cursor-pointer">Back</span>
               </div>
             </div>
-            <div className="absolute top-14 ml-14">
+            <div className="absolute top-16 ml-11">
               <div onClick={back} className="cursor-pointer">
                 <ArrowIcon />
               </div>
@@ -132,12 +132,12 @@ function MyBlogs() {
           </div>
         </div>
         <div className="w-full col-span-8 flex flex-col mt-10  md:mb-20 tb:mb-16 tb:ml-14 m:mb-14  m:ml-11">
-          <div className="flex flex-col items-left  m:mt-10 tb:mt-12 ">
+          <div className="flex flex-col items-left  m:mt-20 tb:mt-20 ">
             <div className="bg-primary pt-1 pb-1 w-6 "></div>
             <div className="text-xl font-lexend">My Blogs</div>
 
             <div className="flex flex-col items-left ">
-              <div className="flex flex-col mt-10 items-left ">
+              <div className="flex flex-col mt-10 items-left tb:mt-5 m:mt-5 ">
                 {gotData ? (
                   <>
                     {myBlogs.length > 0 &&
@@ -145,7 +145,7 @@ function MyBlogs() {
                         return (
                           <div key={item.id}>
                             <div className="flex justify-between m:justify-end">
-                              <h1 className="text-2xl font-semibold m:hidden">
+                              <h1 className="text-2xl font-semibold mb-1 m:hidden ">
                                 {formatDate(
                                   new Date(item.date),
                                   false
@@ -153,7 +153,7 @@ function MyBlogs() {
                               </h1>
                               <div className="flex justify-end m:z-50">
                                 <div
-                                  className="hover:bg-primary hover:text-white p-3 rounded-lg transition-all duration-200"
+                                  className="hover:bg-primary hover:text-white p-3 rounded-lg transition-all duration-200 cursor-pointer"
                                   onClick={() => {
                                     setModalIsOpen(true);
                                     setText(item.title);
@@ -161,29 +161,29 @@ function MyBlogs() {
                                     setItemID(item.id);
                                   }}
                                 >
-                                  <AiOutlineEdit className="text-2xl"></AiOutlineEdit>
+                                  <AiOutlineEdit className="text-2xl "></AiOutlineEdit>
                                 </div>
                                 <div
-                                  className="ml-2 hover:bg-errorMsg hover:text-white p-3 rounded-lg transition-all duration-200"
+                                  className="ml-[2px] hover:bg-errorMsg hover:text-white p-3 rounded-lg transition-all duration-200 cursor-pointer"
                                   onClick={() => deleteBlog(item?.id)}
                                 >
-                                  <AiOutlineDelete className="text-2xl"></AiOutlineDelete>
+                                  <AiOutlineDelete className="text-2xl "></AiOutlineDelete>
                                 </div>
                               </div>
                             </div>
 
                             <Link to={`/viewblog/${item.id}`} className="">
-                              <h1 className="text-3xl text-primary font-dm font-normal m:text-2xl">
+                              <h1 className="text-4xl text-primary text-left font-dm font-normal mb-5 tb:text-3xl m:mb-3 m:text-2xl">
                                 {item.title}
                               </h1>
-                              <p className="line-clamp-5 font-normal text-justify m:text-base m:font-extralight m:line-clamp-6">
+                              <p className="line-clamp-5 font-normal text-left m:text-base m:font-extralight m:line-clamp-6">
                                 {item.blog}
                               </p>
                               <div className="text-primary font-normal">
                                 read more
                               </div>
                             </Link>
-                            <div className="flex justify-between mb-14 ">
+                            <div className="flex justify-between  mb-8 mt-4 tb:mb-12 m:mb-12">
                               <div className=" 2xl:hidden xl:hidden lg:hidden md:hidden tb:hidden m:visible m:text-base m:font-semibold ">
                                 {formatDate(
                                   new Date(item.date),
@@ -224,14 +224,14 @@ function MyBlogs() {
                         ) : (
                           <div className="grid grid-cols-12">
                             <div className="col-span-1 "></div>
-                            <div className="                 col-span-10 mt-8 tb:items-center tb:justify-center m:items-center m:justify-center m:col-span-10 ">
+                            <div className="col-span-10 mt-8 tb:items-center tb:justify-center m:items-center m:justify-center m:col-span-10 ">
                               <h1 className="mb-2 font-dm font-bold text-4xl  text-left  text-darkGrey tb:text-center m:text-center">
                                 Edit Blog
                               </h1>
                               <div className="font-lexend flex flex-col ">
                                 <form>
                                   <div className="text-secondary">
-                                    <p className="text-xl font-light mb-5 tb:text-center tb:text-base m:text-center m:text-base ">
+                                    <p className="text-xl font-light mb-10 tb:text-center tb:text-base m:text-center m:text-base ">
                                       Let's show the world what you have for
                                       them
                                     </p>
@@ -278,8 +278,11 @@ function MyBlogs() {
                             <div className="col-span-1 ">
                               <div className="mt-8">
                                 <div className="absolute tb:mr-8 m:mr-6">
-                                  <div onClick={() => setModalIsOpen(false)}>
-                                    <ImCancelCircle className="text-xl text-secondary tb:text-base m:text-base " />
+                                  <div
+                                    onClick={() => setModalIsOpen(false)}
+                                    className="cursor-pointer"
+                                  >
+                                    <ImCancelCircle className="text-2xl text-secondary tb:text-base m:text-base " />
                                   </div>
                                 </div>
                               </div>

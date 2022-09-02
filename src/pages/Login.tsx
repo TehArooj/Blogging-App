@@ -72,7 +72,7 @@ const Login = () => {
       ) : (
         <>
           <div className="flex items-center justify-center w-full h-full md:col-span-2">
-            <div className="flex items-center justify-center font-lexend absolute w-96  h-full left-0 top-0  bg-pawel-pattern bg-cover object-fill bg-no-repeat tb:hidden m:hidden">
+            <div className="flex items-center justify-center font-lexend absolute w-400 h-full left-0 top-0  bg-pawel-pattern bg-cover object-fill bg-no-repeat tb:hidden m:hidden">
               <div className="inherit text-6xl text-white text-center rotate-270  font-bold ">
                 Login
                 <div />

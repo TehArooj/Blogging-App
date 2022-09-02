@@ -59,12 +59,12 @@ function ViewBlog() {
       <div className="grid grid-cols-12">
         <div className="col-span-2 tb:col-span-1 tb:z-50 m:col-span-1 m:z-50">
           <div className="mt-10">
-            <div className=" ml-20 top-11">
+            <div className=" ml-16 top-12 font-dm font-normal">
               <div onClick={back}>
-                <span className="text-xl cursor-pointer">Back</span>
+                <span className="text-2xl cursor-pointer">Back</span>
               </div>
             </div>
-            <div className="absolute top-14 ml-14">
+            <div className="absolute top-16 ml-11">
               <div onClick={back} className="cursor-pointer">
                 <ArrowIcon />
               </div>
@@ -72,9 +72,9 @@ function ViewBlog() {
           </div>
         </div>
         {title ? (
-          <div className="w-full col-span-8 flex flex-col mt-10 mb-20 md:mb-20 tb:mb-16 tb:ml-14 m:mb-14  m:ml-11">
+          <div className="w-full col-span-8 flex flex-col mt-12 mb-20 md:mb-20 tb:mb-16 tb:ml-14 m:mb-14  m:ml-11">
             <div className="flex flex-col items-left  m:mt-10 tb:mt-12 ">
-              <h1 className="text-4xl text-justify text-primary mb-5 font-dm font-normal tb:text-left m:text-left m:text-3xl m:mt-10">
+              <h1 className="text-4xl text-left text-primary mb-5 font-dm font-normal tb:text-left m:mb-3 m:text-left m:text-3xl m:mt-10">
                 {title}
               </h1>
               <div className="flex justify-between">
@@ -83,7 +83,7 @@ function ViewBlog() {
                   on {formatDate(new Date(date)).toLowerCase()}
                 </div>
               </div>
-              <p className="text-xl font-normal text-justify first-letter:text-7xl  m:text-base m:font-normal">
+              <p className="text-xl font-normal text-left  first-letter:text-7xl  m:text-base m:font-normal">
                 {blog}
               </p>
             </div>
