@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, signOut } from "firebase/auth";
-import { getFirestore, doc, getDoc } from "firebase/firestore";
+import { getFirestore } from "firebase/firestore";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -15,12 +15,18 @@ const firebaseConfig = {
   appId: "1:1073000661601:web:69cc8a1f9491d9be072020",
 };
 
+console.log(process.env.REACT_APP_API_KEY);
+
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
+// Get Auth
 const auth = getAuth();
 
+// Get Firestore
 const db = getFirestore();
+
+// Signout Auth
 const signOutUser = async () => await signOut(auth);
 
 export type AdditionalInformation = {

@@ -20,6 +20,7 @@ const Signup = () => {
   const [errorMsg, setErrorMsg] = useState("");
   const [submitButtonDisabled, setSubmitButtonDisabled] = useState(false);
 
+  // Change input of user credentials
   const handleChangeName = (e: FormEvent) => {
     e.preventDefault();
     setValues((prev) => ({
@@ -52,10 +53,12 @@ const Signup = () => {
     }));
   };
 
+  // Check Valid Email
   const isValidEmail = (email: string) => {
     return /\S+@\S+\.\S+/.test(email);
   };
 
+  // Validation checks
   const validations = () => {
     if (
       !values.fullName ||
@@ -82,6 +85,7 @@ const Signup = () => {
       : setErrorMsg("");
   };
 
+  // Submit user data to signup
   const handleSubmission = (e: FormEvent) => {
     e.preventDefault();
 
@@ -112,6 +116,7 @@ const Signup = () => {
               displayName,
               email,
               createdAt,
+              userId: user.uid,
             });
           } catch (error) {
             console.log("error creating the user", error);

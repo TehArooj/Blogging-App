@@ -37,6 +37,7 @@ const Home = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const firstLetter = username.charAt(0).toUpperCase();
 
+  // Store username in local storage to maintain session
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
       if (user) {
@@ -57,6 +58,7 @@ const Home = () => {
     }
   }, [searchedData]);
 
+  // Signout user
   const SignOut = async () => {
     try {
       await signOutUser().then(() => {
@@ -70,10 +72,12 @@ const Home = () => {
     console.log("Session end user logged out");
   };
 
+  // Navigate to my blogs page
   const myBlogs = () => {
     navigate("/myblogs");
   };
 
+  // Change input of title and blog
   const handleTitle = (e: FormEvent) => {
     e.preventDefault();
     setErrorMsg("");
@@ -91,6 +95,7 @@ const Home = () => {
     }));
   };
 
+  // Validation checks
   const validations = () => {
     if (!values.title || !values.blog) {
       setErrorMsg("Please fill all the fields.");
@@ -102,6 +107,7 @@ const Home = () => {
     return true;
   };
 
+  // Submit a new Blog
   const handleSubmission = async (e: FormEvent) => {
     e.preventDefault();
     setSubmitButtonDisabled(true);
@@ -144,6 +150,7 @@ const Home = () => {
     }
   };
 
+  // Get blogs data of all users
   const getData = async () => {
     const docsRef = collection(db, "blogs");
     const docsSnap = await getDocs(docsRef);
@@ -165,12 +172,14 @@ const Home = () => {
     setSearchQuery("");
   };
 
+  // Search
   const handleSearch = (e: FormEvent) => {
     e.preventDefault();
     setSearchClicked(!searchClicked);
     console.log("Search");
   };
 
+  // Close Modal and refresh to get realtime data
   const closeModalAndRefreshPage = () => {
     getData();
     setModalIsOpen(false);
@@ -185,6 +194,7 @@ const Home = () => {
     );
   }, [blogData, searchQuery]);
 
+  // Format date
   const formatDate = (d: Date, format: boolean) => {
     let ye = new Intl.DateTimeFormat("en", { year: "numeric" }).format(d);
     let mo = new Intl.DateTimeFormat("en", { month: "long" }).format(d);

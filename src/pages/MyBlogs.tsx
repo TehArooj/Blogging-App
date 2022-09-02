@@ -45,10 +45,12 @@ function MyBlogs() {
     });
   }, [navigate, username]);
 
+  // Navigate back to home page
   const back = () => {
     navigate("/home");
   };
 
+  // Get all blogs of the current user
   const getMyBlogsData = async () => {
     const q = query(collection(db, "blogs"), where("uid", "==", uid));
 
@@ -69,6 +71,7 @@ function MyBlogs() {
     }
   };
 
+  // Edit Blog
   const editBlog = async (e: MouseEvent, id: any) => {
     e.preventDefault();
     console.log(id);
@@ -92,6 +95,7 @@ function MyBlogs() {
     console.log("edit");
   };
 
+  // Delete Blog
   const deleteBlog = async (id: any) => {
     const docRef = doc(db, "blogs", id);
     try {
@@ -101,6 +105,8 @@ function MyBlogs() {
     }
     getMyBlogsData();
   };
+
+  // Format date
   const formatDate = (d: Date, format: boolean) => {
     let ye = new Intl.DateTimeFormat("en", { year: "numeric" }).format(d);
     let mo = new Intl.DateTimeFormat("en", { month: "long" }).format(d);

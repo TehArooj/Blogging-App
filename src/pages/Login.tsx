@@ -15,6 +15,7 @@ const Login = () => {
   const [errorMsg, setErrorMsg] = useState("");
   const [submitButtonDisabled, setSubmitButtonDisabled] = useState(false);
 
+  // Change input of user credentials
   const handleChangeEmail = (e: FormEvent) => {
     e.preventDefault();
     setValues((prev) => ({
@@ -31,6 +32,7 @@ const Login = () => {
     }));
   };
 
+  // Validation checks
   const validations = () => {
     if (!values.email || !values.password) {
       setErrorMsg("Please fill all the fields.");
@@ -39,6 +41,7 @@ const Login = () => {
     setErrorMsg("");
   };
 
+  // Submit user data to login / signin
   const handleSubmission = async (e: FormEvent) => {
     e.preventDefault();
 

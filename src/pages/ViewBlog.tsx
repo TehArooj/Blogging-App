@@ -30,6 +30,7 @@ function ViewBlog() {
     };
     getBlog();
   }, []);
+
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
       if (user) {
@@ -45,6 +46,7 @@ function ViewBlog() {
     navigate(-1);
   };
 
+  // Format date
   const formatDate = (d: Date) => {
     let ye = new Intl.DateTimeFormat("en", { year: "numeric" }).format(d);
     let mo = new Intl.DateTimeFormat("en", { month: "long" }).format(d);
