@@ -353,7 +353,7 @@ const Home = () => {
           value={searchQuery}
           placeholder="Search By Title"
           type="search"
-          className="w-1/2 p-3 rounded-sm"
+          className="w-1/2 p-3 rounded-sm outline-none"
           onChange={(e) => setSearchQuery(e.target.value)}
         />
         <button
