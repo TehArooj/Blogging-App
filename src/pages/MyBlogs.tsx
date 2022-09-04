@@ -31,6 +31,16 @@ function MyBlogs() {
   const [submitButtonDisabled, setSubmitButtonDisabled] = useState(false);
   const [gotData, setgotData] = useState(false);
 
+  const [isPhone, setIsPhone] = useState(
+    window.matchMedia("(max-width: 480px)").matches
+  );
+
+  useEffect(() => {
+    window
+      .matchMedia("(max-width: 480px)")
+      .addEventListener("change", (e) => setIsPhone(e.matches));
+  }, []);
+
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
       if (user) {
@@ -144,14 +154,14 @@ function MyBlogs() {
                       myBlogs.map((item) => {
                         return (
                           <div key={item.id}>
-                            <div className="flex justify-between m:justify-end">
+                            <div className="flex justify-between">
                               <h1 className="text-2xl font-semibold mb-1 m:hidden ">
                                 {formatDate(
                                   new Date(item.date),
                                   false
                                 ).toUpperCase()}
                               </h1>
-                              <div className="flex justify-end m:z-50">
+                              <div className="flex justify-end m:hidden m:z-50">
                                 <div
                                   className="hover:bg-primary hover:text-white p-3 rounded-lg transition-all duration-200 cursor-pointer"
                                   onClick={() => {
@@ -172,16 +182,44 @@ function MyBlogs() {
                               </div>
                             </div>
 
-                            <Link to={`/viewblog/${item.id}`} className="">
-                              <h1 className="text-4xl text-primary text-left font-dm font-normal mb-5 tb:text-3xl m:mb-3 m:text-2xl">
-                                {item.title}
-                              </h1>
-                              <p className="line-clamp-5 font-normal text-left m:text-base m:font-extralight m:line-clamp-6">
-                                {item.blog}
-                              </p>
-                              <div className="text-primary font-normal">
-                                read more
+                            <div className="flex justify-between">
+                              <Link to={`/viewblog/${item.id}`} className="">
+                                <h1 className="text-4xl text-primary text-left font-dm font-normal mb-5 tb:text-3xl m:mb-3 m:text-2xl">
+                                  {item.title}
+                                </h1>
+                              </Link>
+                              <div className="2xl:hidden xl:hidden lg:hidden md:hidden tb:hidden flex justify-end m:z-50">
+                                <div
+                                  className="text-black cursor-pointer"
+                                  onClick={() => {
+                                    setModalIsOpen(true);
+                                    setText(item.title);
+                                    setDetails(item.blog);
+                                    setItemID(item.id);
+                                  }}
+                                >
+                                  <AiOutlineEdit className="text-2xl "></AiOutlineEdit>
+                                </div>
+                                <div
+                                  className="ml-[2px] text-errorMsg cursor-pointer"
+                                  onClick={() => deleteBlog(item?.id)}
+                                >
+                                  <AiOutlineDelete className="text-2xl "></AiOutlineDelete>
+                                </div>
                               </div>
+                            </div>
+                            <Link to={`/viewblog/${item.id}`} className="">
+                              <p className="font-normal text-left m:text-base m:font-extralight ">
+                                {item.blog.slice(0, 600)}
+                                {item.blog.length > 600 && (
+                                  <span>
+                                    ...{" "}
+                                    <span className="text-primary font-normal">
+                                      read more
+                                    </span>
+                                  </span>
+                                )}
+                              </p>
                             </Link>
                             <div className="flex justify-between  mb-8 mt-4 tb:mb-12 m:mb-12">
                               <div className=" 2xl:hidden xl:hidden lg:hidden md:hidden tb:hidden m:visible m:text-base m:font-semibold ">
@@ -214,7 +252,7 @@ function MyBlogs() {
                           borderRadius: "16px",
                           marginLeft: "auto",
                           marginRight: "auto",
-                          width: "70%",
+                          width: isPhone ? "80%" : "70%",
                         },
                       }}
                     >
@@ -225,9 +263,21 @@ function MyBlogs() {
                           <div className="grid grid-cols-12">
                             <div className="col-span-1 "></div>
                             <div className="col-span-10 mt-8 tb:items-center tb:justify-center m:items-center m:justify-center m:col-span-10 ">
-                              <h1 className="mb-2 font-dm font-bold text-4xl  text-left  text-darkGrey tb:text-center m:text-center">
-                                Edit Blog
-                              </h1>
+                              <div className="flex justify-between tb:justify-center m:justify-center">
+                                <h1 className="mb-2 font-dm font-bold text-4xl  text-left  text-darkGrey tb:text-center m:text-center">
+                                  Edit Blog
+                                </h1>
+                                <div className="mt-1 mr-5 tb:hidden m:hidden">
+                                  <div className="absolute">
+                                    <div
+                                      onClick={() => setModalIsOpen(false)}
+                                      className="cursor-pointer"
+                                    >
+                                      <ImCancelCircle className="text-2xl text-secondary  hover:text-primary  tb:text-base m:text-base " />
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
                               <div className="font-lexend flex flex-col ">
                                 <form>
                                   <div className="text-secondary">
@@ -276,13 +326,13 @@ function MyBlogs() {
                               </div>
                             </div>
                             <div className="col-span-1 ">
-                              <div className="mt-8">
-                                <div className="absolute tb:mr-8 m:mr-6">
+                              <div className="tb:mt-1 2xl:hidden xl:hidden lg:hidden md:hidden">
+                                <div className="absolute tb:ml-5 tb:mr-1 m:ml-2">
                                   <div
                                     onClick={() => setModalIsOpen(false)}
                                     className="cursor-pointer"
                                   >
-                                    <ImCancelCircle className="text-2xl text-secondary tb:text-base m:text-base " />
+                                    <ImCancelCircle className="text-2xl text-secondary  hover:text-primary  tb:text-base m:text-base " />
                                   </div>
                                 </div>
                               </div>

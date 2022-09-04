@@ -5,10 +5,10 @@ module.exports = {
     "./src/pages/Signup.tsx",
     "./src/pages/Login.tsx",
     "./src/pages/Home.tsx",
-    "./src/components/CustomInput.component.tsx",
-    "./src/components/LoaderSpinner.component.tsx",
     "./src/pages/MyBlogs.tsx",
     "./src/pages/ViewBlog.tsx",
+    "./src/components/CustomInput.component.tsx",
+    "./src/components/LoaderSpinner.component.tsx",
   ],
   theme: {
     extend: {

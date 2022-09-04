@@ -137,14 +137,14 @@ const Signup = () => {
       ) : (
         <>
           <div className="flex items-center justify-center w-full h-full md:col-span-2 ">
-            <div className="flex items-center justify-center font-lexend absolute w-400 h-full left-0 top-0  bg-pawel-pattern  bg-cover object-fill bg-no-repeat tb:hidden m:hidden">
+            <div className="flex items-center justify-center font-lexend absolute w-[426px] h-full left-0 top-0  bg-pawel-pattern  bg-cover object-fill bg-no-repeat tb:hidden m:hidden">
               <div className="inherit text-6xl text-white text-center rotate-270 font-bold ">
                 Sign Up
               </div>
             </div>
           </div>
           <div className="col-span-2 flex items-center justify-center md:col-span-2 md:justify-center tb:col-span-auto tb:justify-center  m:justify-center">
-            <div className=" mt-36 left-1/2 lg:ml-24 lg:mr-20 md:ml-8 md:mr-8 tb:items-center tb:justify-center tb:ml-48 tb:mr-48 tb:mt-24 m:ml-36 m:mr-36 m:mt-16 m:items-center m:justify-center ">
+            <div className=" mt-36 left-1/2 2xl:ml-28 xl:ml-[100px] lg:ml-28 lg:mr-8 md:ml-4 md:mr-0 tb:items-center tb:justify-center tb:ml-10 tb:mr-10 tb:mt-24 m:ml-8 m:mr-8 m:mt-24 m:items-center m:justify-center ">
               <h1 className=" font-dm font-bold text-5xl  text-left  text-darkGrey tb:text-center m:text-center">
                 Welcome
               </h1>
@@ -181,7 +181,7 @@ const Signup = () => {
                     </b>
                   </div>
                   <button
-                    className="text-white font-semibold bg-secondary border-solid border-2  border-secondary h-14  w-44 mb-9 hover:outline-none hover:bg-darkGrey hover:border-none  disabled:bg-gray-500 md:w-80 tb:w-96 tb:h-[52px] m:w-72 m:h-[52px] m:text-sm"
+                    className="text-white font-semibold bg-secondary border-solid border-2  border-secondary h-14  w-44 mb-9 hover:outline-none hover:bg-darkGrey hover:border-none  disabled:bg-gray-500  md:w-4/5 tb:w-full tb:h-[52px] m:w-full m:h-[52px] m:text-sm"
                     type="submit"
                     onClick={handleSubmission}
                     disabled={submitButtonDisabled}

@@ -1,8 +1,9 @@
 import { FormEvent, useEffect, useState } from "react";
 import { signOutUser, auth, db } from "../utils/firebase/firebase.utils";
 import { Link, useNavigate } from "react-router-dom";
-import { HiSearch, HiViewList, HiOutlinePlusCircle } from "react-icons/hi";
+import { HiSearch, HiOutlinePlusCircle } from "react-icons/hi";
 import { FiLogOut } from "react-icons/fi";
+import { FaBlog } from "react-icons/fa";
 import { ImCancelCircle } from "react-icons/im";
 import Modal from "react-modal";
 import {
@@ -36,6 +37,16 @@ const Home = () => {
 
   const [searchQuery, setSearchQuery] = useState("");
   const firstLetter = username.charAt(0).toUpperCase();
+
+  const [isPhone, setIsPhone] = useState(
+    window.matchMedia("(max-width: 480px)").matches
+  );
+
+  useEffect(() => {
+    window
+      .matchMedia("(max-width: 480px)")
+      .addEventListener("change", (e) => setIsPhone(e.matches));
+  }, []);
 
   // Store username in local storage to maintain session
   useEffect(() => {
@@ -218,7 +229,7 @@ const Home = () => {
             </div>
 
             <div
-              className=" items-center xl:mt-5 lg:mt-5  md:flex md:justify-between cursor-pointer hover:bg-darkerGrey p-4 rounded-lg transition-all duration-200"
+              className=" items-center 2xl:mt-5 xl:mt-5 lg:mt-5  md:flex md:justify-between cursor-pointer hover:bg-darkerGrey p-4 rounded-lg transition-all duration-200"
               onClick={handleSearch}
             >
               <HiSearch className="ml-2 text-center text-3xl text-primary tb:text-2xl tb:ml-0 m:ml-0 m:text-2xl" />
@@ -228,7 +239,7 @@ const Home = () => {
             </div>
 
             <div
-              className=" items-center xl:mt-5 lg:mt-5 md:flex md:justify-between cursor-pointer hover:bg-darkerGrey p-4 rounded-lg transition-all duration-200 "
+              className=" items-center 2xl:mt-5 xl:mt-5 lg:mt-5 md:flex md:justify-between cursor-pointer hover:bg-darkerGrey p-4 rounded-lg transition-all duration-200 "
               onClick={() => setModalIsOpen(true)}
             >
               <HiOutlinePlusCircle className="ml-2  text-3xl text-primary  tb:text-2xl tb:ml-0 m:ml-0 m:text-2xl" />
@@ -252,7 +263,7 @@ const Home = () => {
                   borderRadius: "16px",
                   marginLeft: "auto",
                   marginRight: "auto",
-                  width: "70%",
+                  width: isPhone ? "80%" : "70%",
                 },
               }}
             >
@@ -263,9 +274,21 @@ const Home = () => {
                   <div className="grid grid-cols-12 ">
                     <div className="col-span-1"></div>
                     <div className="  col-span-10 mt-8 tb:items-center tb:justify-center m:items-center m:justify-center m:col-span-10 ">
-                      <h1 className="mb-2 font-dm font-bold text-4xl  text-left  text-darkGrey tb:text-center m:text-center">
-                        New Blog
-                      </h1>
+                      <div className="flex justify-between tb:justify-center m:justify-center">
+                        <h1 className="mb-2 font-dm font-bold text-4xl  text-left  text-darkGrey tb:text-center m:text-center">
+                          New Blog
+                        </h1>
+                        <div className="mt-1 mr-5 tb:hidden m:hidden">
+                          <div className="absolute">
+                            <div
+                              onClick={closeModalAndRefreshPage}
+                              className="cursor-pointer"
+                            >
+                              <ImCancelCircle className="text-2xl text-secondary  hover:text-primary  tb:text-base m:text-base " />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                       <div className="font-lexend flex flex-col ">
                         <form>
                           <div className="text-secondary ">
@@ -310,13 +333,13 @@ const Home = () => {
                       </div>
                     </div>
                     <div className="col-span-1">
-                      <div className="mt-8">
-                        <div className="absolute tb:mr-8 m:mr-6">
+                      <div className="tb:mt-1 2xl:hidden xl:hidden lg:hidden md:hidden">
+                        <div className="absolute tb:ml-5 tb:mr-1 m:ml-2">
                           <div
                             onClick={closeModalAndRefreshPage}
                             className="cursor-pointer"
                           >
-                            <ImCancelCircle className="text-2xl text-secondary tb:text-base m:text-base " />
+                            <ImCancelCircle className="text-2xl text-secondary  hover:text-primary  tb:text-base m:text-base " />
                           </div>
                         </div>
                       </div>
@@ -326,10 +349,10 @@ const Home = () => {
               </>
             </Modal>
             <div
-              className=" xl:mt-5 lg:mt-5 items-center md:flex md:justify-between cursor-pointer hover:bg-darkerGrey p-4 rounded-lg transition-all duration-200"
+              className="2xl:mt-5 xl:mt-5 lg:mt-5 items-center md:flex md:justify-between cursor-pointer hover:bg-darkerGrey p-4 rounded-lg transition-all duration-200"
               onClick={myBlogs}
             >
-              <HiViewList className="ml-2 text-3xl text-primary  tb:text-2xl tb:ml-0 m:ml-0 m:text-2xl" />
+              <FaBlog className="ml-3 text-2xl text-primary tb:text-xl tb:ml-1 m:ml-1 m:text-xl" />
               <span className=" text-sm text-white ml-1 tb:hidden m:hidden">
                 blogs
               </span>
@@ -366,7 +389,7 @@ const Home = () => {
           />
         </div>
       </div>
-      <div className=" flex flex-col mt-10  ml-48 md:ml-20 md:mb-20 tb:mb-16 m:mb-14 tb:ml-20 m:ml-11">
+      <div className=" flex flex-col mt-10 md:mb-20 tb:mb-16 m:mb-14 ml-24 pl-28 pr-28  md:ml-0 tb:ml-0 m:ml-0 md:pl-14 md:pr-14 tb:pl-12 tb:pr-12  m:pl-11 m:pr-11">
         <div
           className={`mb-10 flex flex-col items-left ${
             searchClicked ? "mt-20" : ""
@@ -379,7 +402,7 @@ const Home = () => {
             Latest
           </div>
 
-          <div className="flex flex-col mt-10  items-left mr-20 m:mr-12">
+          <div className="flex flex-col mt-10 items-left ">
             {gotData ? (
               <>
                 {searchedData.length > 0 &&
@@ -389,19 +412,22 @@ const Home = () => {
                         <h1 className="text-2xl font-semibold mb-1 m:hidden">
                           {formatDate(new Date(item.date), false).toUpperCase()}
                         </h1>
-                        <Link
-                          to={`/viewblog/${item.id}`}
-                          className="mb-14 mr-12 m:mr-8"
-                        >
+                        <Link to={`/viewblog/${item.id}`} className="mb-14">
                           <h1 className="text-4xl text-primary text-left font-dm font-normal mb-5 m:mb-3 tb:text-3xl  m:text-2xl">
                             {item.title}
                           </h1>
-                          <p className="line-clamp-5 font-normal text-left m:text-base m:font-extralight m:line-clamp-6">
-                            {item.blog}
+                          <p className="font-normal text-left m:text-base m:font-extralight ">
+                            {item.blog.slice(0, 650)}
+                            {item.blog.length > 650 && (
+                              <span>
+                                ...{" "}
+                                <span className="text-primary font-normal">
+                                  read more
+                                </span>
+                              </span>
+                            )}
                           </p>
-                          <div className="text-primary font-normal">
-                            read more
-                          </div>
+
                           <div className="flex justify-between mb-8 mt-4 tb:mb-12 m:mb-12   ">
                             <div className=" 2xl:hidden xl:hidden lg:hidden md:hidden tb:hidden m:visible m:text-base m:font-semibold ">
                               {formatDate(
