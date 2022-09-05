@@ -389,7 +389,7 @@ const Home = () => {
           />
         </div>
       </div>
-      <div className=" flex flex-col mt-10 md:mb-20 tb:mb-16 m:mb-14 ml-24 pl-28 pr-28  md:ml-0 tb:ml-0 m:ml-0 md:pl-14 md:pr-14 tb:pl-12 tb:pr-12  m:pl-11 m:pr-11">
+      <div className=" flex flex-col mt-10 md:mb-20 tb:mb-16 m:mb-14 ml-24 pl-28 pr-28  md:ml-0 tb:ml-0 m:ml-0 md:pl-14 md:pr-14 tb:pl-12 tb:pr-12 m:mt-20 m:pl-11 m:pr-11">
         <div
           className={`mb-10 flex flex-col items-left ${
             searchClicked ? "mt-20" : ""

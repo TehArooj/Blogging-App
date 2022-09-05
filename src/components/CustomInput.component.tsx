@@ -12,7 +12,7 @@ const CustomInput: FC<CustomInputBoxProps> = ({
   type,
 }) => (
   <input
-    className="text-darkGrey border-solid border-2 border-secondary pl-8 mb-5 w-700 h-[60px] focus:outline-none focus:border-primary lg:w-[90%] md:w-4/5 tb:w-full tb:pl-4 tb:text-sm m:w-full m:text-sm m:pl-4 "
+    className="text-darkGrey block border-solid border-2 border-secondary pl-8 mb-5 w-2/3 xl:w-full h-[60px] focus:outline-none focus:border-primary lg:w-full md:w-full tb:w-full tb:pl-4 tb:text-sm m:w-full m:text-sm m:pl-4 "
     type={type}
     required
     placeholder={placeholder}

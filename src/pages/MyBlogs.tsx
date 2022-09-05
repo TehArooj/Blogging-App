@@ -128,8 +128,8 @@ function MyBlogs() {
     <>
       <div className="grid grid-cols-12">
         <div className="col-span-2 tb:col-span-1 tb:z-50 m:col-span-1 m:z-50">
-          <div className="mt-10">
-            <div className=" ml-16 top-12 font-dm font-normal">
+          <div className="mt-11">
+            <div className=" ml-16 top-9 font-dm font-normal">
               <div onClick={back}>
                 <span className="text-2xl cursor-pointer">Back</span>
               </div>
@@ -141,7 +141,7 @@ function MyBlogs() {
             </div>
           </div>
         </div>
-        <div className="w-full col-span-8 flex flex-col mt-10  md:mb-20 tb:mb-16 tb:ml-14 m:mb-14  m:ml-11">
+        <div className="w-full col-span-8 flex flex-col mt-12  md:mb-20 tb:mb-16 tb:ml-16 tb:mr-16 m:mb-14  m:ml-0 m:pl-9 m:pr-0 m:col-span-9">
           <div className="flex flex-col items-left  m:mt-20 tb:mt-20 ">
             <div className="bg-primary pt-1 pb-1 w-6 "></div>
             <div className="text-xl font-lexend">My Blogs</div>
