@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, signOut } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
+import { getFirestore, doc, getDoc } from "firebase/firestore";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -31,6 +31,14 @@ export type UserData = {
   displayName: string;
   createdAt: Date;
   email: string;
+};
+
+export type BlogData = {
+  title: string;
+  uid: string;
+  blog: string;
+  date: string;
+  username: string;
 };
 
 export { app, auth, db, signOutUser };

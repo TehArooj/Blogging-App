@@ -7,6 +7,8 @@ module.exports = {
     "./src/pages/Home.tsx",
     "./src/components/CustomInput.component.tsx",
     "./src/components/LoaderSpinner.component.tsx",
+    "./src/pages/MyBlogs.tsx",
+    "./src/pages/ViewBlog.tsx",
   ],
   theme: {
     extend: {
@@ -16,7 +18,8 @@ module.exports = {
         white: "#FFFFFF",
         darkGrey: "#272727",
         errorMsg: "#dc2626",
-        //secondaryTextColor: "#A5A5A5",
+        successMsg: "#097969",
+        darkerGrey: "#070707",
       },
       backgroundImage: {
         "pawel-pattern": "url('/src/assests/sideImage.jpeg')",
@@ -28,9 +31,13 @@ module.exports = {
         80: "80px",
       },
       width: {
+        767: "800px",
+        680: "680px",
         600: "600px",
         850: "850px",
         480: "480px",
+        512: "512px",
+        960: "960px",
       },
       screens: {
         m: { min: "320px", max: "480px" },
