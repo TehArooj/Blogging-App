@@ -161,7 +161,7 @@ function MyBlogs() {
                                   false
                                 ).toUpperCase()}
                               </h1>
-                              <div className="flex justify-end m:hidden m:z-50">
+                              <div className="flex justify-end tb:z-50 m:hidden m:z-50">
                                 <div
                                   className="hover:bg-primary hover:text-white p-3 rounded-lg transition-all duration-200 cursor-pointer"
                                   onClick={() => {
