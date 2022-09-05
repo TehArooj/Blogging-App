@@ -36,7 +36,6 @@ const Signup = () => {
       email: (e.target as HTMLInputElement).value,
     }));
   };
-
   const handleChangePassword = (e: FormEvent) => {
     e.preventDefault();
     setValues((prev) => ({
