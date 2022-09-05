@@ -427,19 +427,18 @@ const Home = () => {
                               </span>
                             )}
                           </p>
-
-                          <div className="flex justify-between mb-8 mt-4 tb:mb-12 m:mb-12   ">
-                            <div className=" 2xl:hidden xl:hidden lg:hidden md:hidden tb:hidden m:visible m:text-base m:font-semibold ">
-                              {formatDate(
-                                new Date(item.date),
-                                true
-                              ).toUpperCase()}
-                            </div>
-                            <div className="text-secondary text-base font-light m:text-right ">
-                              @{item.username}
-                            </div>
-                          </div>
                         </Link>
+                        <div className="flex justify-between mb-8 mt-4 tb:mb-12 m:mb-12   ">
+                          <div className=" 2xl:hidden xl:hidden lg:hidden md:hidden tb:hidden m:visible m:text-base m:font-semibold ">
+                            {formatDate(
+                              new Date(item.date),
+                              true
+                            ).toUpperCase()}
+                          </div>
+                          <div className="text-secondary text-base font-light m:text-right ">
+                            @{item.username}
+                          </div>
+                        </div>
                       </div>
                     );
                   })}{" "}
