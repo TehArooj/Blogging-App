@@ -59,12 +59,12 @@ function ViewBlog() {
       <div className="grid grid-cols-12">
         <div className="col-span-2 tb:col-span-1 tb:z-50 m:col-span-1 m:z-50">
           <div className="mt-11">
-            <div className=" ml-16 top-9 font-dm font-normal">
+            <div className=" ml-16 top-9 font-dm font-normal m:ml-12">
               <div onClick={back}>
                 <span className="text-2xl cursor-pointer">Back</span>
               </div>
             </div>
-            <div className="absolute top-16 ml-11">
+            <div className="absolute top-16 ml-11 m:ml-7">
               <div onClick={back} className="cursor-pointer">
                 <ArrowIcon />
               </div>
@@ -72,7 +72,7 @@ function ViewBlog() {
           </div>
         </div>
         {title ? (
-          <div className="w-full col-span-8 flex flex-col mt-12  md:mb-20 tb:mb-16 tb:ml-16 tb:mr-16 m:mb-14  m:ml-0 m:pl-9 m:pr-0 m:col-span-9">
+          <div className="w-full col-span-8 flex flex-col mt-12  md:mb-20 tb:mb-16 tb:ml-16 tb:mr-16 m:mb-14  m:ml-0 m:pl-2 m:pr-2 m:col-span-10">
             <div className="flex flex-col items-left  m:mt-10 tb:mt-12 ">
               <h1 className="text-4xl text-left text-primary mb-5 font-dm font-normal tb:text-left m:mb-3 m:text-left m:text-3xl m:mt-10">
                 {title}

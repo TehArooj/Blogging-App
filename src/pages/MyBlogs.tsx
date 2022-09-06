@@ -129,19 +129,19 @@ function MyBlogs() {
       <div className="grid grid-cols-12">
         <div className="col-span-2 tb:col-span-1 tb:z-50 m:col-span-1 m:z-50">
           <div className="mt-11">
-            <div className=" ml-16 top-9 font-dm font-normal">
+            <div className=" ml-16 top-9 font-dm font-normal m:ml-12">
               <div onClick={back}>
                 <span className="text-2xl cursor-pointer">Back</span>
               </div>
             </div>
-            <div className="absolute top-16 ml-11">
+            <div className="absolute top-16 ml-11 m:ml-7">
               <div onClick={back} className="cursor-pointer">
                 <ArrowIcon />
               </div>
             </div>
           </div>
         </div>
-        <div className="w-full col-span-8 flex flex-col mt-12  md:mb-20 tb:mb-16 tb:ml-16 tb:mr-16 m:mb-14  m:ml-0 m:pl-9 m:pr-0 m:col-span-9">
+        <div className="w-full col-span-8 flex flex-col mt-12  md:mb-20 tb:mb-16 tb:ml-16 tb:mr-16 m:mb-14  m:ml-0 m:pl-2 m:pr-2 m:col-span-10">
           <div className="flex flex-col items-left  m:mt-20 tb:mt-20 ">
             <div className="bg-primary pt-1 pb-1 w-6 "></div>
             <div className="text-xl font-lexend">My Blogs</div>
@@ -184,7 +184,7 @@ function MyBlogs() {
 
                             <div className="flex justify-between">
                               <Link to={`/viewblog/${item.id}`} className="">
-                                <h1 className="text-4xl text-primary text-left font-dm font-normal mb-5 tb:text-3xl m:mb-3 m:text-2xl">
+                                <h1 className="text-4xl text-primary text-left font-dm font-normal mb-5 mr-2 tb:text-3xl m:mb-3 m:text-2xl ">
                                   {item.title}
                                 </h1>
                               </Link>
