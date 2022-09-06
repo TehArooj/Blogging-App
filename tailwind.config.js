@@ -9,6 +9,7 @@ module.exports = {
     "./src/pages/ViewBlog.tsx",
     "./src/components/CustomInput.component.tsx",
     "./src/components/LoaderSpinner.component.tsx",
+    "./src/components/HomepageLoaderSpinner.component.tsx",
   ],
   theme: {
     extend: {
