@@ -15,6 +15,7 @@ import {
 } from "firebase/firestore";
 import uuid from "react-uuid";
 import LoaderSpinner from "../components/LoaderSpinner.component";
+import HomepageLoaderSpinner from "../components/HomepageLoaderSpinner.component";
 Modal.setAppElement("#root");
 
 const Home = () => {
@@ -46,6 +47,16 @@ const Home = () => {
     window
       .matchMedia("(max-width: 480px)")
       .addEventListener("change", (e) => setIsPhone(e.matches));
+  }, []);
+
+  const [isDesktop, setIsDesktop] = useState(
+    window.matchMedia("(min-width: 1024px)").matches
+  );
+
+  useEffect(() => {
+    window
+      .matchMedia("(min-width: 1024px)")
+      .addEventListener("change", (e) => setIsDesktop(e.matches));
   }, []);
 
   // Store username in local storage to maintain session
@@ -258,12 +269,13 @@ const Home = () => {
                   backgroundColor: "rgb(0,0,0,0.5)",
                 },
                 content: {
+                  padding: "0px",
                   borderColor: "rgb(0,0,0,.5)",
                   borderWidth: "1px",
                   borderRadius: "16px",
                   marginLeft: "auto",
                   marginRight: "auto",
-                  width: isPhone ? "80%" : "70%",
+                  width: isPhone ? "80%" : "65%",
                 },
               }}
             >
@@ -271,80 +283,79 @@ const Home = () => {
                 {submitButtonDisabled ? (
                   <LoaderSpinner />
                 ) : (
-                  <div className="grid grid-cols-12 ">
-                    <div className="col-span-1"></div>
-                    <div className="  col-span-10 mt-8 tb:items-center tb:justify-center m:items-center m:justify-center m:col-span-10 ">
-                      <div className="flex justify-between tb:justify-center m:justify-center">
-                        <h1 className="mb-2 font-dm font-bold text-4xl  text-left  text-darkGrey tb:text-center m:text-center">
-                          New Blog
-                        </h1>
-                        <div className="mt-1 mr-5 tb:hidden m:hidden">
-                          <div className="absolute">
-                            <div
-                              onClick={closeModalAndRefreshPage}
-                              className="cursor-pointer"
-                            >
-                              <ImCancelCircle className="text-2xl text-secondary  hover:text-primary  tb:text-base m:text-base " />
-                            </div>
-                          </div>
+                  <>
+                    <div className="flex justify-end tb:mt-4 m:mt-4 2xl:hidden xl:hidden lg:hidden md:hidden">
+                      <div className="absolute tb:mr-5 tb:p-1 m:mr-3 m:p-0">
+                        <div
+                          onClick={closeModalAndRefreshPage}
+                          className="cursor-pointer"
+                        >
+                          <ImCancelCircle className="text-2xl text-secondary  hover:text-primary  tb:text-base m:text-base " />
                         </div>
                       </div>
-                      <div className="font-lexend flex flex-col ">
-                        <form>
-                          <div className="text-secondary ">
-                            <p className="text-xl font-light mb-10 tb:text-center tb:text-base m:text-center m:text-base ">
-                              Let's show the world what you have for them
-                            </p>
-                            <input
-                              className="text-darkGrey border-solid border-2 border-secondary pt-5 pb-5 pl-8 pr-8 mb-5 w-full focus:outline-none focus:border-primary  tb:pl-4 tb:text-sm m:text-xs m:pl-4 "
-                              type="text"
-                              required
-                              placeholder="Title"
-                              value={values.title}
-                              onChange={handleTitle}
-                            />
-                            <textarea
-                              className="text-darkGrey border-solid border-2 border-secondary p-5 mb-5 w-full  focus:outline-none focus:border-primary tb:pl-4 tb:text-sm  m:text-xs m:pl-4"
-                              placeholder="Write Blog Details"
-                              required
-                              value={values.blog}
-                              onChange={handleBlog}
-                              rows={12}
-                              cols={12}
-                            />
-                            <b className=" text-sm text-errorMsg mb-5  ">
-                              {errorMsg}
-                            </b>
-                            <b className=" text-sm text-successMsg mb-5  ">
-                              {successMsg}
-                            </b>
-                            <div className="flex justify-end tb:justify-center m:justify-center">
-                              <button
-                                className="text-white font-semibold bg-secondary border-solid border-2  border-secondary  h-14 w-44  hover:outline-none hover:bg-darkGrey hover:border-none  disabled:bg-gray-500  tb:h-10  m:w-full m:h-10 m:text-sm"
-                                type="submit"
-                                onClick={handleSubmission}
-                                disabled={submitButtonDisabled}
+                    </div>
+                    <div className="grid grid-cols-12 ">
+                      <div className="col-span-12 mt-8 pl-6 pr-6 m:pl-4 m:pr-4 tb:pl-5 tb:pr-5 tb:items-center tb:justify-center m:items-center m:justify-center">
+                        <div className="flex justify-between tb:justify-center m:justify-center">
+                          <h1 className="mb-2 font-dm font-bold text-4xl text-left  text-darkGrey tb:text-center m:text-center">
+                            New Blog
+                          </h1>
+                          <div className="mt-1 mr-5 tb:hidden m:hidden">
+                            <div className="absolute">
+                              <div
+                                onClick={closeModalAndRefreshPage}
+                                className="cursor-pointer"
                               >
-                                SUBMIT
-                              </button>
+                                <ImCancelCircle className="text-2xl text-secondary  hover:text-primary  tb:text-base m:text-base " />
+                              </div>
                             </div>
                           </div>
-                        </form>
-                      </div>
-                    </div>
-                    <div className="col-span-1">
-                      <div className="tb:mt-1 2xl:hidden xl:hidden lg:hidden md:hidden">
-                        <div className="absolute tb:ml-5 tb:mr-1 m:ml-2">
-                          <div
-                            onClick={closeModalAndRefreshPage}
-                            className="cursor-pointer"
-                          >
-                            <ImCancelCircle className="text-2xl text-secondary  hover:text-primary  tb:text-base m:text-base " />
-                          </div>
+                        </div>
+                        <div className="font-lexend flex flex-col ">
+                          <form>
+                            <div className="text-secondary ">
+                              <p className="text-xl font-light mb-10 tb:text-center tb:text-base m:text-center m:text-base ">
+                                Let's show the world what you have for them
+                              </p>
+                              <input
+                                className="text-darkGrey border-solid border-2 border-secondary pt-5 pb-5 pl-8 pr-8 mb-5 w-full focus:outline-none focus:border-primary  tb:pl-4 tb:text-sm m:text-xs m:pl-4 "
+                                type="text"
+                                required
+                                placeholder="Title"
+                                value={values.title}
+                                onChange={handleTitle}
+                              />
+                              <textarea
+                                className="text-darkGrey border-solid border-2 border-secondary p-5 mb-5 w-full  focus:outline-none focus:border-primary tb:pl-4 tb:text-sm  m:text-xs m:pl-4"
+                                placeholder="Write Blog Details"
+                                required
+                                value={values.blog}
+                                onChange={handleBlog}
+                                rows={12}
+                                cols={12}
+                              />
+                              <b className=" text-sm text-errorMsg mb-5  ">
+                                {errorMsg}
+                              </b>
+                              <b className=" text-sm text-successMsg mb-5  ">
+                                {successMsg}
+                              </b>
+                              <div className="flex justify-end tb:justify-center m:justify-center">
+                                <button
+                                  className="text-white font-semibold bg-secondary border-solid border-2  border-secondary  h-14 w-44  hover:outline-none hover:bg-darkGrey hover:border-none  disabled:bg-gray-500  tb:h-10  m:w-full m:h-10 m:text-sm"
+                                  type="submit"
+                                  onClick={handleSubmission}
+                                  disabled={submitButtonDisabled}
+                                >
+                                  SUBMIT
+                                </button>
+                              </div>
+                            </div>
+                          </form>
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </>
                 )}
               </>
             </Modal>
@@ -443,6 +454,8 @@ const Home = () => {
                     );
                   })}{" "}
               </>
+            ) : isDesktop ? (
+              <HomepageLoaderSpinner />
             ) : (
               <LoaderSpinner />
             )}
