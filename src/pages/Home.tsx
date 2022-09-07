@@ -40,12 +40,12 @@ const Home = () => {
   const firstLetter = username.charAt(0).toUpperCase();
 
   const [isPhone, setIsPhone] = useState(
-    window.matchMedia("(max-width: 480px)").matches
+    window.matchMedia("(max-width: 767px)").matches
   );
 
   useEffect(() => {
     window
-      .matchMedia("(max-width: 480px)")
+      .matchMedia("(max-width: 767px)")
       .addEventListener("change", (e) => setIsPhone(e.matches));
   }, []);
 
@@ -275,7 +275,9 @@ const Home = () => {
                   borderRadius: "16px",
                   marginLeft: "auto",
                   marginRight: "auto",
-                  width: isPhone ? "80%" : "65%",
+                  marginTop: isPhone ? "3px" : "20px",
+                  width: isPhone ? "80%" : "58%",
+                  height: isPhone ? "85%" : "80%",
                 },
               }}
             >
@@ -295,7 +297,7 @@ const Home = () => {
                       </div>
                     </div>
                     <div className="grid grid-cols-12 ">
-                      <div className="col-span-12 mt-8 pl-6 pr-6 m:pl-4 m:pr-4 tb:pl-5 tb:pr-5 tb:items-center tb:justify-center m:items-center m:justify-center">
+                      <div className="col-span-12 mt-8 pl-8 pr-8 m:pl-4 m:pr-4 tb:pl-5 tb:pr-5 tb:items-center tb:justify-center m:items-center m:justify-center">
                         <div className="flex justify-between tb:justify-center m:justify-center">
                           <h1 className="mb-2 font-dm font-bold text-4xl text-left  text-darkGrey tb:text-center m:text-center">
                             New Blog
@@ -314,11 +316,11 @@ const Home = () => {
                         <div className="font-lexend flex flex-col ">
                           <form>
                             <div className="text-secondary ">
-                              <p className="text-xl font-light mb-10 tb:text-center tb:text-base m:text-center m:text-base ">
+                              <p className="text-xl font-light mb-6 tb:text-center tb:text-base m:text-center m:text-base ">
                                 Let's show the world what you have for them
                               </p>
                               <input
-                                className="text-darkGrey border-solid border-2 border-secondary pt-5 pb-5 pl-8 pr-8 mb-5 w-full focus:outline-none focus:border-primary  tb:pl-4 tb:text-sm m:text-xs m:pl-4 "
+                                className="text-darkGrey border-solid border-2 border-secondary pt-4 pb-4 pl-8 pr-8 mb-2 w-full focus:outline-none focus:border-primary  tb:pl-4 tb:text-sm m:text-xs m:pl-4 "
                                 type="text"
                                 required
                                 placeholder="Title"
@@ -326,7 +328,7 @@ const Home = () => {
                                 onChange={handleTitle}
                               />
                               <textarea
-                                className="text-darkGrey border-solid border-2 border-secondary p-5 mb-5 w-full  focus:outline-none focus:border-primary tb:pl-4 tb:text-sm  m:text-xs m:pl-4"
+                                className="text-darkGrey border-solid border-2 border-secondary p-5 mb-2 w-full  focus:outline-none focus:border-primary tb:pl-4 tb:text-sm  m:text-xs m:pl-4"
                                 placeholder="Write Blog Details"
                                 required
                                 value={values.blog}

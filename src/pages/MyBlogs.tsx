@@ -1,4 +1,4 @@
-import { useEffect, useState, MouseEvent, Fragment } from "react";
+import { useEffect, useState, MouseEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { auth, db } from "../utils/firebase/firebase.utils";
 import { AiOutlineEdit, AiOutlineDelete } from "react-icons/ai";
@@ -16,6 +16,7 @@ import { ArrowIcon } from "../assests/Arrow";
 import Modal from "react-modal";
 import { ImCancelCircle } from "react-icons/im";
 import LoaderSpinner from "../components/LoaderSpinner.component";
+import DeleteLoaderSpinner from "../components/DeleteLoaderSpinner.component";
 
 function MyBlogs() {
   const navigate = useNavigate();
@@ -29,15 +30,17 @@ function MyBlogs() {
   const [details, setDetails] = useState<string>("");
   const [itemID, setItemID] = useState<string>("");
   const [submitButtonDisabled, setSubmitButtonDisabled] = useState(false);
+  const [deleteButtonDisabled, setDeleteButtonDisabled] = useState(false);
   const [gotData, setgotData] = useState(false);
+  const [deleteClicked, setDeleteClicked] = useState(false);
 
   const [isPhone, setIsPhone] = useState(
-    window.matchMedia("(max-width: 480px)").matches
+    window.matchMedia("(max-width: 767px)").matches
   );
 
   useEffect(() => {
     window
-      .matchMedia("(max-width: 480px)")
+      .matchMedia("(max-width: 767px)")
       .addEventListener("change", (e) => setIsPhone(e.matches));
   }, []);
 
@@ -98,22 +101,29 @@ function MyBlogs() {
         setSuccessMsg("");
       }, 3000);
       setModalIsOpen(false);
-      setSubmitButtonDisabled(false);
+      
     } catch (err) {
+      setSubmitButtonDisabled(false);
       alert(err);
     }
+    setSubmitButtonDisabled(false);
     console.log("edit");
   };
 
   // Delete Blog
-  const deleteBlog = async (id: any) => {
+  const deleteBlog = async (e: MouseEvent, id: any) => {
+    e.preventDefault();
+    setDeleteButtonDisabled(true);
     const docRef = doc(db, "blogs", id);
     try {
       await deleteDoc(docRef);
+      getMyBlogsData();
+      setDeleteClicked(false);
     } catch (err) {
+      setDeleteButtonDisabled(false);
       alert(err);
     }
-    getMyBlogsData();
+    setDeleteButtonDisabled(false);
   };
 
   // Format date
@@ -178,9 +188,13 @@ function MyBlogs() {
                                 >
                                   <AiOutlineEdit className="text-2xl "></AiOutlineEdit>
                                 </div>
+
                                 <div
                                   className="ml-[2px] hover:bg-errorMsg hover:text-white p-3 rounded-lg transition-all duration-200 cursor-pointer"
-                                  onClick={() => deleteBlog(item?.id)}
+                                  onClick={() => {
+                                    setDeleteClicked(true);
+                                    setItemID(item.id);
+                                  }}
                                 >
                                   <AiOutlineDelete className="text-2xl "></AiOutlineDelete>
                                 </div>
@@ -207,7 +221,10 @@ function MyBlogs() {
                                 </div>
                                 <div
                                   className="ml-[2px] text-errorMsg cursor-pointer"
-                                  onClick={() => deleteBlog(item?.id)}
+                                  onClick={() => {
+                                    setDeleteClicked(true);
+                                    setItemID(item.id);
+                                  }}
                                 >
                                   <AiOutlineDelete className="text-2xl "></AiOutlineDelete>
                                 </div>
@@ -255,12 +272,14 @@ function MyBlogs() {
                         },
                         content: {
                           padding: "0px",
-                          borderColor: "rgb(0,0,0,0.5)",
+                          borderColor: "rgb(0,0,0,.5)",
                           borderWidth: "1px",
                           borderRadius: "16px",
                           marginLeft: "auto",
                           marginRight: "auto",
-                          width: isPhone ? "80%" : "65%",
+                          marginTop: isPhone ? "3px" : "20px",
+                          width: isPhone ? "80%" : "58%",
+                          height: isPhone ? "85%" : "80%",
                         },
                       }}
                     >
@@ -280,7 +299,7 @@ function MyBlogs() {
                               </div>
                             </div>
                             <div className="grid grid-cols-12">
-                              <div className="col-span-12 mt-8 pl-6 pr-6 m:pl-4 m:pr-4 tb:pl-5 tb:pr-5 tb:items-center tb:justify-center m:items-center m:justify-center">
+                              <div className="col-span-12 mt-8 pl-8 pr-8 m:pl-4 m:pr-4 tb:pl-5 tb:pr-5 tb:items-center tb:justify-center m:items-center m:justify-center">
                                 <div className="flex justify-between tb:justify-center m:justify-center">
                                   <h1 className="mb-2 font-dm font-bold text-4xl  text-left  text-darkGrey tb:text-center m:text-center">
                                     Edit Blog
@@ -299,12 +318,12 @@ function MyBlogs() {
                                 <div className="font-lexend flex flex-col ">
                                   <form>
                                     <div className="text-secondary">
-                                      <p className="text-xl font-light mb-10 tb:text-center tb:text-base m:text-center m:text-base ">
+                                      <p className="text-xl font-light mb-6 tb:text-center tb:text-base m:text-center m:text-base ">
                                         Let's show the world what you have for
                                         them
                                       </p>
                                       <input
-                                        className="text-darkGrey border-solid border-2 border-secondary pt-5 pb-5 pl-8 pr-8 mb-5 w-full focus:outline-none focus:border-primary tb:pl-4 tb:text-sm m:text-xs m:pl-4 "
+                                        className="text-darkGrey border-solid border-2 border-secondary pt-5 pb-5 pl-8 pr-8 mb-2 w-full focus:outline-none focus:border-primary tb:pl-4 tb:text-sm m:text-xs m:pl-4 "
                                         type="text"
                                         required
                                         placeholder="Title"
@@ -314,7 +333,7 @@ function MyBlogs() {
                                         }
                                       />
                                       <textarea
-                                        className="text-darkGrey border-solid border-2 border-secondary p-5 mb-5 w-full focus:outline-none focus:border-primary tb:pl-4 tb:text-sm   m:text-xs m:pl-4"
+                                        className="text-darkGrey border-solid border-2 border-secondary p-5 mb-2 w-full focus:outline-none focus:border-primary tb:pl-4 tb:text-sm   m:text-xs m:pl-4"
                                         placeholder="Write Blog Details"
                                         required
                                         rows={12}
@@ -354,6 +373,97 @@ function MyBlogs() {
                 ) : (
                   <LoaderSpinner />
                 )}
+
+                <Modal
+                  isOpen={deleteClicked}
+                  shouldCloseOnOverlayClick={false}
+                  onRequestClose={() => setDeleteClicked(false)}
+                  style={{
+                    overlay: {
+                      zIndex: 100,
+                      right: "0",
+                      left: "0",
+                      top: "0",
+                      backgroundColor: "rgb(0,0,0,0.5)",
+                    },
+                    content: {
+                      padding: "0px",
+                      borderColor: "rgb(0,0,0,.5)",
+                      borderWidth: "1px",
+                      borderRadius: "16px",
+                      marginLeft: "auto",
+                      marginRight: "auto",
+                      top: "30%",
+                      marginTop: isPhone ? "0px" : "20px",
+                      width: isPhone ? "65%" : "35%",
+                      height: isPhone ? "35%" : "30%",
+                    },
+                  }}
+                >
+                  <>
+                    {deleteButtonDisabled ? (
+                      <DeleteLoaderSpinner />
+                    ) : (
+                      <>
+                        <div className="flex justify-end tb:mt-4 m:mt-4 2xl:hidden xl:hidden lg:hidden md:hidden">
+                          <div className="absolute tb:mr-3 tb:p-1 m:mr-3 m:p-0">
+                            <div
+                              onClick={() => setDeleteClicked(false)}
+                              className="cursor-pointer"
+                            >
+                              <ImCancelCircle className="text-2xl text-secondary  hover:text-primary  tb:text-base m:text-base " />
+                            </div>
+                          </div>
+                        </div>
+                        <div className="grid grid-cols-12">
+                          <div className="col-span-12 mt-8 pl-8 pr-8 m:pl-4 m:pr-4 tb:pl-5 tb:pr-5 tb:items-center tb:justify-center m:items-center m:justify-center">
+                            <div className="flex justify-between tb:mt-5 tb:justify-center m:justify-center m:items-center">
+                              <h1 className="mb-2 font-dm font-bold text-4xl  text-left  text-darkGrey tb:text-center m:text-center m:text-3xl">
+                                Delete Blog
+                              </h1>
+                              <div className="mt-1 mr-5 tb:hidden m:hidden">
+                                <div className="absolute">
+                                  <div
+                                    onClick={() => setDeleteClicked(false)}
+                                    className="cursor-pointer"
+                                  >
+                                    <ImCancelCircle className="text-2xl text-secondary  hover:text-primary  tb:text-base m:text-base " />
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div className="font-lexend flex flex-col ">
+                              <form>
+                                <div className="text-secondary">
+                                  <p className="text-xl font-light mb-6 tb:text-center tb:text-base m:text-center m:text-base ">
+                                    Are you sure you want to delete?
+                                  </p>
+
+                                  <div className=" flex justify-end tb:justify-center m:justify-center">
+                                    <button
+                                      className="font-semibold text-sm bg-primary text-white border-solid h-10 w-10 m:w-14 tb:w-14 hover:outline-none hover:bg-white hover:text-primary hover:border-primary hover:border-2 rounded-lg transition-all duration-200  disabled:bg-gray-500"
+                                      onClick={(e) => deleteBlog(e, itemID)}
+                                    >
+                                      Yes
+                                    </button>
+                                    <button
+                                      className="ml-4 font-semibold text-sm bg-errorMsg text-white border-solid h-10 w-10 m:w-14 tb:w-14 hover:outline-none hover:bg-white hover:text-errorMsg hover:border-errorMsg hover:border-2 rounded-lg transition-all duration-200"
+                                      onClick={() => {
+                                        setDeleteClicked(false);
+                                      }}
+                                    >
+                                      No
+                                    </button>
+                                  </div>
+                                </div>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                      </>
+                    )}
+                  </>
+                </Modal>
               </div>
             </div>
           </div>

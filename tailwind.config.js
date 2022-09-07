@@ -10,6 +10,7 @@ module.exports = {
     "./src/components/CustomInput.component.tsx",
     "./src/components/LoaderSpinner.component.tsx",
     "./src/components/HomepageLoaderSpinner.component.tsx",
+    "./src/components/DeleteLoaderSpinner.component.tsx"
   ],
   theme: {
     extend: {
