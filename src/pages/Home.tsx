@@ -43,6 +43,7 @@ const Home = () => {
     window.matchMedia("(max-width: 767px)").matches
   );
 
+  // Store username in local storage to maintain session
   useEffect(() => {
     window
       .matchMedia("(max-width: 767px)")
