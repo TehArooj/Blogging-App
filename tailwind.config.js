@@ -5,10 +5,12 @@ module.exports = {
     "./src/pages/Signup.tsx",
     "./src/pages/Login.tsx",
     "./src/pages/Home.tsx",
-    "./src/components/CustomInput.component.tsx",
-    "./src/components/LoaderSpinner.component.tsx",
     "./src/pages/MyBlogs.tsx",
     "./src/pages/ViewBlog.tsx",
+    "./src/components/CustomInput.component.tsx",
+    "./src/components/LoaderSpinner.component.tsx",
+    "./src/components/HomepageLoaderSpinner.component.tsx",
+    "./src/components/DeleteLoaderSpinner.component.tsx"
   ],
   theme: {
     extend: {
@@ -32,12 +34,15 @@ module.exports = {
       },
       width: {
         767: "800px",
+        800: "800px",
         680: "680px",
         600: "600px",
         850: "850px",
         480: "480px",
         512: "512px",
         960: "960px",
+        400: "400px",
+        700: "700px",
       },
       screens: {
         m: { min: "320px", max: "480px" },

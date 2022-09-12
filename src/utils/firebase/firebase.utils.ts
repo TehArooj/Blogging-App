@@ -7,20 +7,24 @@ import { getFirestore, doc, getDoc } from "firebase/firestore";
 
 // Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyBuKkMupEhmbbRoTjtA4EJYTWhAlR6Od7Q",
-  authDomain: "blogging-app-2521c.firebaseapp.com",
-  projectId: "blogging-app-2521c",
-  storageBucket: "blogging-app-2521c.appspot.com",
-  messagingSenderId: "1073000661601",
-  appId: "1:1073000661601:web:69cc8a1f9491d9be072020",
+  apiKey: process.env.REACT_APP_API_KEY,
+  authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_APPID,
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
+// Get Auth
 const auth = getAuth();
 
+// Get Firestore
 const db = getFirestore();
+
+// Signout Auth
 const signOutUser = async () => await signOut(auth);
 
 export type AdditionalInformation = {

@@ -36,6 +36,7 @@ const Signup = () => {
       email: (e.target as HTMLInputElement).value,
     }));
   };
+  
   const handleChangePassword = (e: FormEvent) => {
     e.preventDefault();
     setValues((prev) => ({
@@ -96,7 +97,6 @@ const Signup = () => {
     //Sign up user
     createUserWithEmailAndPassword(auth, values.email, values.confirmPassword)
       .then(async (res) => {
-        setSubmitButtonDisabled(false);
         const user = res.user;
         await updateProfile(user, { displayName: values.fullName });
 
@@ -120,6 +120,7 @@ const Signup = () => {
           } catch (error) {
             console.log("error creating the user", error);
           }
+          setSubmitButtonDisabled(false);
           console.log(user);
           navigate("/home");
         }
