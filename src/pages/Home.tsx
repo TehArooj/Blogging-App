@@ -16,7 +16,9 @@ import {
 import uuid from "react-uuid";
 import LoaderSpinner from "../components/LoaderSpinner.component";
 import HomepageLoaderSpinner from "../components/HomepageLoaderSpinner.component";
-Modal.setAppElement("#root");
+
+if (process.env.NODE_ENV !== "test") Modal.setAppElement("#root");
+//Modal.setAppElement("#root");
 
 const Home = () => {
   const navigate = useNavigate();
