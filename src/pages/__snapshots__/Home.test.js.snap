@@ -1,0 +1,559 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Home /> check matchers and pass 1`] = `
+Object {
+  "author": Any<String>,
+  "blog": Any<String>,
+  "date": Any<Date>,
+  "title": Any<String>,
+}
+`;
+
+exports[`<Home /> renders correctly 1`] = `
+Array [
+  <div
+    className="fixed top-0 left-0 flex justify-around items-center w-24 h-screen bg-darkGrey  flex-col md:flex-row md:bottom-0 md:h-20 md:w-screen md:top-auto md:drop-shadow-[0_-6mm_4mm_white]  tb:flex-row tb:bottom-0 tb:h-16 tb:w-screen tb:top-auto  tb:drop-shadow-[0_-6mm_4mm_white]   m:flex-row m:bottom-0 m:h-16 m:w-screen m:top-auto m:drop-shadow-[0_-6mm_4mm_white]"
+  >
+    <div
+      className="flex flex-col justify-between h-full w-full mt-4 mb-4 items-center md:flex-row tb:flex-row m:flex-row"
+    >
+      <div
+        className="md:flex md:flex-row md:w-full md:justify-evenly tb:justify-evenly tb:flex tb:flex-row tb:w-full m:justify-evenly m:flex m:flex-row m:w-full"
+      >
+        <div
+          className=" md:flex tb:flex m:flex items-center text-center font-semibold "
+        >
+          <span
+            className="ml-2 w-16 h-16 block text-2xl text-white text-center rounded-50  bg-primary p-4 md:w-9 md:h-9 md:p-1 md:text-xl  tb:w-9 tb:h-9 tb:p-1 tb:text-xl m:w-9 m:h-9 m:p-1 m:text-xl"
+          />
+          <div
+            className="2xl:hidden xl:hidden lg:hidden md:visible md:text-sm md:ml-3 md:font-normal md:text-white tb:hidden  m:hidden"
+          />
+        </div>
+        <div
+          className=" items-center 2xl:mt-5 xl:mt-5 lg:mt-5  md:flex md:justify-between cursor-pointer hover:bg-darkerGrey p-4 rounded-lg transition-all duration-200"
+          onClick={[Function]}
+        >
+          <svg
+            className="ml-2 text-center text-3xl text-primary tb:text-2xl tb:ml-0 m:ml-0 m:text-2xl"
+            fill="currentColor"
+            height="1em"
+            stroke="currentColor"
+            strokeWidth="0"
+            style={
+              Object {
+                "color": undefined,
+              }
+            }
+            viewBox="0 0 20 20"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              clipRule="evenodd"
+              d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+              fillRule="evenodd"
+            />
+          </svg>
+          <span
+            className=" text-sm text-white ml-1 tb:hidden m:hidden "
+          >
+            search
+          </span>
+        </div>
+        <div
+          className=" items-center 2xl:mt-5 xl:mt-5 lg:mt-5 md:flex md:justify-between cursor-pointer hover:bg-darkerGrey p-4 rounded-lg transition-all duration-200 "
+          onClick={[Function]}
+        >
+          <svg
+            className="ml-2  text-3xl text-primary  tb:text-2xl tb:ml-0 m:ml-0 m:text-2xl"
+            fill="none"
+            height="1em"
+            stroke="currentColor"
+            strokeWidth="0"
+            style={
+              Object {
+                "color": undefined,
+              }
+            }
+            viewBox="0 0 24 24"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+            />
+          </svg>
+          <span
+            className=" text-sm text-white ml-1 tb:hidden m:hidden"
+          >
+            create
+          </span>
+        </div>
+        <div
+          className="2xl:mt-5 xl:mt-5 lg:mt-5 items-center md:flex md:justify-between cursor-pointer hover:bg-darkerGrey p-4 rounded-lg transition-all duration-200"
+          onClick={[Function]}
+        >
+          <svg
+            className="ml-3 text-2xl text-primary tb:text-xl tb:ml-1 m:ml-1 m:text-xl"
+            fill="currentColor"
+            height="1em"
+            stroke="currentColor"
+            strokeWidth="0"
+            style={
+              Object {
+                "color": undefined,
+              }
+            }
+            viewBox="0 0 512 512"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M172.2 226.8c-14.6-2.9-28.2 8.9-28.2 23.8V301c0 10.2 7.1 18.4 16.7 22 18.2 6.8 31.3 24.4 31.3 45 0 26.5-21.5 48-48 48s-48-21.5-48-48V120c0-13.3-10.7-24-24-24H24c-13.3 0-24 10.7-24 24v248c0 89.5 82.1 160.2 175 140.7 54.4-11.4 98.3-55.4 109.7-109.7 17.4-82.9-37-157.2-112.5-172.2zM209 0c-9.2-.5-17 6.8-17 16v31.6c0 8.5 6.6 15.5 15 15.9 129.4 7 233.4 112 240.9 241.5.5 8.4 7.5 15 15.9 15h32.1c9.2 0 16.5-7.8 16-17C503.4 139.8 372.2 8.6 209 0zm.3 96c-9.3-.7-17.3 6.7-17.3 16.1v32.1c0 8.4 6.5 15.3 14.8 15.9 76.8 6.3 138 68.2 144.9 145.2.8 8.3 7.6 14.7 15.9 14.7h32.2c9.3 0 16.8-8 16.1-17.3-8.4-110.1-96.5-198.2-206.6-206.7z"
+            />
+          </svg>
+          <span
+            className=" text-sm text-white ml-1 tb:hidden m:hidden"
+          >
+            blogs
+          </span>
+        </div>
+      </div>
+      <div
+        className="items-center md:w-30 md:mt-0 md:mr-10 md:flex md:justify-between cursor-pointer hover:bg-darkerGrey p-4 rounded-lg transition-all duration-200	 "
+        onClick={[Function]}
+      >
+        <svg
+          className="ml-2 text-3xl text-primary md:text-5xl tb:text-2xl tb:ml-0 tb:mr-14 m:mr-6 m:ml-0 m:text-2xl"
+          fill="none"
+          height="1em"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          style={
+            Object {
+              "color": undefined,
+            }
+          }
+          viewBox="0 0 24 24"
+          width="1em"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"
+          />
+          <polyline
+            points="16 17 21 12 16 7"
+          />
+          <line
+            x1="21"
+            x2="9"
+            y1="12"
+            y2="12"
+          />
+        </svg>
+        <span
+          className=" text-sm text-white ml-1 tb:hidden m:hidden w-full"
+        >
+          logout
+        </span>
+      </div>
+    </div>
+  </div>,
+  <div
+    className="absolute top-0 left-0 w-screen h-20 m:h-16 ml-24 md:ml-0 tb:ml-0 m:ml-0 flex items-center flex-row justify-center bg-darkGrey  drop-shadow-2xl hidden"
+  >
+    <input
+      className=" w-1/2 p-3 rounded-sm outline-none m:p-2"
+      onChange={[Function]}
+      placeholder="Search By Title"
+      type="search"
+      value=""
+    />
+    <div
+      className="ml-8 m:ml-4 tb:ml-4 m:p-3 cursor-pointer hover:bg-darkerGrey p-4 rounded-lg transition-all duration-200 "
+    >
+      <svg
+        className=" text-primary text-xl"
+        fill="currentColor"
+        height="1em"
+        onClick={[Function]}
+        stroke="currentColor"
+        strokeWidth="0"
+        style={
+          Object {
+            "color": undefined,
+          }
+        }
+        version="1.1"
+        viewBox="0 0 16 16"
+        width="1em"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M8 0c-4.418 0-8 3.582-8 8s3.582 8 8 8 8-3.582 8-8-3.582-8-8-8zM8 14.5c-3.59 0-6.5-2.91-6.5-6.5s2.91-6.5 6.5-6.5 6.5 2.91 6.5 6.5-2.91 6.5-6.5 6.5z"
+        />
+        <path
+          d="M10.5 4l-2.5 2.5-2.5-2.5-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 2.5-2.5 2.5 2.5 1.5-1.5-2.5-2.5 2.5-2.5z"
+        />
+      </svg>
+    </div>
+  </div>,
+  <div
+    className=" flex flex-col mt-10 md:mb-20 tb:mb-16 m:mb-14 ml-24 pl-28 pr-28  md:ml-0 tb:ml-0 m:ml-0 md:pl-14 md:pr-14 tb:pl-12 tb:pr-12 m:mt-20 m:pl-11 m:pr-11"
+  >
+    <div
+      className="mb-10 flex flex-col items-left "
+    >
+      <div
+        className="m:flex m:justify-center m:items-center "
+      >
+        <div
+          className="bg-primary pt-1 pb-1 w-5"
+        />
+      </div>
+      <div
+        className="text-xl font-lexend font-normal m:text-center "
+      >
+        Latest
+      </div>
+      <div
+        className="flex flex-col mt-10 items-left "
+      >
+        <div
+          className="absolute top-[45%] left-[45%] m:top-[40%] m:left-[40%]"
+        >
+          <div
+            aria-busy={true}
+            aria-label="ball-triangle-loading"
+            data-testid="ball-triangle-loading"
+            role="status"
+            style={
+              Object {
+                "display": "flex",
+              }
+            }
+          >
+            <svg
+              data-testid="ball-triangle-svg"
+              height={100}
+              stroke="#4fa94d"
+              viewBox="0 0 57 57"
+              width={100}
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g
+                fill="none"
+                fillRule="evenodd"
+              >
+                <g
+                  strokeWidth="2"
+                  transform="translate(1 1)"
+                >
+                  <circle
+                    cx="5"
+                    cy="50"
+                    r={5}
+                  >
+                    <animate
+                      attributeName="cy"
+                      begin="0s"
+                      calcMode="linear"
+                      dur="2.2s"
+                      repeatCount="indefinite"
+                      values="50;5;50;50"
+                    />
+                    <animate
+                      attributeName="cx"
+                      begin="0s"
+                      calcMode="linear"
+                      dur="2.2s"
+                      repeatCount="indefinite"
+                      values="5;27;49;5"
+                    />
+                  </circle>
+                  <circle
+                    cx="27"
+                    cy="5"
+                    r={5}
+                  >
+                    <animate
+                      attributeName="cy"
+                      begin="0s"
+                      calcMode="linear"
+                      dur="2.2s"
+                      from="5"
+                      repeatCount="indefinite"
+                      to="5"
+                      values="5;50;50;5"
+                    />
+                    <animate
+                      attributeName="cx"
+                      begin="0s"
+                      calcMode="linear"
+                      dur="2.2s"
+                      from="27"
+                      repeatCount="indefinite"
+                      to="27"
+                      values="27;49;5;27"
+                    />
+                  </circle>
+                  <circle
+                    cx="49"
+                    cy="50"
+                    r={5}
+                  >
+                    <animate
+                      attributeName="cy"
+                      begin="0s"
+                      calcMode="linear"
+                      dur="2.2s"
+                      repeatCount="indefinite"
+                      values="50;50;5;50"
+                    />
+                    <animate
+                      attributeName="cx"
+                      begin="0s"
+                      calcMode="linear"
+                      dur="2.2s"
+                      from="49"
+                      repeatCount="indefinite"
+                      to="49"
+                      values="49;5;27;49"
+                    />
+                  </circle>
+                </g>
+              </g>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>,
+]
+`;
+
+exports[`<Home /> renders correctly when there is a  Homepage Loader Spinner 1`] = `
+<div
+  className="absolute top-[45%] left-1/2"
+>
+  <div
+    aria-busy={true}
+    aria-label="ball-triangle-loading"
+    data-testid="ball-triangle-loading"
+    role="status"
+    style={
+      Object {
+        "display": "flex",
+      }
+    }
+  >
+    <svg
+      data-testid="ball-triangle-svg"
+      height={100}
+      stroke="#4fa94d"
+      viewBox="0 0 57 57"
+      width={100}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g
+        fill="none"
+        fillRule="evenodd"
+      >
+        <g
+          strokeWidth="2"
+          transform="translate(1 1)"
+        >
+          <circle
+            cx="5"
+            cy="50"
+            r={5}
+          >
+            <animate
+              attributeName="cy"
+              begin="0s"
+              calcMode="linear"
+              dur="2.2s"
+              repeatCount="indefinite"
+              values="50;5;50;50"
+            />
+            <animate
+              attributeName="cx"
+              begin="0s"
+              calcMode="linear"
+              dur="2.2s"
+              repeatCount="indefinite"
+              values="5;27;49;5"
+            />
+          </circle>
+          <circle
+            cx="27"
+            cy="5"
+            r={5}
+          >
+            <animate
+              attributeName="cy"
+              begin="0s"
+              calcMode="linear"
+              dur="2.2s"
+              from="5"
+              repeatCount="indefinite"
+              to="5"
+              values="5;50;50;5"
+            />
+            <animate
+              attributeName="cx"
+              begin="0s"
+              calcMode="linear"
+              dur="2.2s"
+              from="27"
+              repeatCount="indefinite"
+              to="27"
+              values="27;49;5;27"
+            />
+          </circle>
+          <circle
+            cx="49"
+            cy="50"
+            r={5}
+          >
+            <animate
+              attributeName="cy"
+              begin="0s"
+              calcMode="linear"
+              dur="2.2s"
+              repeatCount="indefinite"
+              values="50;50;5;50"
+            />
+            <animate
+              attributeName="cx"
+              begin="0s"
+              calcMode="linear"
+              dur="2.2s"
+              from="49"
+              repeatCount="indefinite"
+              to="49"
+              values="49;5;27;49"
+            />
+          </circle>
+        </g>
+      </g>
+    </svg>
+  </div>
+</div>
+`;
+
+exports[`<Home /> renders correctly when there is a Loader Spinner 1`] = `
+<div
+  className="absolute top-[45%] left-[45%] m:top-[40%] m:left-[40%]"
+>
+  <div
+    aria-busy={true}
+    aria-label="ball-triangle-loading"
+    data-testid="ball-triangle-loading"
+    role="status"
+    style={
+      Object {
+        "display": "flex",
+      }
+    }
+  >
+    <svg
+      data-testid="ball-triangle-svg"
+      height={100}
+      stroke="#4fa94d"
+      viewBox="0 0 57 57"
+      width={100}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g
+        fill="none"
+        fillRule="evenodd"
+      >
+        <g
+          strokeWidth="2"
+          transform="translate(1 1)"
+        >
+          <circle
+            cx="5"
+            cy="50"
+            r={5}
+          >
+            <animate
+              attributeName="cy"
+              begin="0s"
+              calcMode="linear"
+              dur="2.2s"
+              repeatCount="indefinite"
+              values="50;5;50;50"
+            />
+            <animate
+              attributeName="cx"
+              begin="0s"
+              calcMode="linear"
+              dur="2.2s"
+              repeatCount="indefinite"
+              values="5;27;49;5"
+            />
+          </circle>
+          <circle
+            cx="27"
+            cy="5"
+            r={5}
+          >
+            <animate
+              attributeName="cy"
+              begin="0s"
+              calcMode="linear"
+              dur="2.2s"
+              from="5"
+              repeatCount="indefinite"
+              to="5"
+              values="5;50;50;5"
+            />
+            <animate
+              attributeName="cx"
+              begin="0s"
+              calcMode="linear"
+              dur="2.2s"
+              from="27"
+              repeatCount="indefinite"
+              to="27"
+              values="27;49;5;27"
+            />
+          </circle>
+          <circle
+            cx="49"
+            cy="50"
+            r={5}
+          >
+            <animate
+              attributeName="cy"
+              begin="0s"
+              calcMode="linear"
+              dur="2.2s"
+              repeatCount="indefinite"
+              values="50;50;5;50"
+            />
+            <animate
+              attributeName="cx"
+              begin="0s"
+              calcMode="linear"
+              dur="2.2s"
+              from="49"
+              repeatCount="indefinite"
+              to="49"
+              values="49;5;27;49"
+            />
+          </circle>
+        </g>
+      </g>
+    </svg>
+  </div>
+</div>
+`;

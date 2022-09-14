@@ -1,0 +1,414 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<MyBlogs /> check matchers and pass 1`] = `
+Object {
+  "author": Any<String>,
+  "blog": Any<String>,
+  "date": Any<Date>,
+  "title": Any<String>,
+}
+`;
+
+exports[`<MyBlogs /> renders correctly 1`] = `
+<div
+  className="grid grid-cols-12"
+>
+  <div
+    className="col-span-2 tb:col-span-1 tb:z-50 m:col-span-1 m:z-50"
+  >
+    <div
+      className="mt-11"
+    >
+      <div
+        className=" ml-16 top-9 font-dm font-normal m:ml-12"
+      >
+        <div
+          onClick={[Function]}
+        >
+          <span
+            className="text-2xl cursor-pointer"
+          >
+            Back
+          </span>
+        </div>
+      </div>
+      <div
+        className="absolute top-16 ml-11 m:ml-7"
+      >
+        <div
+          className="cursor-pointer"
+          onClick={[Function]}
+        >
+          <svg
+            fill="none"
+            height="23"
+            viewBox="0 0 70 23"
+            width="70"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M0.939331 10.3766C0.353546 10.9624 0.353546 11.9121 0.939331 12.4979L10.4853 22.0439C11.0711 22.6296 12.0208 22.6296 12.6066 22.0439C13.1924 21.4581 13.1924 20.5083 12.6066 19.9225L4.12132 11.4373L12.6066 2.95197C13.1924 2.36619 13.1924 1.41644 12.6066 0.830654C12.0208 0.244867 11.0711 0.244867 10.4853 0.830654L0.939331 10.3766ZM69.0669 9.93726L1.99999 9.93726V12.9373L69.0669 12.9373V9.93726Z"
+              fill="#A5A5A5"
+              opacity="0.4"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="w-full col-span-8 flex flex-col mt-12  md:mb-20 tb:mb-16 tb:ml-16 tb:mr-16 m:mb-14  m:ml-0 m:pl-2 m:pr-2 m:col-span-10"
+  >
+    <div
+      className="flex flex-col items-left  m:mt-20 tb:mt-20 "
+    >
+      <div
+        className="bg-primary pt-1 pb-1 w-6 "
+      />
+      <div
+        className="text-xl font-lexend"
+      >
+        My Blogs
+      </div>
+      <div
+        className="flex flex-col items-left "
+      >
+        <div
+          className="flex flex-col mt-10 items-left tb:mt-5 m:mt-5 "
+        >
+          <div
+            className="absolute top-[45%] left-[45%] m:top-[40%] m:left-[40%]"
+          >
+            <div
+              aria-busy={true}
+              aria-label="ball-triangle-loading"
+              data-testid="ball-triangle-loading"
+              role="status"
+              style={
+                Object {
+                  "display": "flex",
+                }
+              }
+            >
+              <svg
+                data-testid="ball-triangle-svg"
+                height={100}
+                stroke="#4fa94d"
+                viewBox="0 0 57 57"
+                width={100}
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g
+                  fill="none"
+                  fillRule="evenodd"
+                >
+                  <g
+                    strokeWidth="2"
+                    transform="translate(1 1)"
+                  >
+                    <circle
+                      cx="5"
+                      cy="50"
+                      r={5}
+                    >
+                      <animate
+                        attributeName="cy"
+                        begin="0s"
+                        calcMode="linear"
+                        dur="2.2s"
+                        repeatCount="indefinite"
+                        values="50;5;50;50"
+                      />
+                      <animate
+                        attributeName="cx"
+                        begin="0s"
+                        calcMode="linear"
+                        dur="2.2s"
+                        repeatCount="indefinite"
+                        values="5;27;49;5"
+                      />
+                    </circle>
+                    <circle
+                      cx="27"
+                      cy="5"
+                      r={5}
+                    >
+                      <animate
+                        attributeName="cy"
+                        begin="0s"
+                        calcMode="linear"
+                        dur="2.2s"
+                        from="5"
+                        repeatCount="indefinite"
+                        to="5"
+                        values="5;50;50;5"
+                      />
+                      <animate
+                        attributeName="cx"
+                        begin="0s"
+                        calcMode="linear"
+                        dur="2.2s"
+                        from="27"
+                        repeatCount="indefinite"
+                        to="27"
+                        values="27;49;5;27"
+                      />
+                    </circle>
+                    <circle
+                      cx="49"
+                      cy="50"
+                      r={5}
+                    >
+                      <animate
+                        attributeName="cy"
+                        begin="0s"
+                        calcMode="linear"
+                        dur="2.2s"
+                        repeatCount="indefinite"
+                        values="50;50;5;50"
+                      />
+                      <animate
+                        attributeName="cx"
+                        begin="0s"
+                        calcMode="linear"
+                        dur="2.2s"
+                        from="49"
+                        repeatCount="indefinite"
+                        to="49"
+                        values="49;5;27;49"
+                      />
+                    </circle>
+                  </g>
+                </g>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="col-span-2"
+  />
+</div>
+`;
+
+exports[`<MyBlogs /> renders correctly when there is a Delete Loader Spinner 1`] = `
+<div
+  className="absolute left-[40%] top-[20%] m:left-[30%] tb:top-[25%]"
+>
+  <div
+    aria-busy={true}
+    aria-label="ball-triangle-loading"
+    data-testid="ball-triangle-loading"
+    role="status"
+    style={
+      Object {
+        "display": "flex",
+      }
+    }
+  >
+    <svg
+      data-testid="ball-triangle-svg"
+      height={100}
+      stroke="#4fa94d"
+      viewBox="0 0 57 57"
+      width={100}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g
+        fill="none"
+        fillRule="evenodd"
+      >
+        <g
+          strokeWidth="2"
+          transform="translate(1 1)"
+        >
+          <circle
+            cx="5"
+            cy="50"
+            r={5}
+          >
+            <animate
+              attributeName="cy"
+              begin="0s"
+              calcMode="linear"
+              dur="2.2s"
+              repeatCount="indefinite"
+              values="50;5;50;50"
+            />
+            <animate
+              attributeName="cx"
+              begin="0s"
+              calcMode="linear"
+              dur="2.2s"
+              repeatCount="indefinite"
+              values="5;27;49;5"
+            />
+          </circle>
+          <circle
+            cx="27"
+            cy="5"
+            r={5}
+          >
+            <animate
+              attributeName="cy"
+              begin="0s"
+              calcMode="linear"
+              dur="2.2s"
+              from="5"
+              repeatCount="indefinite"
+              to="5"
+              values="5;50;50;5"
+            />
+            <animate
+              attributeName="cx"
+              begin="0s"
+              calcMode="linear"
+              dur="2.2s"
+              from="27"
+              repeatCount="indefinite"
+              to="27"
+              values="27;49;5;27"
+            />
+          </circle>
+          <circle
+            cx="49"
+            cy="50"
+            r={5}
+          >
+            <animate
+              attributeName="cy"
+              begin="0s"
+              calcMode="linear"
+              dur="2.2s"
+              repeatCount="indefinite"
+              values="50;50;5;50"
+            />
+            <animate
+              attributeName="cx"
+              begin="0s"
+              calcMode="linear"
+              dur="2.2s"
+              from="49"
+              repeatCount="indefinite"
+              to="49"
+              values="49;5;27;49"
+            />
+          </circle>
+        </g>
+      </g>
+    </svg>
+  </div>
+</div>
+`;
+
+exports[`<MyBlogs /> renders correctly when there is a Loader Spinner 1`] = `
+<div
+  className="absolute top-[45%] left-[45%] m:top-[40%] m:left-[40%]"
+>
+  <div
+    aria-busy={true}
+    aria-label="ball-triangle-loading"
+    data-testid="ball-triangle-loading"
+    role="status"
+    style={
+      Object {
+        "display": "flex",
+      }
+    }
+  >
+    <svg
+      data-testid="ball-triangle-svg"
+      height={100}
+      stroke="#4fa94d"
+      viewBox="0 0 57 57"
+      width={100}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g
+        fill="none"
+        fillRule="evenodd"
+      >
+        <g
+          strokeWidth="2"
+          transform="translate(1 1)"
+        >
+          <circle
+            cx="5"
+            cy="50"
+            r={5}
+          >
+            <animate
+              attributeName="cy"
+              begin="0s"
+              calcMode="linear"
+              dur="2.2s"
+              repeatCount="indefinite"
+              values="50;5;50;50"
+            />
+            <animate
+              attributeName="cx"
+              begin="0s"
+              calcMode="linear"
+              dur="2.2s"
+              repeatCount="indefinite"
+              values="5;27;49;5"
+            />
+          </circle>
+          <circle
+            cx="27"
+            cy="5"
+            r={5}
+          >
+            <animate
+              attributeName="cy"
+              begin="0s"
+              calcMode="linear"
+              dur="2.2s"
+              from="5"
+              repeatCount="indefinite"
+              to="5"
+              values="5;50;50;5"
+            />
+            <animate
+              attributeName="cx"
+              begin="0s"
+              calcMode="linear"
+              dur="2.2s"
+              from="27"
+              repeatCount="indefinite"
+              to="27"
+              values="27;49;5;27"
+            />
+          </circle>
+          <circle
+            cx="49"
+            cy="50"
+            r={5}
+          >
+            <animate
+              attributeName="cy"
+              begin="0s"
+              calcMode="linear"
+              dur="2.2s"
+              repeatCount="indefinite"
+              values="50;50;5;50"
+            />
+            <animate
+              attributeName="cx"
+              begin="0s"
+              calcMode="linear"
+              dur="2.2s"
+              from="49"
+              repeatCount="indefinite"
+              to="49"
+              values="49;5;27;49"
+            />
+          </circle>
+        </g>
+      </g>
+    </svg>
+  </div>
+</div>
+`;

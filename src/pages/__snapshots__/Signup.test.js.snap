@@ -1,0 +1,244 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Signup /> check matchers and pass 1`] = `
+Object {
+  "confirmPassword": "123456",
+  "email": Any<String>,
+  "fullname": Any<String>,
+  "password": "123456",
+}
+`;
+
+exports[`<Signup /> renders correctly 1`] = `
+<div
+  className=" flex not-italic w-full h-full"
+>
+  <div
+    className="flex items-start justify-center w-[426px] lg:w-[400px]  md:w-[380px] h-full tb:hidden m:hidden"
+  >
+    <div
+      className="flex items-center justify-center font-lexend w-[426px] lg:w-[400px] md:w-[380px]  h-screen left-0 top-0  bg-pawel-pattern  bg-cover object-fill bg-no-repeat tb:hidden m:hidden"
+    >
+      <div
+        className="inherit text-6xl text-white text-center rotate-270  font-bold "
+      >
+        Sign Up
+      </div>
+    </div>
+  </div>
+  <div
+    className="flex flex-col w-full tb:w-full m:w-full h-full"
+  >
+    <div
+      className=" mt-36 2xl:pl-[100px] xl:pl-24 xl:pr-24 lg:mr-0 md:ml-0 md:mr-0 lg:ml-0 lg:pr-32 lg:pl-32 md:pr-20 md:pl-20 tb:pl-10 tb:pr-10 tb:items-center tb:justify-center tb:ml-0 tb:mr-0  tb:mt-24 m:ml-0 m:mr-0 m:pl-8 m:pr-8 m:mt-24 m:items-center m:justify-center "
+    >
+      <h1
+        className=" font-dm font-bold text-5xl  text-left  text-darkGrey tb:text-center m:text-center"
+      >
+        Welcome
+      </h1>
+      <div
+        className="font-lexend flex flex-col"
+      >
+        <form>
+          <div
+            className="text-secondary"
+          >
+            <p
+              className="text-2xl font-light mb-5 tb:text-center m:text-center m:text-xl"
+            >
+              Let's sign you up quickly
+            </p>
+            <input
+              className="text-darkGrey block border-solid border-2 border-secondary pl-8 mb-5 w-2/3 xl:w-full h-[60px] focus:outline-none focus:border-primary lg:w-full md:w-full tb:w-full tb:pl-4 tb:text-sm m:w-full m:text-sm m:pl-4 "
+              onChange={[Function]}
+              placeholder="Full Name"
+              required={true}
+              type="text"
+            />
+            <input
+              className="text-darkGrey block border-solid border-2 border-secondary pl-8 mb-5 w-2/3 xl:w-full h-[60px] focus:outline-none focus:border-primary lg:w-full md:w-full tb:w-full tb:pl-4 tb:text-sm m:w-full m:text-sm m:pl-4 "
+              onChange={[Function]}
+              placeholder="Email Address"
+              required={true}
+              type="text"
+            />
+            <input
+              className="text-darkGrey block border-solid border-2 border-secondary pl-8 mb-5 w-2/3 xl:w-full h-[60px] focus:outline-none focus:border-primary lg:w-full md:w-full tb:w-full tb:pl-4 tb:text-sm m:w-full m:text-sm m:pl-4 "
+              onChange={[Function]}
+              placeholder="Password"
+              required={true}
+              type="password"
+            />
+            <input
+              className="text-darkGrey block border-solid border-2 border-secondary pl-8 mb-5 w-2/3 xl:w-full h-[60px] focus:outline-none focus:border-primary lg:w-full md:w-full tb:w-full tb:pl-4 tb:text-sm m:w-full m:text-sm m:pl-4 "
+              onChange={[Function]}
+              placeholder="Confirm Password"
+              required={true}
+              type="password"
+            />
+          </div>
+          <div
+            className="mb-5"
+          >
+            <b
+              className="text-base text-errorMsg m:text-sm "
+            />
+          </div>
+          <button
+            className="text-white font-semibold bg-secondary border-solid border-2  border-secondary h-14  w-44 mb-9 hover:outline-none hover:bg-darkGrey hover:border-none  disabled:bg-gray-500  md:w-full tb:w-full tb:h-[52px] m:w-full m:h-[52px] m:text-sm"
+            disabled={false}
+            onClick={[Function]}
+            type="submit"
+          >
+            SUBMIT
+          </button>
+        </form>
+        <div
+          className="text-xl  tb:text-center m:text-base m:text-center"
+        >
+          <p
+            className="text-darkGrey"
+          >
+            Already have an account?
+            <a
+              className="text-primary  ml-1"
+              href="/login"
+              onClick={[Function]}
+            >
+              Log-in
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`<Signup /> renders correctly when there is a Loader Spinner 1`] = `
+<div
+  className="absolute top-[45%] left-[45%] m:top-[40%] m:left-[40%]"
+>
+  <div
+    aria-busy={true}
+    aria-label="ball-triangle-loading"
+    data-testid="ball-triangle-loading"
+    role="status"
+    style={
+      Object {
+        "display": "flex",
+      }
+    }
+  >
+    <svg
+      data-testid="ball-triangle-svg"
+      height={100}
+      stroke="#4fa94d"
+      viewBox="0 0 57 57"
+      width={100}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g
+        fill="none"
+        fillRule="evenodd"
+      >
+        <g
+          strokeWidth="2"
+          transform="translate(1 1)"
+        >
+          <circle
+            cx="5"
+            cy="50"
+            r={5}
+          >
+            <animate
+              attributeName="cy"
+              begin="0s"
+              calcMode="linear"
+              dur="2.2s"
+              repeatCount="indefinite"
+              values="50;5;50;50"
+            />
+            <animate
+              attributeName="cx"
+              begin="0s"
+              calcMode="linear"
+              dur="2.2s"
+              repeatCount="indefinite"
+              values="5;27;49;5"
+            />
+          </circle>
+          <circle
+            cx="27"
+            cy="5"
+            r={5}
+          >
+            <animate
+              attributeName="cy"
+              begin="0s"
+              calcMode="linear"
+              dur="2.2s"
+              from="5"
+              repeatCount="indefinite"
+              to="5"
+              values="5;50;50;5"
+            />
+            <animate
+              attributeName="cx"
+              begin="0s"
+              calcMode="linear"
+              dur="2.2s"
+              from="27"
+              repeatCount="indefinite"
+              to="27"
+              values="27;49;5;27"
+            />
+          </circle>
+          <circle
+            cx="49"
+            cy="50"
+            r={5}
+          >
+            <animate
+              attributeName="cy"
+              begin="0s"
+              calcMode="linear"
+              dur="2.2s"
+              repeatCount="indefinite"
+              values="50;50;5;50"
+            />
+            <animate
+              attributeName="cx"
+              begin="0s"
+              calcMode="linear"
+              dur="2.2s"
+              from="49"
+              repeatCount="indefinite"
+              to="49"
+              values="49;5;27;49"
+            />
+          </circle>
+        </g>
+      </g>
+    </svg>
+  </div>
+</div>
+`;
+
+exports[`<Signup /> renders correctly when there is a custom input 1`] = `
+<input
+  className="text-darkGrey block border-solid border-2 border-secondary pl-8 mb-5 w-2/3 xl:w-full h-[60px] focus:outline-none focus:border-primary lg:w-full md:w-full tb:w-full tb:pl-4 tb:text-sm m:w-full m:text-sm m:pl-4 "
+  required={true}
+/>
+`;
+
+exports[`<Signup /> renders correctly when there is custom input with props 1`] = `
+<input
+  className="text-darkGrey block border-solid border-2 border-secondary pl-8 mb-5 w-2/3 xl:w-full h-[60px] focus:outline-none focus:border-primary lg:w-full md:w-full tb:w-full tb:pl-4 tb:text-sm m:w-full m:text-sm m:pl-4 "
+  onChange={[Function]}
+  placeholder="hello"
+  required={true}
+  type="text"
+/>
+`;
